@@ -192,7 +192,7 @@ a {
 .race::before {
   content: "⬤";
   color: var(--darktext);
-  font-size: 0.5em;
+  font-size: 0.8em;
   vertical-align: middle;
 }
 .race:hover:before {
