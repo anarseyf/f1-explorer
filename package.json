@@ -1,0 +1,23 @@
+{
+  "name": "cs416",
+  "version": "1.0.0",
+  "description": "CS416 Summer 2022",
+  "main": "index.js",
+  "scripts": {
+    "lite": "lite-server",
+    "start": "npm run lite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anarseyf/cs416.git"
+  },
+  "author": "Anar Seyf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anarseyf/cs416/issues"
+  },
+  "homepage": "https://github.com/anarseyf/cs416#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}

@@ -1,0 +1,65 @@
+<head>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./d3.min.js"></script>
+  <script src="./descriptions.js"></script>
+  <script src="./models.js"></script>
+  <script src="./allScenes.js"></script>
+  <script src="./scene1.js"></script>
+  <script src="./scene2.js"></script>
+  <script src="./scene3.js"></script>
+</head>
+
+<body>
+  <div id="Sidebar">
+    <div class="button"></div>
+    <h2 class="sidebarItem headline"></h2>
+    <h3 class="sidebarItem subtitle"></h3>
+    <!-- <p class="sidebarItem description"></p> -->
+    <div class="sidebarItem header"></div>
+    <div class="sidebarItem content"></div>
+    <!-- <div class="sidebarItem legend row"></div> -->
+    <div class="sidebarItem footer"></div>
+  </div>
+
+  <div id="Main">
+    <h1>Formula 1 Data Explorer</h1>
+    <div id="Intro" class="scene">
+      <p class="description"></p>
+      <div class="legend row"></div>
+    </div>
+
+    <div id="Scene1" class="scene">
+      <h2>F1 Drivers' Champions 1950-2021</h2>
+      <p class="description"></p>
+      <div class="legend row eitherside"></div>
+      <div class="header"></div>
+      <div class="content"></div>
+      <div class="legend row eitherside"></div>
+      <div class="legend row clickable reset hidden">reset</div>
+    </div>
+
+    <div id="Scene2" class="scene">
+      <h2>Champions of the Modern Era</h2>
+      <p class="description"></p>
+      <div class="legend row"></div>
+      <div class="header"></div>
+      <div class="content"></div>
+      <div class="tooltip row"></div>
+      <div class="legend row clickable reset hidden">reset</div>
+    </div>
+
+    <div id="Scene3" class="scene">
+      <h2>Epic Seasons</h2>
+      <p class="description"></p>
+      <div class="header"></div>
+      <div class="content"></div>
+      <div class="legend row clickable reset">reset</div>
+    </div>
+
+    <div id="Credits" class="scene">
+      <h2>Credits</h2>
+      <p class="dataNotes"></p>
+      <p class="author"></p>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,355 @@
+:root {
+  --bg: rgb(20, 21, 25);
+  --sidebar-bg: rgb(25, 26, 32);
+  --highlight-bg: #222;
+  --point-bg: #34353a;
+  --text: rgb(160, 160, 160);
+  --brighttext: rgb(221, 221, 221);
+  --darktext: rgb(71, 71, 71);
+  --line: rgb(84, 84, 84);
+  --clickable: rgb(155, 168, 222);
+  --orange: rgb(168, 110, 35);
+  --win: rgb(135, 138, 148);
+  --row-bg: rgb(27, 29, 39);
+
+  --transparent: rgba(0, 0, 0, 0);
+
+  --gold: rgb(193, 168, 42);
+  --darkgold: rgb(93, 78, 7);
+  --silver: rgb(134, 136, 143);
+  --bronze: rgb(101, 62, 30);
+  --other: rgb(45, 65, 88);
+
+  --legend: var(--transparent);
+  --tooltip: var(--transparent);
+}
+
+@font-face {
+  font-family: "JetBrains";
+  src: local("JetBrains Mono Thin"), url("./fonts/JetBrains_Mono/static/JetBrainsMono-Thin.ttf");
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  // font-variant: small-caps;
+  font-family: "JetBrains", monospace;
+  margin: 2em;
+  font-size: 0.9em;
+  user-select: none;
+}
+body::-webkit-scrollbar {
+  scrollbar-color: var(--bg) var(--bg);
+}
+
+#Main {
+  width: 50%;
+  margin-left: 1em;
+  overflow: visible;
+}
+
+#Sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 40%;
+  background-color: var(--sidebar-bg);
+  padding: 2%;
+  border-left: 1px solid var(--line);
+  margin-bottom: 2em;
+}
+
+.sidebarItem {
+  padding: 0.25em;
+}
+
+.page {
+  border: 1px solid #888;
+  margin: 1em;
+  padding: 1em;
+}
+
+.scene {
+  /* border: 1px dotted #8ac; */
+  margin: 1em auto;
+  /* padding: 1em; */
+}
+
+.scene > .description {
+  margin-bottom: 2em;
+}
+
+h1 {
+  margin: 2em auto;
+}
+
+h2 {
+  margin-top: 1em;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--brighttext);
+}
+
+.tooltip.row {
+  display: block;
+  text-align: right;
+  height: 3em;
+  /* // width: 100%; */
+  /* // border: 1px dotted purple; */
+  background-color: var(--tooltip);
+  /* // background-color: var(--highlight-bg); */
+  overflow: hidden;
+}
+
+#champions {
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 3fr 4fr;
+  grid-template-rows: 1fr;
+  gap: 0.5em;
+  background-color: var(--row-bg);
+  margin: 0.25em;
+  padding: auto 0.5em;
+}
+
+.header > .row {
+  border-bottom: 1px solid var(--line);
+  background-color: var(--legend);
+}
+
+.row.scene1 {
+  /* // grid-template-columns: */
+}
+.header > .row.scene1 {
+  /* // grid-template-columns: 2fr 3fr 4fr 4fr; */
+  gap: 0.5em;
+  justify-items: start;
+}
+
+.row.scene2 {
+  grid-template-columns: 2fr 3fr 1.5fr 2.5fr 1fr 3fr;
+}
+.header > .row.scene2 {
+  grid-template-columns: 2fr 3fr 4fr 4fr;
+  gap: 0.5em;
+  justify-items: start;
+}
+
+.row.scene3 {
+  grid-template-columns: 0.5fr 1fr 5fr 3fr;
+}
+.header > .row.scene3 {
+  grid-template-columns: 1.5fr 5fr 3fr;
+  gap: 0.5em;
+  justify-items: start;
+}
+.header > .row.scene3 > div {
+  /* // margin-right: 1em; */
+}
+.sidebarItem.header {
+  padding-bottom: 0;
+}
+.hidden {
+  opacity: 0;
+}
+
+.legend.row {
+  display: block;
+  /* // background-color: var(--legend); */
+  /* // background-color: var(--highlight-bg); */
+  background-color: var(--transparent);
+  margin-top: 1em;
+  /* // border: 1px dotted orangered; */
+  /* // width: 100%; */
+  /* // padding-left: 20%; */
+  grid-template-columns: 1fr;
+  text-align: right;
+}
+
+.row .name {
+}
+
+.clickable,
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--clickable);
+}
+
+.clickable:hover {
+  // text-decoration: underline;
+}
+
+.race {
+  display: inline-block;
+}
+.race::before {
+  content: "⬤";
+  color: var(--darktext);
+  font-size: 0.5em;
+  vertical-align: middle;
+}
+.race:hover:before {
+  /* // color: green; */
+}
+.race.highlight::before {
+  color: var(--gold);
+}
+.race.thatyear::before {
+  color: var(--win);
+}
+.race.gold::before {
+  color: var(--gold);
+}
+.race.silver::before {
+  color: var(--silver);
+}
+.race.bronze::before {
+  color: var(--bronze);
+}
+.race.other::before {
+  color: var(--other);
+}
+
+.scene2row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+
+  /* // border: 1px dotted slateblue; */
+  /* // margin-bottom: 0.5em; */
+}
+.scene2row.highlighted {
+  background-color: var(--highlight-bg);
+}
+
+.scene3row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+
+  color: --text;
+  cursor: pointer;
+}
+.scene3row:hover,
+.scene3row.selected {
+  background-color: var(--highlight-bg);
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(31, minmax(6px, 1fr));
+  grid-template-rows: 20px;
+  gap: 0;
+  /* // overflow: hidden; */
+  /* // border: 1px dotted orange; */
+}
+.timelineYear {
+  background-color: rgb(99, 67, 16);
+  border: 1px solid var(--bg);
+  height: 100%;
+}
+.timelineYear.champion {
+  /* // background-color: var(--gold); */
+  /* // border: 1px solid #444; */
+}
+.timelineYear.missing {
+  background-color: var(--transparent);
+}
+.timelineYear.missing.highlighted {
+  background-color: var(--highlight-bg);
+}
+
+.tick {
+  color: #888;
+  overflow-x: visible;
+  /* // opacity: 0; */
+}
+
+.tick:hover,
+.tick.highlighted {
+  /* // opacity: 1; */
+}
+
+.driver:hover,
+.driver.highlighted {
+  background-color: var(--highlight-bg);
+}
+.champion {
+  background-color: var(--gold);
+  color: black;
+}
+.championship,
+.runnerup {
+  background-color: var(--silver);
+}
+.sidebarItem .row.champion {
+  background-color: var(--darkgold);
+  color: var(--brighttext);
+}
+.missing {
+  background-color: var(--transparent);
+  color: #555;
+}
+.legend .champion {
+  /* // background-color: var(--gold); */
+  display: inline-block;
+  width: 20px;
+}
+.sidebarItem .legend > * {
+  display: inline-block;
+  margin: 0.25em;
+}
+
+#Scene1 .legend.eitherside {
+  margin: 1em auto;
+}
+
+.pointsChart {
+  position: relative;
+  padding: 5px;
+}
+.points {
+  /* // width: 100%; */
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 3px solid var(--silver);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.points.gold {
+  border-color: var(--gold);
+}
+.points.silver {
+  border-color: var(--silver);
+}
+.points.bronze {
+  border-color: var(--bronze);
+}
+
+.row.scene2 .points {
+  background-color: var(--point-bg);
+}
+
+.right {
+  text-align: right;
+  font-weight: bold;
+}
+
+#Credits {
+  margin-top: 4em;
+  background-color: var(--sidebar-bg);
+  padding: 1em;
+}
+
+.bright {
+  color: var(--brighttext);
+  font-weight: bold;
+}
