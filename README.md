@@ -2,4 +2,4 @@
 
 Deployed at [Github Pages](https://anarseyf.github.io/f1-explorer/).
 
-This project originated as a [class assignment](https://github.com/anarseyf/cs416/) in Summer 2022.
+This project originated as a [class assignment](https://github.com/anarseyf/cs416/) I created in Summer 2022.
