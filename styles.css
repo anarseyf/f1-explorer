@@ -3,8 +3,8 @@
   --sidebar-bg: rgb(25, 26, 32);
   --highlight-bg: #222;
   --point-bg: #34353a;
-  --text: rgb(160, 160, 160);
-  --brighttext: rgb(221, 221, 221);
+  --text: rgb(171, 171, 171);
+  --brighttext: rgb(241, 241, 241);
   --darktext: rgb(71, 71, 71);
   --line: rgb(84, 84, 84);
   --clickable: rgb(155, 168, 222);
@@ -133,10 +133,10 @@ h3 {
 }
 
 .row.scene2 {
-  grid-template-columns: 2fr 3fr 1.5fr 2.5fr 1fr 3fr;
+  grid-template-columns: 2fr 3fr 1fr 2fr 1fr 3.5fr;
 }
 .header > .row.scene2 {
-  grid-template-columns: 2fr 3fr 4fr 4fr;
+  grid-template-columns: 2fr 3fr 3fr 4.5fr;
   gap: 0.5em;
   justify-items: start;
 }
@@ -192,7 +192,7 @@ a {
 .race::before {
   content: "⬤";
   color: var(--darktext);
-  font-size: 0.8em;
+  font-size: 0.5em;
   vertical-align: middle;
 }
 .race:hover:before {
