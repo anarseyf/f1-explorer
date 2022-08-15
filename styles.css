@@ -8,7 +8,7 @@
   --darktext: rgb(71, 71, 71);
   --line: rgb(84, 84, 84);
   --darkline: rgb(63, 63, 63);
-  --clickable: rgb(155, 168, 222);
+  --clickable: rgb(139, 178, 255);
   --orange: rgb(168, 110, 35);
   --win: rgb(135, 138, 148);
   --row-bg: rgb(27, 29, 39);
@@ -59,14 +59,14 @@ body {
   width: 45%;
   background-color: var(--sidebar-bg);
   /* padding: 2%; */
-  border-left: 1px solid var(--line);
+  border-left: 1px solid var(--darkline);
   margin-bottom: 2em;
 }
 
 .inlineSidebar {
   padding: 1em;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--darkline);
+  border-bottom: 1px solid var(--darkline);
   background-color: var(--sidebar-bg);
 }
 
@@ -202,12 +202,9 @@ a {
 .race::before {
   content: "●";
   color: var(--darktext);
-  font-size: 0.8em;
-  padding-right: 1px;
+  font-size: 0.9em;
+  padding-right: 2px;
   vertical-align: middle;
-}
-.race.small::before {
-  font-size: 0.7em;
 }
 .race:hover:before {
   /* // color: green; */
@@ -309,6 +306,9 @@ a {
   background-color: var(--gold);
   color: black;
 }
+.championship {
+  border: 1px solid var(--bg);
+}
 .championship,
 .runnerup {
   background-color: var(--silver);
@@ -329,7 +329,7 @@ a {
 .legend .champion {
   /* // background-color: var(--gold); */
   display: inline-block;
-  width: 20px;
+  /* width: 10px; */
 }
 .sidebarItem .legend > * {
   display: inline-block;
@@ -376,10 +376,16 @@ a {
   /* font-weight: bold; */
 }
 
+#Legend {
+  background-color: var(--sidebar-bg);
+  padding: 1em 2em;
+}
+
 #Credits {
   margin-top: 4em;
   background-color: var(--sidebar-bg);
   padding: 1em 2em;
+  border-top: 1px solid var(--darkline);
 }
 
 .bright {
@@ -414,8 +420,16 @@ a {
   }
   .scene3row {
     grid-template-columns: auto 1fr;
+    gap: 2em;
+  }
+  .race.small::before {
+    padding-right: 1px;
+    font-size: 0.7em;
   }
   #Credits {
+    padding: 1em;
+  }
+  #Legend {
     padding: 1em;
   }
 }
