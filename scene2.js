@@ -70,7 +70,10 @@ function showTimeline(_this, timeline) {
     .on("mouseenter", (e, d) => {
       highlightIntersection(d);
     })
-    .on("mouseleave", () => highlightIntersection(undefined));
+    .on("mouseleave", () => highlightIntersection(undefined))
+    .on("click", (e, d) => {
+      highlightIntersection(d);
+    });
 }
 
 function showYearAxis() {
