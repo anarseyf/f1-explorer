@@ -7,6 +7,7 @@
   --brighttext: rgb(241, 241, 241);
   --darktext: rgb(71, 71, 71);
   --line: rgb(84, 84, 84);
+  --darkline: rgb(63, 63, 63);
   --clickable: rgb(155, 168, 222);
   --orange: rgb(168, 110, 35);
   --win: rgb(135, 138, 148);
@@ -30,22 +31,24 @@
 }
 
 body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+
   background-color: var(--bg);
   color: var(--text);
-  // font-variant: small-caps;
+  /* // font-variant: small-caps; */
   font-family: "JetBrains", monospace;
-  margin: 2em;
-  font-size: 0.9em;
+  /* margin: 2em; */
+  /* font-size: 0.9em; */
   user-select: none;
-}
-body::-webkit-scrollbar {
-  scrollbar-color: var(--bg) var(--bg);
 }
 
 #Main {
-  width: 50%;
-  margin-left: 1em;
-  overflow: visible;
+  width: 55%;
+  overflow-x: hidden;
+  /* overflow: visible; */
+  /* padding: 2em; */
 }
 
 #Sidebar {
@@ -53,15 +56,22 @@ body::-webkit-scrollbar {
   right: 0;
   top: 0;
   height: 100%;
-  width: 40%;
+  width: 45%;
   background-color: var(--sidebar-bg);
-  padding: 2%;
+  /* padding: 2%; */
   border-left: 1px solid var(--line);
   margin-bottom: 2em;
 }
 
-.sidebarItem {
-  padding: 0.25em;
+.inlineSidebar {
+  padding: 1em;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background-color: var(--sidebar-bg);
+}
+
+#Sidebar .sidebarItem {
+  padding: 0.5em 1em;
 }
 
 .page {
@@ -71,9 +81,9 @@ body::-webkit-scrollbar {
 }
 
 .scene {
+  /* padding: 0.5em 2em; */
   /* border: 1px dotted #8ac; */
-  margin: 1em auto;
-  /* padding: 1em; */
+  padding: 1em 2em;
 }
 
 .scene > .description {
@@ -110,16 +120,16 @@ h3 {
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 3fr 4fr;
+  grid-template-columns: auto 1fr 1fr;
   grid-template-rows: 1fr;
-  gap: 0.5em;
+  gap: 0.75em;
   background-color: var(--row-bg);
   margin: 0.25em;
   padding: auto 0.5em;
 }
 
 .header > .row {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--darkline);
   background-color: var(--legend);
 }
 
@@ -156,6 +166,9 @@ h3 {
   padding-bottom: 0;
 }
 .hidden {
+  display: none;
+}
+.invisible {
   opacity: 0;
 }
 
@@ -164,7 +177,7 @@ h3 {
   /* // background-color: var(--legend); */
   /* // background-color: var(--highlight-bg); */
   background-color: var(--transparent);
-  margin-top: 1em;
+  /* margin-top: 1em; */
   /* // border: 1px dotted orangered; */
   /* // width: 100%; */
   /* // padding-left: 20%; */
@@ -190,10 +203,14 @@ a {
   display: inline-block;
 }
 .race::before {
-  content: "⬤";
+  content: "●";
   color: var(--darktext);
-  font-size: 0.5em;
+  font-size: 0.8em;
+  padding-right: 1px;
   vertical-align: middle;
+}
+.race.small::before {
+  font-size: 0.7em;
 }
 .race:hover:before {
   /* // color: green; */
@@ -221,12 +238,18 @@ a {
   width: 100%;
   display: grid;
   grid-template-columns: 2fr 3fr;
+  gap: 0;
+  margin: 0;
 
   /* // border: 1px dotted slateblue; */
   /* // margin-bottom: 0.5em; */
 }
 .scene2row.highlighted {
   background-color: var(--highlight-bg);
+}
+
+.header > .scene2row {
+  margin: 0.75em auto;
 }
 
 .scene3row {
@@ -244,11 +267,14 @@ a {
 
 .timeline {
   display: grid;
-  grid-template-columns: repeat(31, minmax(6px, 1fr));
+  grid-template-columns: repeat(31, minmax(4px, 1fr));
   grid-template-rows: 20px;
   gap: 0;
   /* // overflow: hidden; */
   /* // border: 1px dotted orange; */
+}
+.timeline.axis {
+  margin-top: 0.25em;
 }
 .timelineYear {
   background-color: rgb(99, 67, 16);
@@ -289,6 +315,11 @@ a {
 .runnerup {
   background-color: var(--silver);
 }
+.champion,
+.runnerup {
+  display: inline-block;
+  border: 1px solid var(--row-bg);
+}
 .sidebarItem .row.champion {
   background-color: var(--darkgold);
   color: var(--brighttext);
@@ -309,6 +340,10 @@ a {
 
 #Scene1 .legend.eitherside {
   margin: 1em auto;
+}
+
+#Scene3 {
+  margin-bottom: 1em;
 }
 
 .pointsChart {
@@ -340,16 +375,43 @@ a {
 
 .right {
   text-align: right;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 #Credits {
   margin-top: 4em;
   background-color: var(--sidebar-bg);
-  padding: 1em;
+  padding: 1em 2em;
 }
 
 .bright {
   color: var(--brighttext);
-  font-weight: bold;
+  /* font-weight: bold; */
+}
+
+@media (max-width: 900px) {
+  body {
+    font-size: 0.9em;
+  }
+  #Main {
+    width: 100%;
+  }
+  #Sidebar {
+    display: none;
+  }
+  .scene {
+    padding: 0.5em 1em;
+  }
+  .row {
+    grid-template-columns: 1fr 3fr 4fr;
+  }
+  .rival {
+    display: inline-block;
+  }
+  .scene2row {
+    grid-template-columns: 1fr 1fr;
+  }
+  #Credits {
+    padding: 1em;
+  }
 }

@@ -27,7 +27,7 @@ function prepareScene1(champions) {
   Content.selectAll(".row")
     .append("div")
     .attr("class", "name clickable")
-    .text(nameFn)
+    .text((d) => nameFn(d, State.isMobile))
     .on("click", nameClick);
 
   showDefaultHighlights();
@@ -53,7 +53,7 @@ function showDefaultHighlights() {
 
 function resetScene1() {
   const Scene = d3.select("#Scene1");
-  Scene.select(".reset").classed("hidden", true);
+  Scene.select(".reset").classed("invisible", true);
   showLegendForDriver(undefined);
   showDefaultHighlights();
 }
@@ -69,7 +69,7 @@ function showLegendForDriver(driverMaybe) {
   const Legends = Scene.selectAll(".legend.eitherside");
   Legends.html(html);
 
-  Scene.select(".reset").classed("hidden", !driverMaybe);
+  Scene.select(".reset").classed("invisible", !driverMaybe);
 }
 
 function clearHighlights() {
@@ -81,7 +81,7 @@ function showDriverStats(driverId) {
 
   const driver = Index.Driver.get(driverId);
   const name = nameFn(driver);
-  showHeader(name);
+  showHeadline(name, 1);
 
   const html = computeDriverSummaryHtml(driverId);
   const Subtitle = d3.select("#Sidebar .subtitle");
@@ -105,7 +105,7 @@ function showRacesForYear(d) {
   const races = Index.RacesByYear.get(year);
   races.sort((a, b) => a.round - b.round);
 
-  d3.select(this).selectAll(".race").data(races).enter().append("div").attr("class", "race");
+  d3.select(this).selectAll(".race").data(races).enter().append("div").attr("class", "race small");
   // .text("/");
 
   highlightRacesWonBy(driverId, year);

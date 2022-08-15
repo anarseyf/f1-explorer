@@ -19,6 +19,8 @@ const State = {};
 const Index = {};
 
 window.onload = async () => {
+  resized();
+
   await readData();
   computeIndexes();
 
@@ -52,7 +54,19 @@ window.onload = async () => {
   // showDriverCareer(Alonso);
 
   // showYear(2012);
+
+  const hash = location.hash;
+  if (hash) {
+    location.href = hash;
+  }
 };
+
+window.onresize = resized;
+
+function resized() {
+  const q = window.matchMedia("(max-width: 900px)");
+  State.isMobile = q.matches;
+}
 
 function parseRow(d) {
   const r = {};

@@ -85,7 +85,7 @@ function showYearAxis() {
 
   row
     .append("div")
-    .attr("class", "timeline")
+    .attr("class", "timeline axis")
     .selectAll(".tick")
     .data(years)
     .enter()
@@ -166,7 +166,7 @@ const opacityFn = (d) => {
 };
 
 function resetScene2() {
-  d3.select("#Scene2 .reset").classed("hidden", true);
+  d3.select("#Scene2 .reset").classed("invisible", true);
   highlightChampionRow(undefined);
 }
 
@@ -181,29 +181,25 @@ function highlightChampionRow(driver) {
 
 function showDriverCareer(driver) {
   resetAll();
-  clear();
 
-  d3.select("#Scene2 .reset").classed("hidden", false);
+  d3.select("#Scene2 .reset").classed("invisible", false);
+
+  const Container = d3.select(State.isMobile ? "#InlineSidebar2" : "#Sidebar");
+
+  Container.classed("hidden", false);
 
   highlightChampionRow(driver);
 
-  const Sidebar = d3.select("#Sidebar");
-  const Headline = Sidebar.select(".headline");
-  const Subtitle = Sidebar.select(".subtitle");
-  const Description = Sidebar.select(".description");
-  const Header = Sidebar.select(".header");
-  const Content = Sidebar.select(".content");
-
-  const name = nameFn(driver);
-  Headline.text(name);
+  const Subtitle = Container.select(".subtitle");
+  const Header = Container.select(".header");
+  const Content = Container.select(".content");
 
   const standings = computeDriver(driver.driverId);
 
-  // showDriverDescription(driver);
   const html = computeDriverSummaryHtml(driver.driverId);
   Subtitle.html(html);
 
-  const headerData = ["Year", "Team", "Position", "Races won"];
+  const headerData = ["Year", "Team", "Result", "Races won"];
   Header.append("div")
     .attr("class", "row scene2")
     .selectAll("div")
@@ -269,7 +265,12 @@ function showPosition(d) {
 
 function showWins(d) {
   const data = d3.range(d.wins);
-  d3.select(this).selectAll(".race").data(data).enter().append("div").attr("class", "race gold");
+  d3.select(this)
+    .selectAll(".race")
+    .data(data)
+    .enter()
+    .append("div")
+    .attr("class", "race small gold");
 }
 
 const teamFn = (d) => {

@@ -2,10 +2,10 @@ const Descriptions = {
   Intro: {
     description:
       "<p>Learn about the history of the <a target='_blank' href='https://www.formula1.com/'>Formula 1 World Championship</a>, the drivers who have reached the top in the sport, and what makes up a season of racing with this interactive document.</p>" +
-      "<p>The explorer consists of three sections: <a href='#Scene1'>Drivers' Champions 1950-2021</a>, <a href='#Scene2'>Champions of the Modern Era</a>, and <a href='#Scene3'>Epic Seasons</a>.</p>" +
+      "<p>The explorer consists of three sections: <a href='#Scene1'>Drivers' Champions 1950-2021</a>, <a href='#Scene2'>Modern Era Champions</a>, and <a href='#Scene3'>Epic Seasons</a>.</p>" +
       "<p>As you explore each section, details will be shown in the sidebar.</p>",
     legend:
-      "<p>Throughout this page:</p>" +
+      "<p>Legend:</p>" +
       "<p></span> Grand Prix (an individual race): <span class='race'></span><br>" +
       "Season (a year of races): <span class='championship'>&nbsp;</span><br>" +
       "Gold color indicates a title win: <span class='champion'>&nbsp;</span><br>" +
@@ -23,11 +23,15 @@ const Descriptions = {
     legend: "<span class='race highlight thatyear'></span> races won by that year's champion",
   },
   Scene2: {
-    description:
+    description: () =>
       "<p>These are the drivers who have won at least one World title from 1994 to today. Their careers are summarized in this interactive timeline. The two most successful drivers of all time are <span class='bright'>Michael Schumacher</span> and <span class='bright'>Lewis Hamilton</span>, with 7 titles each.</p>" +
       "<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare Hamilton and <span class='bright'>Nico Rosberg</span>: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while the latter took over a decade (and quit immediately after reaching his goal in 2016).</p>" +
-      "<p><span class='bright'>Mouse-over on the timeline</span> to see where each driver placed in a given season.</p>" +
-      "<p><span class='bright'>Click on a driver</span> to take a closer look at their career.</p>",
+      `<p><span class='bright'>${
+        State.isMobile ? "Tap" : "Mouse-over"
+      } on the timeline</span> to see where each driver placed in a given season.</p>` +
+      `<p><span class='bright'>${
+        State.isMobile ? "Tap" : "Click"
+      } on a driver's name</span> to take a closer look at their career.</p>`,
     legend: "Championship won: <span class='champion'>&nbsp;</span>",
     drivers: {
       "Michael Schumacher": "*** *** ***",
