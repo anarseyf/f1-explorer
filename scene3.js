@@ -28,16 +28,18 @@ function prepareScene3(years) {
 function resetScene3() {
   // console.log("resetScene3");
   const Scene = d3.select("#Scene3");
-  Scene.select(".reset").classed("hidden", true);
+  Scene.select(".reset").classed("invisible", true);
   Scene.selectAll(".scene3row").classed("selected", false);
 }
 
 const rivalryHtml = (d1, d2) => {
   const p1 = `<span class='champion'>&nbsp</span>`;
   const p2 = `<span class='runnerup'>&nbsp</span>`;
-  return `${p1} <span class="bright">${nameFn(d1)}</span> vs ${p2} <span class="bright">${nameFn(
+  return `<div class='rival'>${p1} <span class="bright">${nameFn(
+    d1
+  )}</span>&nbsp;vs&nbsp;</div><div class='rival'>${p2} <span class="bright">${nameFn(
     d2
-  )}</span>`;
+  )}</span></div>`;
 };
 
 function rivalryHtmlForYear(year) {
@@ -53,16 +55,20 @@ function rivalsForYear(year) {
 }
 
 function showYear(year) {
+  console.log("Show ", year);
+
   resetAll();
   clear();
-  showHeader(year);
 
-  console.log("Show ", year);
+  const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
+  Container.classed("hidden", false);
+
+  showHeadline(year, 3);
 
   const [driver1, driver2] = rivalsForYear(year);
 
   const subtitle = rivalryHtml(driver1, driver2);
-  showSubtitle(subtitle);
+  showSubtitle(subtitle, 3);
 
   const drivers = [driver1, driver2];
   showHeaderForYear();
@@ -71,14 +77,14 @@ function showYear(year) {
   showDescriptionForYear(year);
 
   const Scene = d3.select("#Scene3");
-  Scene.select(".reset").classed("hidden", false);
+  Scene.select(".reset").classed("invisible", false);
 
   Scene.selectAll(".scene3row").classed("selected", (d) => d === year);
 }
 
 function showHeaderForYear() {
-  const Sidebar = d3.select("#Sidebar");
-  const Header = Sidebar.select(".header");
+  const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
+  const Header = Container.select(".header");
 
   const headerData = ["Round", "Race", "Points total"];
   Header.append("div")
@@ -91,13 +97,13 @@ function showHeaderForYear() {
 }
 
 function showDescriptionForYear(year) {
-  const Sidebar = d3.select("#Sidebar");
-  const Description = Sidebar.select(".description");
+  const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
+  const Description = Container.select(".description");
 
   const defaultText = `${year} Formula 1 Season`;
   const text = Descriptions.Scene3.years[year]?.description ?? "";
 
-  // Description.text(text || defaultText);
+  Description.text(text || defaultText);
 }
 
 function showTableForYear(year, drivers) {
@@ -109,8 +115,8 @@ function showTableForYear(year, drivers) {
   const points1 = computePointsForDriverAtRaces(driver1.driverId, raceIds);
   const points2 = computePointsForDriverAtRaces(driver2.driverId, raceIds);
 
-  const Sidebar = d3.select("#Sidebar");
-  const Content = Sidebar.select(".content");
+  const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
+  const Content = Container.select(".content");
 
   Content.selectAll(".row").data(races).enter().append("div").attr("class", "row scene3");
 
@@ -173,7 +179,9 @@ function showLegendForYear(year, drivers) {
   };
   list.push(others);
 
-  const Footer = d3.select("#Sidebar .footer");
+  const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
+
+  const Footer = Container.select(".footer");
   Footer.selectAll(".row")
     .data(list)
     .enter()

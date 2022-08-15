@@ -3,6 +3,10 @@ function clear() {
   const Sidebar = d3.select("#Sidebar");
   Sidebar.selectAll(".sidebarItem").text("");
 
+  const inlineSidebars = d3.selectAll(".inlineSidebar");
+  inlineSidebars.selectAll(".sidebarItem").text("");
+  inlineSidebars.classed("hidden", true);
+
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
 }
@@ -14,14 +18,19 @@ function resetAll() {
   clear();
 }
 
-const nameFn = (d) => `${d.firstname} ${d.lastname}`;
+const nameFn = (d, abbreviate) => {
+  const first = abbreviate ? "" : `${d.firstname} `;
+  return `${first}${d.lastname}`;
+};
 
-function showHeader(textOrHtml) {
-  d3.select("#Sidebar .headline").html(textOrHtml);
+function showHeadline(textOrHtml, sceneNum) {
+  const Container = d3.select(State.isMobile ? `#InlineSidebar${sceneNum}` : "#Sidebar");
+  Container.select(".headline").html(textOrHtml);
 }
 
-function showSubtitle(textOrHtml) {
-  d3.select("#Sidebar .subtitle").html(textOrHtml);
+function showSubtitle(textOrHtml, sceneNum) {
+  const Container = d3.select(State.isMobile ? `#InlineSidebar${sceneNum}` : "#Sidebar");
+  Container.select(".subtitle").html(textOrHtml);
 }
 
 function showClearButton() {
@@ -54,7 +63,7 @@ function showSceneDescriptions() {
   Legend0.html(Descriptions.Intro.legend);
   Desc1.html(Descriptions.Scene1.description);
   Legend1.html(Descriptions.Scene1.legend);
-  Desc2.html(Descriptions.Scene2.description);
+  Desc2.html(Descriptions.Scene2.description());
   Legend2.html(Descriptions.Scene2.legend);
   Desc3.html(Descriptions.Scene3.description);
   Legend3.html(Descriptions.Scene3.legend);
