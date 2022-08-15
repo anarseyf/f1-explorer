@@ -86,7 +86,11 @@ function showHeaderForYear() {
   const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
   const Header = Container.select(".header");
 
-  const headerData = ["Round", "Race", "Points total"];
+  const headerData = [
+    "Round",
+    State.isMobile ? "Grand Prix" : "Race",
+    State.isMobile ? "Points" : "Points total",
+  ];
   Header.append("div")
     .attr("class", "row scene3")
     .selectAll("div")
@@ -138,7 +142,7 @@ function showTableForYear(year, drivers) {
   Content.selectAll(".row")
     .append("div")
     .attr("class", "name")
-    .text((d) => d.name);
+    .text((d) => grandPrixNameFn(d.name, State.isMobile));
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
   // Content.selectAll(".row").append("div").attr("class", "place2");
@@ -151,6 +155,9 @@ function showTableForYear(year, drivers) {
   const pointsData = d3.zip(points1, points2).map((points) => ({ points, max }));
   Content.selectAll(".pointsChart").data(pointsData).each(showPointsChart);
 }
+
+const grandPrixNameFn = (fullName, abbreviate) =>
+  abbreviate ? fullName.replace(/Grand Prix/, "G.P.") : fullName;
 
 function showLegendForYear(year, drivers) {
   const races = Index.RacesByYear.get(year).sort((a, b) => a.round - b.round);
