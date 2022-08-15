@@ -1,15 +1,13 @@
 const Descriptions = {
   Intro: {
     description:
-      "<p>Learn about the history of the <a target='_blank' href='https://www.formula1.com/'>Formula 1 World Championship</a>, the drivers who have reached the top in the sport, and what makes up a season of racing with this interactive document.</p>" +
-      "<p>The explorer consists of three sections: <a href='#Scene1'>Drivers' Champions 1950-2021</a>, <a href='#Scene2'>Modern Era Champions</a>, and <a href='#Scene3'>Epic Seasons</a>.</p>" +
-      "<p>As you explore each section, details will be shown in the sidebar.</p>",
+      "<p>Take a brief tour of the <a target='_blank' href='https://www.formula1.com/'>Formula 1 World Championship</a> history, the drivers who have reached the top in the sport, and a few standout seasons of racing with this interactive document.</p>",
     legend:
-      "<p>Legend:</p>" +
+      // "<p>Legend</p>" +
       "<p></span> Grand Prix (an individual race): <span class='race'></span><br>" +
       "Season (a year of races): <span class='championship'>&nbsp;</span><br>" +
-      "Gold color indicates a title win: <span class='champion'>&nbsp;</span><br>" +
-      "or a race win: <span class='race gold'></span></p>",
+      "Gold color indicates a race win: <span class='race gold'></span><br>" +
+      "or a title win: <span class='champion'>&nbsp;</span></p>",
   },
   Sidebar: {
     hint: "<em>Select a name or a year in each section. Details will be revealed here.</em>",
