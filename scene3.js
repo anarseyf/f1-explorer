@@ -35,11 +35,11 @@ function resetScene3() {
 const rivalryHtml = (d1, d2) => {
   const p1 = `<span class='champion'>&nbsp</span>`;
   const p2 = `<span class='runnerup'>&nbsp</span>`;
-  return `<div class='rival'>${p1} <span class="bright">${nameFn(
-    d1
-  )}</span>&nbsp;vs&nbsp;</div><div class='rival'>${p2} <span class="bright">${nameFn(
-    d2
-  )}</span></div>`;
+  return (
+    `<span class='rival'>${p1} <span class="bright">${nameFn(d1)}</span>` +
+    `<span> vs </span>` +
+    `</span><span class='rival'>${p2} <span class="bright">${nameFn(d2)}</span></span>`
+  );
 };
 
 function rivalryHtmlForYear(year) {

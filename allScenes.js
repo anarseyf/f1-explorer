@@ -61,11 +61,11 @@ function showSceneDescriptions() {
 
   Desc0.html(Descriptions.Intro.description);
   Legend0.html(Descriptions.Intro.legend);
-  Desc1.html(Descriptions.Scene1.description);
+  Desc1.html(Descriptions.Scene1.description());
   Legend1.html(Descriptions.Scene1.legend);
   Desc2.html(Descriptions.Scene2.description());
   Legend2.html(Descriptions.Scene2.legend);
-  Desc3.html(Descriptions.Scene3.description);
+  Desc3.html(Descriptions.Scene3.description());
   Legend3.html(Descriptions.Scene3.legend);
   DataNotes.html(Descriptions.Credits.dataNotes);
   Author.html(Descriptions.Credits.author);
