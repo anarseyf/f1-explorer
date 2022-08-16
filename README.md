@@ -2,7 +2,7 @@
 
 Deployed at [Github Pages](https://anarseyf.github.io/f1-explorer/).
 
-This project originated as a [class assignment](https://github.com/anarseyf/cs416/) I created in Summer 2022.
+This project originated as a [class assignment](https://github.com/anarseyf/cs416/) I created in Summer 2022. The assignment prohibited any libraries beside d3 (no React, no CSS preprocessing, etc.), that's why this setup is a little simplistic. I may give it more structure if it gets too out-of-hand, though.
 
 ## Screenshots
 
