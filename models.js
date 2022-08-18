@@ -25,27 +25,13 @@ window.onload = async () => {
   computeIndexes();
 
   const champions = computeChampions();
-
-  const index = Index.DriverByName;
-  const drivers = [
-    index.get("Michael").get("Schumacher"),
-    index.get("Damon").get("Hill"),
-    index.get("Jacques").get("Villeneuve"),
-    index.get("Mika").get("Häkkinen"),
-    index.get("Fernando").get("Alonso"),
-    index.get("Kimi").get("Räikkönen"),
-    index.get("Lewis").get("Hamilton"),
-    index.get("Jenson").get("Button"),
-    index.get("Sebastian").get("Vettel"),
-    index.get("Nico").get("Rosberg"),
-    index.get("Max").get("Verstappen"),
-  ];
+  const uniqueChampions = computeUniqueDrivers(champions);
 
   const years = [2007, 2008, 2012, 2016, 2021];
 
   showSceneDescriptions();
   prepareScene1(champions);
-  prepareScene2(drivers);
+  prepareScene2(uniqueChampions);
   prepareScene3(years);
   clear();
   // showClearButton();
@@ -60,6 +46,18 @@ window.onload = async () => {
     location.href = hash;
   }
 };
+
+function computeUniqueDrivers(drivers) {
+  const unique = [];
+  const ids = {};
+  drivers.forEach((c) => {
+    if (!ids[c.driverId]) {
+      ids[c.driverId] = true;
+      unique.push(c);
+    }
+  });
+  return unique;
+}
 
 window.onresize = resized;
 
@@ -289,7 +287,9 @@ function computeIntersectionHtml(year, driverId, position) {
   const name = nameFn(driver);
   const pos = positionHtml(position);
 
-  return `<span class="bright">${name}</span> ${pos} the ${year} championship.`;
+  const championship = position === 0 ? `${year}` : `the ${year} championship`;
+
+  return `<span class="bright">${name}</span> ${pos} ${championship}.`;
 }
 
 function computeDriverSummaryHtml(driverId) {
@@ -313,7 +313,7 @@ function computeDriverSummaryHtml(driverId) {
 
 function positionHtml(position) {
   return position === 0
-    ? "did not participate in"
+    ? "did not race in"
     : position === 1
     ? "won"
     : `placed ${position}${suffix(position)} in`;

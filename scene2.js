@@ -2,12 +2,32 @@ const TimelineMin = 1991,
   TimelineMax = 2021;
 
 function prepareScene2(drivers) {
-  const Content = d3.select("#Scene2 .content");
-  const Header = d3.select("#Scene2 .header");
+  const dr1 = drivers.slice(0, 12),
+    dr2 = drivers.slice(12, 23),
+    dr3 = drivers.slice(23);
+
+  const y1 = [1950, 1950 + 30],
+    y2 = [1968, 1968 + 30],
+    y3 = [1991, 1991 + 30];
+
+  const s1 = d3.select("#SubScene2-1"),
+    s2 = d3.select("#SubScene2-2"),
+    s3 = d3.select("#SubScene2-3");
+
+  prepareSubscene2(s1, dr1, y1);
+  prepareSubscene2(s2, dr2, y2);
+  prepareSubscene2(s3, dr3, y3);
+}
+
+function prepareSubscene2(container, drivers, yearRange) {
+  const [minYear, maxYear] = yearRange;
+
+  const Content = container.select(".content");
+  const Header = container.select(".header");
 
   const timelines = drivers
     .map((d) => d.driverId)
-    .map((driverId) => computeDriver(driverId, [TimelineMin, TimelineMax]));
+    .map((driverId) => computeDriver(driverId, [minYear, maxYear]));
 
   const data = d3.zip(drivers, timelines).map(([driver, timeline]) => ({ driver, timeline }));
 
@@ -36,26 +56,26 @@ function prepareScene2(drivers) {
       showDriverCareer(d.driver);
     })
     .on("mouseenter", (e, d) => {
-      highlightTimeline(d.driver.driverId);
+      highlightTimeline(d.driver.driverId, container);
     })
     .on("mouseleave", (e, d) => {
-      highlightTimeline(undefined);
+      highlightTimeline(undefined, container);
     });
 
   rows
     .append("div")
     .attr("class", "timeline")
     .each(function (d) {
-      showTimeline(this, d.timeline);
+      showTimeline(this, d.timeline, container);
     });
 
   d3.select("#Scene2 .reset").on("click", resetAll);
 
-  showYearAxis();
-  showIntersectionTooltip();
+  showYearAxis(container, minYear, maxYear);
+  showIntersectionTooltip(undefined, container);
 }
 
-function showTimeline(_this, timeline) {
+function showTimeline(_this, timeline, container) {
   // console.log(">> timeline:", timeline[0]);
 
   d3.select(_this)
@@ -68,20 +88,17 @@ function showTimeline(_this, timeline) {
     .classed("missing", (d) => d.position === 0)
     .style("opacity", opacityFn)
     .on("mouseenter", (e, d) => {
-      highlightIntersection(d);
+      highlightIntersection(d, container);
     })
-    .on("mouseleave", () => highlightIntersection(undefined))
+    .on("mouseleave", () => highlightIntersection(undefined, container))
     .on("click", (e, d) => {
-      highlightIntersection(d);
+      highlightIntersection(d, container);
     });
 }
 
-function showYearAxis() {
-  const years = d3.range(TimelineMin, TimelineMax + 1);
-
-  const Scene = d3.select("#Scene2");
-  const Content = Scene.select(".content");
-
+function showYearAxis(container, minYear, maxYear) {
+  const years = d3.range(minYear, maxYear + 1);
+  const Content = container.select(".content");
   const row = Content.append("div").attr("class", "scene2row");
 
   row.append("div");
@@ -96,38 +113,38 @@ function showYearAxis() {
     .attr("class", "tick")
     .text(tickFn)
     // .text(String)
-    .on("mouseenter", (e, d) => highlightYear(d))
-    .on("mouseleave", () => highlightYear(undefined));
+    .on("mouseenter", (e, d) => highlightYear(d, container))
+    .on("mouseleave", () => highlightYear(undefined, container));
 }
 
 function tickFn(d) {
   return (d - 1) % 10 === 0 ? d : "";
 }
 
-function highlightIntersection(dMaybe) {
+function highlightIntersection(dMaybe, container) {
   const { year: yearMaybe, driverId: driverIdMaybe } = dMaybe || {};
-  highlightAxis(yearMaybe);
-  highlightDriver(driverIdMaybe);
-  highlightEither(yearMaybe, driverIdMaybe);
-  showIntersectionTooltip(dMaybe);
+  highlightAxis(yearMaybe, container);
+  highlightDriver(driverIdMaybe, container);
+  highlightEither(yearMaybe, driverIdMaybe, container);
+  showIntersectionTooltip(dMaybe, container);
 }
 
-function highlightEither(yearMaybe, driverIdMaybe) {
-  const Content = d3.select("#Scene2 .content");
+function highlightEither(yearMaybe, driverIdMaybe, container) {
+  const Content = container.select(".content");
   Content.selectAll(".timelineYear").classed(
     "highlighted",
     (d) => d.driverId === driverIdMaybe || d.year === yearMaybe
   );
 }
 
-function highlightYear(yearMaybe) {
-  const Content = d3.select("#Scene2 .content");
+function highlightYear(yearMaybe, container) {
+  const Content = container.select(".content");
   Content.selectAll(".timelineYear").classed("highlighted", (d) => d.year === yearMaybe);
 }
 
-function highlightAxis(yearMaybe) {
+function highlightAxis(yearMaybe, container) {
   // console.log("highlightAxis:", yearMaybe);
-  const Content = d3.select("#Scene2 .content");
+  const Content = container.select(".content");
   // Content.selectAll(".tick").classed("highlighted", (d) => d === yearMaybe);
   const Ticks = Content.selectAll(".tick");
   if (yearMaybe) {
@@ -137,18 +154,18 @@ function highlightAxis(yearMaybe) {
   }
 }
 
-function highlightDriver(driverIdMaybe) {
-  const Content = d3.select("#Scene2 .content");
+function highlightDriver(driverIdMaybe, container) {
+  const Content = container.select(".content");
   Content.selectAll(".driver").classed("highlighted", (d) => d.driver.driverId === driverIdMaybe);
 }
 
-function highlightTimeline(driverIdMaybe) {
-  const Content = d3.select("#Scene2 .content");
+function highlightTimeline(driverIdMaybe, container) {
+  const Content = container.select(".content");
   Content.selectAll(".timelineYear").classed("highlighted", (d) => d.driverId === driverIdMaybe);
 }
 
-function showIntersectionTooltip(dMaybe) {
-  const Tooltip = d3.select("#Scene2 .tooltip");
+function showIntersectionTooltip(dMaybe, container) {
+  const Tooltip = container.select(".tooltip");
 
   let html = "";
   if (dMaybe) {
@@ -175,11 +192,8 @@ function resetScene2() {
 
 function highlightChampionRow(driver) {
   const { driverId } = driver || {};
-  const Scene2Content = d3.select("#Scene2 .content");
-  Scene2Content.selectAll(".scene2row").classed(
-    "highlighted",
-    (d) => d && d.driver.driverId === driverId
-  );
+  const Scene2 = d3.select("#Scene2");
+  Scene2.selectAll(".scene2row").classed("highlighted", (d) => d && d.driver.driverId === driverId);
 }
 
 function showDriverCareer(driver) {
