@@ -31,7 +31,7 @@ function prepareSubscene2(container, drivers, yearRange) {
 
   const data = d3.zip(drivers, timelines).map(([driver, timeline]) => ({ driver, timeline }));
 
-  console.log("drivers + timelines", drivers, timelines, data);
+  // console.log("drivers + timelines", drivers, timelines, data);
 
   const headerData = ["World Champion", "Career timeline"];
   Header.append("div")
