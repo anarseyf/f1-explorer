@@ -256,6 +256,8 @@ function showDriverCareer(driver) {
   // console.log(`>> raceWinsByYear: `, raceWinsByYear);
 
   Content.selectAll(".row").append("div").attr("class", "wins").each(showWins);
+
+  d3.select("#InlineSidebar2").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showDriverDescription(driver) {
