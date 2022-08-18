@@ -6,8 +6,8 @@ function prepareScene2(drivers) {
     dr2 = drivers.slice(12, 23),
     dr3 = drivers.slice(23);
 
-  const y1 = [1950, 1950 + 30],
-    y2 = [1968, 1968 + 30],
+  const y1 = [1950, 1950 + 25],
+    y2 = [1968, 1968 + 25],
     y3 = [1990, 1991 + 31];
 
   const s1 = d3.select("#SubScene2-1"),
