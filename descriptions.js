@@ -4,7 +4,7 @@ const Descriptions = {
       "<p>Take a brief tour of the <a target='_blank' href='https://www.formula1.com/'>Formula 1 World Championship</a> history, the drivers who have reached the top in the sport, and a few standout seasons of racing with this interactive document.</p>",
     legend:
       // "<p>Legend</p>" +
-      "<p></span> Grand Prix (an individual race): <span class='race'></span><br>" +
+      "<p></span> Grand Prix (an individual race): <span class='race silver'></span><br>" +
       "Season (a year of races): <span class='championship'>&nbsp;</span><br>" +
       "Gold color indicates a race win: <span class='race gold'></span><br>" +
       "or a title win: <span class='champion'>&nbsp;</span></p>",
@@ -24,11 +24,14 @@ const Descriptions = {
   },
   Scene2: {
     description: () =>
-      "<p>These are the drivers who have won at least one World title from 1994 to today. Their careers are summarized in this interactive timeline. The two most successful drivers of all time are <span class='bright'>Michael Schumacher</span> and <span class='bright'>Lewis Hamilton</span>, with 7 titles each.</p>" +
-      "<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare Hamilton and <span class='bright'>Nico Rosberg</span>: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while the latter took over a decade (and quit immediately after reaching his goal in 2016).</p>" +
+      `<p>Only <span class='bright'>${
+        computeUniqueDrivers(computeChampions()).length
+      } different drivers</span> have won a world title. Their careers are summarized in these interactive timelines.</p>` +
+      `<p>The two most successful drivers of all time are <span class='bright'>Michael Schumacher</span> and <span class='bright'>Lewis Hamilton</span>, with 7 titles each. The only period of domination by a single driver before the modern era dates back to the 1950's with <span class='bright'>Juan Manuel Fangio</span> winning a total of 5 titles.</p>` +
+      "<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare Hamilton and <span class='bright'>Nico Rosberg</span>: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while it took the latter over a decade.</p>" +
       `<p><span class='bright'>${
         State.isMobile ? "Tap" : "Mouse-over"
-      } on the timeline</span> to see where each driver placed in a given season.</p>` +
+      } on a timeline</span> to see where each driver placed in a given season.</p>` +
       `<p><span class='bright'>${
         State.isMobile ? "Tap" : "Click"
       } on a driver's name</span> to take a closer look at their career.</p>`,
