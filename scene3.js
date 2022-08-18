@@ -80,6 +80,8 @@ function showYear(year) {
   Scene.select(".reset").classed("invisible", false);
 
   Scene.selectAll(".scene3row").classed("selected", (d) => d === year);
+
+  d3.select("#InlineSidebar3").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showHeaderForYear() {
