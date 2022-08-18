@@ -30,6 +30,7 @@ window.onload = async () => {
   const years = [1958, 1976, 1982, 1984, 1986, 1994, 2007, 2008, 2012, 2016, 2021];
 
   showSceneDescriptions();
+  addClickHandlers();
   prepareScene1(champions);
   prepareScene2(uniqueChampions);
   prepareScene3(years);

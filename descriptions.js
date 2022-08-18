@@ -19,7 +19,7 @@ const Descriptions = {
       `<p><span class='bright'>${
         State.isMobile ? "Tap" : "Click"
       } on the name</span> of a world champion to reveal their win pattern over the years.</p>` +
-      "<p>In the <a href='#Scene2'>next section</a> we'll take a closer look at each World Champion's career.</p>",
+      "<p>In the <span id='NextSection' class='clickable'>next section</span> we'll take a closer look at each World Champion's career.</p>",
     legend: "<span class='race highlight thatyear'></span> races won by that year's champion",
   },
   Scene2: {
