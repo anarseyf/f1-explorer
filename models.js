@@ -27,7 +27,7 @@ window.onload = async () => {
   const champions = computeChampions();
   const uniqueChampions = computeUniqueDrivers(champions);
 
-  const years = [2007, 2008, 2012, 2016, 2021];
+  const years = [1958, 1976, 1982, 1984, 1986, 1994, 2007, 2008, 2012, 2016, 2021];
 
   showSceneDescriptions();
   prepareScene1(champions);

@@ -54,7 +54,7 @@ const Descriptions = {
   },
   Scene3: {
     description: () =>
-      "<p>These were some of the most memorable seasons in recent years. Each title was contested all the way to the last race.</p>" +
+      "<p>These were some of the most memorable seasons in Formula 1 history.</p>" +
       "<p>The driver with the most points at the end of a season is that year's World Champion. The points system has changed over the years, with the current scheme awarding <span class='bright'>25 points for a race win</span>, 18 points for second place, and on down to a single point for 10<sup>th</sup>.</p>" +
       `<p><span class='bright'>${
         State.isMobile ? "Tap" : "Click"
