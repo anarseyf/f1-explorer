@@ -73,3 +73,9 @@ function showSceneDescriptions() {
 
   console.log("Legend: ", Descriptions.Scene1.legend);
 }
+
+function addClickHandlers() {
+  d3.select("#NextSection").on("click", () => {
+    d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
+  });
+}

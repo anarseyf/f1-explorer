@@ -8,7 +8,7 @@ function prepareScene2(drivers) {
 
   const y1 = [1950, 1950 + 30],
     y2 = [1968, 1968 + 30],
-    y3 = [1991, 1991 + 30];
+    y3 = [1990, 1991 + 31];
 
   const s1 = d3.select("#SubScene2-1"),
     s2 = d3.select("#SubScene2-2"),
@@ -118,7 +118,7 @@ function showYearAxis(container, minYear, maxYear) {
 }
 
 function tickFn(d) {
-  return (d - 1) % 10 === 0 ? d : "";
+  return d % 10 === 0 ? d : "";
 }
 
 function highlightIntersection(dMaybe, container) {

@@ -262,7 +262,7 @@ a {
 
 .timeline {
   display: grid;
-  grid-template-columns: repeat(31, minmax(4px, 1fr));
+  grid-template-columns: repeat(32, minmax(4px, 1fr));
   grid-template-rows: 20px;
   gap: 0;
   /* // overflow: hidden; */
