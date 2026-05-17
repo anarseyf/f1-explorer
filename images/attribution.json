@@ -564,5 +564,118 @@
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
     "source": "https://en.wikipedia.org/wiki/File:2026_Chinese_GP_-_Oscar_Piastri_(cropped)_(cropped).jpg"
+  },
+  "sato": {
+    "name": "Takuma Sato",
+    "file": "images/drivers/sato.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Takuma_Sato",
+    "artist": "Wolkenjaeger",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Takuma_Sato_(2021).jpg"
+  },
+  "alesi": {
+    "name": "Jean Alesi",
+    "file": "images/drivers/alesi.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jean_Alesi",
+    "artist": "Matti Blume",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Jean_Alesi,_GIMS_2019,_Le_Grand-Saconnex_(GIMS0047).jpg"
+  },
+  "cesaris": {
+    "name": "Andrea de Cesaris",
+    "file": "images/drivers/cesaris.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Andrea_de_Cesaris"
+  },
+  "streiff": {
+    "name": "Philippe Streiff",
+    "file": "images/drivers/streiff.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Philippe_Streiff",
+    "artist": "Thesupermat",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Festival_automobile_international_2014_-_Photocall_-_019.jpg"
+  },
+  "hailwood": {
+    "name": "Mike Hailwood",
+    "file": "images/drivers/hailwood.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mike_Hailwood",
+    "artist": "Jack de Nijs for Anefo",
+    "license": "CC BY-SA 3.0 nl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Mike_Hailwood.jpg"
+  },
+  "pescarolo": {
+    "name": "Henri Pescarolo",
+    "file": "images/drivers/pescarolo.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Henri_Pescarolo",
+    "artist": "Lothar Spurzem",
+    "license": "CC BY-SA 2.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:PescaroloHenry1973Nürb.jpg"
+  },
+  "beltoise": {
+    "name": "Jean-Pierre Beltoise",
+    "file": "images/drivers/beltoise.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jean-Pierre_Beltoise",
+    "artist": "Anefo",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Jean_Pierre_Beltoise_te_Zandvoort_1968.jpg"
+  },
+  "trips": {
+    "name": "Wolfgang von Trips",
+    "file": "images/drivers/trips.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Wolfgang_Graf_Berghe_von_Trips",
+    "artist": "Spin2Win at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Wolfgang_von_Trips_in_1957.JPG"
+  },
+  "perez": {
+    "name": "Sergio Pérez",
+    "file": "images/drivers/perez.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
+    "artist": "Grahampurse",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2021_US_GP_driver_parade_(cropped2).jpg"
+  },
+  "grosjean": {
+    "name": "Romain Grosjean",
+    "file": "images/drivers/grosjean.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Romain_Grosjean",
+    "artist": "City of Detroit",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Grosjean_at_2024_Chevrolet_Detroit_Grand_Prix.jpg"
+  },
+  "ricciardo": {
+    "name": "Daniel Ricciardo",
+    "file": "images/drivers/ricciardo.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Daniel_Ricciardo",
+    "artist": "DaHuzyBru",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Daniel_Ricciardo_January_2024.jpg"
+  },
+  "bottas": {
+    "name": "Valtteri Bottas",
+    "file": "images/drivers/bottas.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Valtteri_Bottas",
+    "artist": "Yu Chu Chin",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Valtteri_Bottas_at_the_2026_Adelaide_Motorsport_Festival_(028A7556).jpg"
+  },
+  "ocon": {
+    "name": "Esteban Ocon",
+    "file": "images/drivers/ocon.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Esteban_Ocon",
+    "artist": "Rrtb505050",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Esteban_Ocon_2024_Suzuka_(cropped).jpg"
   }
 }
