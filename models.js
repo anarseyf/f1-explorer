@@ -95,6 +95,8 @@ function computeIndexes() {
   );
   Index.Constructor = d3.index(Data.Constructors, (c) => c.constructorId);
 
+  Index.DriverByRef = d3.index(Data.Drivers, (d) => d.driverRef);
+
   // grouped
   Index.RacesByYear = d3.group(Data.Races, (r) => r.year);
   Index.StandingsByRace = d3.group(Data.Standings, (s) => s.raceId);
@@ -123,12 +125,13 @@ function computeYearEndListAtPosition(position) {
     }));
 
   const list = leaderStandings.map(({ driverId, year, wins }) => {
-    const { forename, surname } = Index.Driver.get(driverId);
+    const { forename, surname, driverRef } = Index.Driver.get(driverId);
     return {
       year,
       driverId,
       forename,
       surname,
+      driverRef,
       wins,
     };
   });

@@ -22,20 +22,35 @@ function resetAll() {
 
 function showPortrait(wrapper, driverRef, borderColor = "var(--gold)") {
   const attr = Data.Attribution?.[driverRef];
+  const wikiUrl = attr?.wikipediaUrl || Index.DriverByRef.get(driverRef)?.url || null;
   const item = wrapper.append("div").attr("class", "portrait-item");
-  const portraitEl = item.append("div")
+
+  const portraitEl = item.append("a")
     .attr("class", "portrait")
-    .style("border-color", borderColor);
+    .attr("href", wikiUrl)
+    .attr("target", wikiUrl ? "_blank" : null)
+    .style("border-color", borderColor)
+    .style("cursor", wikiUrl ? "pointer" : "default");
+
   const img = new Image();
   img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
   img.src = `images/drivers/${driverRef}.jpg`;
+
   if (attr) {
+    const attrEl = item.append("div").attr("class", "portrait-attribution");
     const parts = [attr.artist, attr.license].filter(Boolean);
-    if (parts.length) item.append("div").attr("class", "portrait-attribution").text(parts.join(" • "));
+    if (parts.length) attrEl.append("span").text(parts.join(" • "));
+    if (attr.source) {
+      if (parts.length) attrEl.append("span").text(" • ");
+      attrEl.append("a").attr("href", attr.source).attr("target", "_blank").text("Wikipedia");
+    }
   }
 }
 
+const nameOverrides = { "fangio": "Juan Manuel Fangio" };
+
 const nameFn = (d, abbreviate) => {
+  if (!abbreviate && d.driverRef && nameOverrides[d.driverRef]) return nameOverrides[d.driverRef];
   const first = abbreviate ? "" : `${d.forename} `;
   return `${first}${d.surname}`;
 };

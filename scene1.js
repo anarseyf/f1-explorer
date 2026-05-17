@@ -24,12 +24,26 @@ function prepareScene1(champions) {
     .attr("class", "year")
     .text((d) => d.year);
 
-  Content.selectAll(".row")
+  const nameEl = Content.selectAll(".row")
     .append("div")
     .attr("class", "name clickable")
     .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driverId)?.driverRef])
-    .text((d) => nameFn(d, State.isMobile))
+    .style("display", "flex")
+    .style("align-items", "center")
+    .style("gap", "0.4em")
     .on("click", nameClick);
+
+  nameEl.append("div").attr("class", "portrait-sm")
+    .each(function (d) {
+      const driverRef = Index.Driver.get(d.driverId)?.driverRef;
+      if (!driverRef) return;
+      const el = d3.select(this);
+      const img = new Image();
+      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+      img.src = `images/drivers/${driverRef}.jpg`;
+    });
+
+  nameEl.append("span").text((d) => nameFn(d, State.isMobile));
 
   showDefaultHighlights();
   showLegendForDriver(undefined);

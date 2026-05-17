@@ -125,7 +125,7 @@ async function fetchAttribution(imageUrl) {
 }
 
 async function processDriver(driver, attribution) {
-  const title = pageTitle(driver.url);
+  const title = decodeURIComponent(pageTitle(driver.url));
   const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
 
   const { status, body } = await fetch(summaryUrl);
@@ -135,7 +135,7 @@ async function processDriver(driver, attribution) {
   }
 
   const data = JSON.parse(body.toString());
-  const imageUrl = data.originalimage?.source || data.thumbnail?.source;
+  const imageUrl = data.thumbnail?.source;
   if (!imageUrl) {
     console.warn(`  ✗ no image found: ${driver.forename} ${driver.surname}`);
     return;
@@ -181,7 +181,7 @@ async function main() {
     }
 
     await processDriver(driver, attribution);
-    await sleep(2000);
+    await sleep(5000);
   }
 
   fs.writeFileSync(ATTR_FILE, JSON.stringify(attribution, null, 2));

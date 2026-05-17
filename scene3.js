@@ -32,14 +32,14 @@ function resetScene3() {
   Scene.selectAll(".scene3row").classed("selected", false);
 }
 
-const rivalColorClasses = ["champion", "runnerup", "thirdplace"];
+const rivalBorderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
 
 const rivalryHtml = (drivers) => {
   return drivers.map((d, i) => {
-    const cls = rivalColorClasses[i] || "runnerup";
-    const dot = `<span class='${cls}'>&nbsp</span>`;
+    const color = rivalBorderColors[i] || "var(--darkline)";
+    const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/${d.driverRef}.jpg')"></div>`;
     const vs = i < drivers.length - 1 ? `<span> vs </span>` : "";
-    return `<span class='rival'>${dot} <span class="bright">${nameFn(d)}</span>${vs}</span>`;
+    return `<span class='rival'>${circle}<span class="bright">${nameFn(d)}</span>${vs}</span>`;
   }).join("");
 };
 

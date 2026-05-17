@@ -53,5 +53,131 @@
     "name": "Mike Hawthorn",
     "file": "images/drivers/hawthorn.jpg",
     "wikipediaUrl": "http://en.wikipedia.org/wiki/Mike_Hawthorn"
+  },
+  "hamilton": {
+    "name": "Lewis Hamilton",
+    "file": "images/drivers/hamilton.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Lewis_Hamilton",
+    "artist": "Number 10",
+    "license": "OGL 3",
+    "licenseUrl": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3",
+    "source": "https://en.wikipedia.org/wiki/File:Prime_Minister_Keir_Starmer_meets_Sir_Lewis_Hamilton_(54566928382)_(cropped).jpg"
+  },
+  "raikkonen": {
+    "name": "Kimi Räikkönen",
+    "file": "images/drivers/raikkonen.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Kimi_R%C3%A4ikk%C3%B6nen",
+    "artist": "XaviYuahanda",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:F12019_Schloss_Gabelhofen_(22)_(cropped).jpg"
+  },
+  "alonso": {
+    "name": "Fernando Alonso",
+    "file": "images/drivers/alonso.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Fernando_Alonso",
+    "artist": "United Autosports",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Alonso-68_(24710447098).jpg"
+  },
+  "hakkinen": {
+    "name": "Mika Häkkinen",
+    "file": "images/drivers/hakkinen.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mika_H%C3%A4kkinen",
+    "artist": "Sven Mandel",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Mika_Häkkinen_Champions_for_Charity_2016-07-27.jpg"
+  },
+  "damon_hill": {
+    "name": "Damon Hill",
+    "file": "images/drivers/damon_hill.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Damon_Hill",
+    "artist": "Yu Chu Chin",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Damon_Hill_at_the_Atlassian_Williams_Racing_Fan_Zone_of_2026_(028A8241).jpg"
+  },
+  "prost": {
+    "name": "Alain Prost",
+    "file": "images/drivers/prost.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Alain_Prost",
+    "artist": "Thesupermat",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Festival_automobile_international_2015_-_Photocall_-_065_(cropped3).jpg"
+  },
+  "mansell": {
+    "name": "Nigel Mansell",
+    "file": "images/drivers/mansell.jpeg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Nigel_Mansell",
+    "artist": "ProtoplasmaKid",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Nigel_Mansell_-_Mexican_Grand_Prix_01_(cropped).jpeg"
+  },
+  "lauda": {
+    "name": "Niki Lauda",
+    "file": "images/drivers/lauda.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Niki_Lauda",
+    "artist": "Hans van Dijk for Anefo \n\n/ neg. stroken, 1945-1989, 2.24.01.05, item number 932-2315",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Lauda_at_1982_Dutch_Grand_Prix.jpg"
+  },
+  "keke_rosberg": {
+    "name": "Keke Rosberg",
+    "file": "images/drivers/keke_rosberg.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Keke_Rosberg",
+    "artist": "Hans van Dijk for Anefo \n\nMinor restoration by Adam Cuerden: No need to credit me.",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Anefo_932-2378_Keke_Rosberg,_Zandvoort,_03-07-1982_-_Restoration.jpg"
+  },
+  "hill": {
+    "name": "Graham Hill",
+    "file": "images/drivers/hill.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Graham_Hill",
+    "artist": "Anefo",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Graham_Hill_Bestanddeelnr_924-6564.jpg"
+  },
+  "jack_brabham": {
+    "name": "Jack Brabham",
+    "file": "images/drivers/jack_brabham.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jack_Brabham",
+    "artist": "Lothar Spurzem",
+    "license": "CC BY-SA 2.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:BrabhamJack1966B.jpg"
+  },
+  "phil_hill": {
+    "name": "Phil Hill",
+    "file": "images/drivers/phil_hill.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Phil_Hill",
+    "artist": "Stuart Seeger from College Station, Texas, USA",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Phil_Hill_1991_USA_(cropped).jpg"
+  },
+  "fangio": {
+    "name": "Juan Fangio",
+    "file": "images/drivers/fangio.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Juan_Manuel_Fangio",
+    "artist": "Bjørn Fjørtoft",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Fangio_in_1955_(cropped).jpg"
+  },
+  "vettel": {
+    "name": "Sebastian Vettel",
+    "file": "images/drivers/vettel.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Sebastian_Vettel",
+    "artist": "Sven Mandel",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Sebastian_Vettel_-_2022236172324_2022-08-24_Champions_for_Charity_-_Sven_-_1D_X_MK_II_-_0418_-_B70I2428_(cropped).jpg"
   }
 }

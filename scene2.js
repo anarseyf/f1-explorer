@@ -50,16 +50,24 @@ function prepareSubscene2(container, drivers, yearRange) {
     .append("div")
     .attr("class", "driver clickable")
     .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driver.driverId)?.driverRef])
-    .text((d) => nameFn(d.driver))
-    .on("click", (e, d) => {
-      showDriverCareer(d.driver);
-    })
-    .on("mouseenter", (e, d) => {
-      highlightTimeline(d.driver.driverId, container);
-    })
-    .on("mouseleave", (e, d) => {
-      highlightTimeline(undefined, container);
+    .style("display", "flex")
+    .style("align-items", "center")
+    .style("gap", "0.4em")
+    .on("click", (e, d) => { showDriverCareer(d.driver); })
+    .on("mouseenter", (e, d) => { highlightTimeline(d.driver.driverId, container); })
+    .on("mouseleave", (e, d) => { highlightTimeline(undefined, container); });
+
+  rows.select(".driver").append("div").attr("class", "portrait-sm")
+    .each(function (d) {
+      const driverRef = Index.Driver.get(d.driver.driverId)?.driverRef;
+      if (!driverRef) return;
+      const el = d3.select(this);
+      const img = new Image();
+      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+      img.src = `images/drivers/${driverRef}.jpg`;
     });
+
+  rows.select(".driver").append("span").text((d) => nameFn(d.driver));
 
   const cols = maxYear - minYear + 1;
   rows
@@ -211,6 +219,8 @@ function showDriverCareer(driver) {
   highlightChampionRow(driver);
   d3.select("#Scene2").selectAll(".driver")
     .classed("selected", (d) => d.driver.driverId === driver.driverId);
+
+  showHeadline(nameFn(driver), 2);
 
   const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
   const wrapper = Container.select(".portrait-wrapper").html("");

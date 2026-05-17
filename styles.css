@@ -85,10 +85,11 @@ body {
 }
 
 .portrait {
+  display: block;
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 2px solid var(--gold);
+  border: 4px solid var(--gold);
   background-color: var(--point-bg);
   background-size: cover;
   background-position: top center;
@@ -120,6 +121,24 @@ body {
 .name.selected,
 .driver.selected {
   color: var(--gold);
+}
+
+.portrait-sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--win);
+  background-color: var(--point-bg);
+  background-size: cover;
+  background-position: top center;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.name.selected .portrait-sm,
+.driver.selected .portrait-sm {
+  border-color: var(--gold);
 }
 
 #Sidebar .sidebarItem {
@@ -285,10 +304,7 @@ a {
   display: grid;
   grid-template-columns: 2fr 3fr;
   gap: 0;
-  margin: 0;
-
-  /* // border: 1px dotted slateblue; */
-  /* // margin-bottom: 0.5em; */
+  margin: 0 0 0.2em;
 }
 .scene2row.highlighted {
   background-color: var(--highlight-bg);
@@ -307,6 +323,10 @@ a {
   color: --text;
   cursor: pointer;
 }
+
+.rival + .rival {
+  margin-left: 0.4em;
+}
 .scene3row:hover,
 .scene3row.selected {
   background-color: var(--highlight-bg);
@@ -315,7 +335,7 @@ a {
 .timeline {
   display: grid;
   grid-template-columns: repeat(32, minmax(4px, 1fr));
-  grid-template-rows: 20px;
+  grid-template-rows: 1fr;
   gap: 0;
   /* // overflow: hidden; */
   /* // border: 1px dotted orange; */
@@ -449,7 +469,10 @@ a {
   /* font-weight: bold; */
 }
 .rival {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  vertical-align: middle;
 }
 
 @media (max-width: 900px) {
