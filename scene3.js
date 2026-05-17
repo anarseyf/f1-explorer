@@ -32,26 +32,23 @@ function resetScene3() {
   Scene.selectAll(".scene3row").classed("selected", false);
 }
 
-const rivalryHtml = (d1, d2) => {
-  const p1 = `<span class='champion'>&nbsp</span>`;
-  const p2 = `<span class='runnerup'>&nbsp</span>`;
-  return (
-    `<span class='rival'>${p1} <span class="bright">${nameFn(d1)}</span>` +
-    `<span> vs </span>` +
-    `</span><span class='rival'>${p2} <span class="bright">${nameFn(d2)}</span></span>`
-  );
+const rivalColorClasses = ["champion", "runnerup", "thirdplace"];
+
+const rivalryHtml = (drivers) => {
+  return drivers.map((d, i) => {
+    const cls = rivalColorClasses[i] || "runnerup";
+    const dot = `<span class='${cls}'>&nbsp</span>`;
+    const vs = i < drivers.length - 1 ? `<span> vs </span>` : "";
+    return `<span class='rival'>${dot} <span class="bright">${nameFn(d)}</span>${vs}</span>`;
+  }).join("");
 };
 
 function rivalryHtmlForYear(year) {
-  const [d1, d2] = rivalsForYear(year);
-  return rivalryHtml(d1, d2);
+  return rivalryHtml(rivalsForYear(year));
 }
 
 function rivalsForYear(year) {
-  const d1 = computeDriverForYearAtPosition(year, 1);
-  const d2 = computeDriverForYearAtPosition(year, 2);
-
-  return [d1, d2];
+  return computeContendersForYear(year);
 }
 
 function showYear(year) {
@@ -65,12 +62,10 @@ function showYear(year) {
 
   showHeadline(year, 3);
 
-  const [driver1, driver2] = rivalsForYear(year);
+  const drivers = rivalsForYear(year);
 
-  const subtitle = rivalryHtml(driver1, driver2);
+  const subtitle = rivalryHtml(drivers);
   showSubtitle(subtitle, 3);
-
-  const drivers = [driver1, driver2];
   showHeaderForYear();
   showTableForYear(year, drivers);
   showLegendForYear(year, drivers);
@@ -113,13 +108,11 @@ function showDescriptionForYear(year) {
 }
 
 function showTableForYear(year, drivers) {
-  const [driver1, driver2] = drivers;
   const races = Index.RacesByYear.get(year).sort((a, b) => a.round - b.round);
 
   const raceIds = races.map((r) => r.raceId);
 
-  const points1 = computePointsForDriverAtRaces(driver1.driverId, raceIds);
-  const points2 = computePointsForDriverAtRaces(driver2.driverId, raceIds);
+  const pointsArrays = drivers.map((d) => computePointsForDriverAtRaces(d.driverId, raceIds));
 
   const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
   const Content = Container.select(".content");
@@ -129,9 +122,8 @@ function showTableForYear(year, drivers) {
   const winnersByRound = computeWinnersByRoundForYear(year);
   const raceColorFn = (d) => {
     const driverId = winnersByRound.get(d.round).driverId;
-    const color =
-      driverId === driver1.driverId ? "gold" : driverId === driver2.driverId ? "silver" : "other";
-    return `race ${color}`;
+    const idx = drivers.findIndex((dr) => dr.driverId === driverId);
+    return `race ${indexToColor(idx)}`;
   };
 
   Content.selectAll(".row").append("div").attr("class", raceColorFn);
@@ -153,8 +145,8 @@ function showTableForYear(year, drivers) {
 
   Content.selectAll(".row").append("div").attr("class", "pointsChart");
 
-  const max = d3.max(points1);
-  const pointsData = d3.zip(points1, points2).map((points) => ({ points, max }));
+  const max = d3.max(pointsArrays[0]);
+  const pointsData = d3.zip(...pointsArrays).map((points) => ({ points, max }));
   Content.selectAll(".pointsChart").data(pointsData).each(showPointsChart);
 }
 
@@ -212,7 +204,7 @@ function showLegendRow(d) {
   d3.select(this).append("div").html(html);
 }
 
-const indexToColor = (i) => (i === 0 ? "gold" : i === 1 ? "silver" : "other");
+const indexToColor = (i) => (i === 0 ? "gold" : i === 1 ? "silver" : i === 2 ? "bronze" : "other");
 
 const pointsClassFn = (d, i) => `points ${indexToColor(i)}`;
 

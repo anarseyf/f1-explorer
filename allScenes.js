@@ -19,8 +19,8 @@ function resetAll() {
 }
 
 const nameFn = (d, abbreviate) => {
-  const first = abbreviate ? "" : `${d.firstname} `;
-  return `${first}${d.lastname}`;
+  const first = abbreviate ? "" : `${d.forename} `;
+  return `${first}${d.surname}`;
 };
 
 function showHeadline(textOrHtml, sceneNum) {

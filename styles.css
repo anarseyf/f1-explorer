@@ -313,8 +313,12 @@ a {
 .runnerup {
   background-color: var(--silver);
 }
+.thirdplace {
+  background-color: var(--bronze);
+}
 .champion,
-.runnerup {
+.runnerup,
+.thirdplace {
   display: inline-block;
   border: 1px solid var(--row-bg);
 }
