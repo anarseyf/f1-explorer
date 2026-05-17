@@ -15,8 +15,8 @@ const Descriptions = {
   Scene1: {
     description: () =>
       "<p>The F1 Drivers' Championship started in 1950 with only 7 races. The seasons have grown steadily over the years, and today the Formula 1 championship features over 20 races each year.</p>" +
-      "<p>Start by exploring the timeline of all completed championships between 1950 and today. Notice that some years (like <span class='bright'>2007</span> or <span class='bright'>2012</span>) are highly competitive with many drivers winning races, while others (like <span class='bright'>2004</span> or <span class='bright'>2013</span>) are dominated by a single driver.</p>" +
-      `<p><span class='bright'>${
+      "<p>Start by exploring the timeline of all completed championships between 1950 and today. Notice that some years (like <span class='emphasis'>2007</span> or <span class='emphasis'>2012</span>) are highly competitive with many drivers winning races, while others (like <span class='emphasis'>2004</span> or <span class='emphasis'>2013</span>) are dominated by a single driver.</p>" +
+      `<p><span class='emphasis'>${
         State.isMobile ? "Tap" : "Click"
       } on the name</span> of a world champion to reveal their win pattern over the years.</p>` +
       "<p>In the <span id='NextSection' class='clickable'>next section</span> we'll take a closer look at each world champion's career.</p>",
@@ -29,15 +29,15 @@ const Descriptions = {
         `<span class='portrait-sm' style='background-image:url("images/drivers/${ref}.jpg")'></span>` +
         `<span>${name}</span></span>`;
       return (
-        `<p>Only <span class='bright'>${
+        `<p>Only <span class='emphasis'>${
           computeUniqueDrivers(computeChampions()).length
         } different drivers</span> have won a world title as of ${
           d3.max([...Index.RacesByYear.keys()])
         }. Their careers are summarized in these interactive timelines.</p>` +
         `<p>The two most successful drivers of all time are ${d("Michael Schumacher", "michael_schumacher")} and ${d("Lewis Hamilton", "hamilton")}, with 7 titles each. The only period of domination by a single driver before the modern era dates back to the 1950s with ${d("Juan Manuel Fangio", "fangio")} winning a total of 5 titles.</p>` +
         `<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare ${d("Hamilton", "hamilton")} and ${d("Nico Rosberg", "rosberg")}: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while it took the latter over a decade.</p>` +
-        `<p><span class='bright'>${State.isMobile ? "Tap" : "Mouse-over"} on a timeline</span> to see where each driver placed in a given season.</p>` +
-        `<p><span class='bright'>${State.isMobile ? "Tap" : "Click"} on a driver's name</span> to take a closer look at their career.</p>`
+        `<p><span class='emphasis'>${State.isMobile ? "Tap" : "Mouse-over"} on a timeline</span> to see where each driver placed in a given season.</p>` +
+        `<p><span class='emphasis'>${State.isMobile ? "Tap" : "Click"} on a driver's name</span> to take a closer look at their career.</p>`
       );
     },
     // legend: "Championship won: <span class='champion'>&nbsp;</span>",
@@ -63,12 +63,12 @@ const Descriptions = {
       const yearLink = (y) => `<span class='clickable' onclick='showYear(${y})'>${y}</span>`;
       return (
         "<p>Every Formula 1 season from 1950 to 2024. " +
-        `<span class='bright'>${State.isMobile ? "Tap" : "Click"} a year</span> to see the race-by-race points battle between the champion and the runner-up.</p>` +
-        "<p>The driver with the most points at the end of the season is World Champion. The points system has changed many times — in the 1950s a win earned just 8 points, and only the best results counted toward the total. The modern scheme, in place since 2010, awards <span class='bright'>25 points for a win</span>, 18 for second, down to 1 point for 10<sup>th</sup>.</p>" +
-        "<p>Most seasons come down to two drivers. Thirteen saw a genuine <span class='bright'>three-way fight</span> into the final race: " +
+        `<span class='emphasis'>${State.isMobile ? "Tap" : "Click"} a year</span> to see the race-by-race points battle between the champion and the runner-up.</p>` +
+        "<p>The driver with the most points at the end of the season is World Champion. The points system has changed many times — in the 1950s a win earned just 8 points, and only the best results counted toward the total. The modern scheme, in place since 2010, awards <span class='emphasis'>25 points for a win</span>, 18 for second, down to 1 point for 10<sup>th</sup>.</p>" +
+        "<p>Most seasons come down to two drivers. Thirteen saw a genuine <span class='emphasis'>three-way fight</span> into the final race: " +
         threeWay.map(yearLink).join(", ") + ". " +
-        `${yearLink(2010)} stands alone as the only <span class='bright'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>` +
-        `<p>In the early years of the sport, <span class='bright'>shared drives</span> were permitted: two drivers could take turns in the same car during a race and split the championship points. This occurred in ${yearLink(1951)}, ${yearLink(1956)}, and ${yearLink(1957)}.</p>`
+        `${yearLink(2010)} stands alone as the only <span class='emphasis'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>` +
+        `<p>In the early years of the sport, <span class='emphasis'>shared drives</span> were permitted: two drivers could take turns in the same car during a race and split the championship points. This occurred in ${yearLink(1951)}, ${yearLink(1956)}, and ${yearLink(1957)}.</p>`
       );
     },
     legend: "",

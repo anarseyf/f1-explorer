@@ -39,7 +39,7 @@ const rivalryHtml = (drivers) => {
     const color = rivalBorderColors[i] || "var(--darkline)";
     const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/${d.driverRef}.jpg')"></div>`;
     const vs = i < drivers.length - 1 ? `<span> vs </span>` : "";
-    return `<span class='rival'>${circle}<span class="bright">${nameFn(d)}</span>${vs}</span>`;
+    return `<span class='rival'>${circle}<span class="emphasis">${nameFn(d)}</span>${vs}</span>`;
   }).join("");
 };
 
@@ -140,6 +140,9 @@ function showTableForYear(year, drivers) {
   Content.selectAll(".row")
     .append("div")
     .attr("class", "name")
+    .append("a")
+    .attr("href", (d) => d.url || null)
+    .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
@@ -197,7 +200,7 @@ function showLegendForYear(year, drivers) {
 
 function showLegendRow(d) {
   const { name, wins, color } = d;
-  const html = `won by <span class='bright'>${d.name}</span>`;
+  const html = `won by <span class='emphasis'>${d.name}</span>`;
 
   d3.select(this)
     .append("div")

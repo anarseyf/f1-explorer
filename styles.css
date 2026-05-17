@@ -171,6 +171,11 @@ body {
 
 .scene > .description {
   margin-bottom: 3em;
+  color: var(--brighttext);
+}
+
+.subtitle {
+  font-weight: normal;
 }
 
 h1 {
@@ -518,9 +523,9 @@ a:hover {
   border-top: 1px solid var(--darkline);
 }
 
-.bright {
+.emphasis {
   color: var(--brighttext);
-  /* font-weight: bold; */
+  font-weight: 600;
 }
 .rival {
   display: inline-flex;
