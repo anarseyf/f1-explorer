@@ -68,11 +68,15 @@ const Descriptions = {
         "<p>Most seasons come down to two drivers. Thirteen saw a genuine <span class='emphasis'>three-way fight</span> into the final race: " +
         threeWay.map(yearLink).join(", ") + ". " +
         `${yearLink(2010)} stands alone as the only <span class='emphasis'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>` +
-        `<p>In the early years of the sport, <span class='emphasis'>shared drives</span> were permitted: two drivers could take turns in the same car during a race and split the championship points. This occurred in ${yearLink(1951)}, ${yearLink(1956)}, and ${yearLink(1957)}.</p>`
+        `<p>In the early years of the sport, <span class='emphasis'>shared drives</span> were permitted: two drivers could take turns in the same car during a race and split the championship points. This occurred in ${yearLink(1951)}, ${yearLink(1956)}, and ${yearLink(1957)}.</p>` +
+        `<p>One season carries an asterisk: ${yearLink(1997)} — Schumacher was <span class='emphasis'>excluded from the championship standings</span> by the FIA after deliberately colliding with Villeneuve at the European Grand Prix in Jerez, handing Villeneuve the title.</p>`
       );
     },
     legend: "",
     years: {
+      1997: {
+        dsq: "* Schumacher was excluded from the championship standings after deliberately colliding with Villeneuve at the European Grand Prix in Jerez.",
+      },
       2012: {
         summary: "2012 season summary",
         description:

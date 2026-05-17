@@ -285,7 +285,11 @@ a {
   color: var(--clickable-bright);
 }
 
-.clickable:hover,
+.clickable:hover {
+  color: var(--clickable-hover);
+  background-color: var(--highlight-bg);
+  border-radius: 2px;
+}
 a:hover {
   color: var(--clickable-hover);
   text-decoration: underline;
@@ -344,12 +348,20 @@ a:hover {
   grid-template-columns: auto 1fr;
   gap: 1em;
 
-  color: --text;
+  color: var(--text);
   cursor: pointer;
 }
 
-.rival + .rival {
-  margin-left: 0.4em;
+.scene3row .name {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+}
+.scene3row .rival {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  overflow: hidden;
 }
 .scene3row:hover,
 .scene3row.selected {
@@ -462,6 +474,13 @@ a:hover {
   grid-column: span 3;
   font-size: 0.9em;
 }
+.dsq-note {
+  font-size: 0.85em;
+  color: var(--text);
+  margin: 0.5em 0.25em 0;
+  font-weight: normal;
+}
+
 .driver-grid {
   display: flex;
   flex-wrap: wrap;
@@ -491,6 +510,9 @@ a:hover {
   color: var(--brighttext);
   line-height: 1.2;
 }
+.podium-name.gold { color: var(--gold); }
+.podium-name.silver { color: var(--silver); }
+.podium-name.bronze { color: var(--bronze); }
 .podium-team {
   font-style: italic;
   color: var(--text);

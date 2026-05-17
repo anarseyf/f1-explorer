@@ -144,7 +144,8 @@ function showRaceWinsTable(driverId) {
       img.onload = () => sm.style("background-image", `url('images/drivers/${entry.driver.driverRef}.jpg')`);
       img.src = `images/drivers/${entry.driver.driverRef}.jpg`;
       const text = cell.append("div");
-      text.append("div").attr("class", "podium-name").text(nameFn(entry.driver, true));
+      const colorClass = ["gold", "silver", "bronze"][idx];
+      text.append("div").attr("class", `podium-name ${colorClass}`).text(nameFn(entry.driver, true));
       text.append("div").attr("class", "podium-team").text(entry.team);
     });
   });
