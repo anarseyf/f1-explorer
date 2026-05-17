@@ -10,16 +10,18 @@
   --darkline: rgb(63, 63, 63);
   --clickable: rgb(139, 178, 255);
   --clickable-bright: hsl(220, 100%, 88%);
+  --clickable-hover: hsl(220, 100%, 96%);
+
+  --gold: rgb(220, 192, 60);
+  --darkgold: rgb(93, 78, 7);
+  --silver: rgb(175, 178, 188);
+  --bronze: rgb(162, 108, 62);
   --orange: rgb(168, 110, 35);
   --win: rgb(135, 138, 148);
   --row-bg: rgb(27, 29, 39);
 
   --transparent: rgba(0, 0, 0, 0);
 
-  --gold: rgb(193, 168, 42);
-  --darkgold: rgb(93, 78, 7);
-  --silver: rgb(134, 136, 143);
-  --bronze: rgb(101, 62, 30);
   --other: rgb(45, 65, 88);
 
   --legend: var(--transparent);
@@ -127,9 +129,6 @@ body {
   display: block;
 }
 
-.clickable.has-portrait {
-  color: var(--clickable-bright);
-}
 
 .name.selected,
 .driver.selected {
@@ -276,11 +275,13 @@ h3 {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: var(--clickable);
+  color: var(--clickable-bright);
 }
 
-.clickable:hover {
-  // text-decoration: underline;
+.clickable:hover,
+a:hover {
+  color: var(--clickable-hover);
+  text-decoration: underline;
 }
 
 .race {
@@ -453,13 +454,6 @@ a {
 .race-header {
   grid-column: span 3;
   font-size: 0.9em;
-}
-.race-header a {
-  color: var(--brighttext);
-  text-decoration: none;
-}
-.race-header a:hover {
-  text-decoration: underline;
 }
 .podium-cell {
   display: flex;
