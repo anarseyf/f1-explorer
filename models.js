@@ -37,13 +37,10 @@ window.onload = async () => {
   clear();
   // showClearButton();
 
-  const Alonso = Index.DriverByName.get("Fernando").get("Alonso");
-  // showDriverCareer(Alonso);
-
-  // showYear(2012);
+  const handled = handleUrlParams(champions);
 
   const hash = location.hash;
-  if (hash) {
+  if (!handled && hash) {
     location.href = hash;
   }
 };
