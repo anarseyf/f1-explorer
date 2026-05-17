@@ -41,7 +41,7 @@ body {
   /* // font-variant: small-caps; */
   font-family: "JetBrains", monospace;
   /* margin: 2em; */
-  /* font-size: 0.9em; */
+  font-size: 0.9em;
   user-select: none;
 }
 
@@ -476,9 +476,6 @@ a {
 }
 
 @media (max-width: 900px) {
-  body {
-    font-size: 0.9em;
-  }
   #Main {
     width: 100%;
   }
