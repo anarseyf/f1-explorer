@@ -81,7 +81,6 @@ function showYear(year) {
   Scene.selectAll(".scene3row").classed("selected", (d) => d === year);
 
   setUrlParam("season", year);
-  d3.select(State.isMobile ? "#InlineSidebar3" : "#Scene3").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showHeaderForYear() {

@@ -141,12 +141,20 @@ function handleUrlParams(champions) {
 
   if (timelineRef) {
     const driver = Index.DriverByRef.get(timelineRef);
-    if (driver) { showDriverCareer(driver); return true; }
+    if (driver) {
+      showDriverCareer(driver);
+      d3.select("#Scene2 .driver.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      return true;
+    }
   }
 
   if (seasonStr) {
     const year = +seasonStr;
-    if (Index.RacesByYear.has(year)) { showYear(year); return true; }
+    if (Index.RacesByYear.has(year)) {
+      showYear(year);
+      d3.select("#Scene3 .scene3row.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      return true;
+    }
   }
 
   return false;

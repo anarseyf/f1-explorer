@@ -206,6 +206,29 @@ function computeWinnersByRoundForYear(year) {
   return d3.index(list, (e) => e.round);
 }
 
+function computeRaceWins(driverId) {
+  const resultsByRace = d3.group(Data.Results, (r) => r.raceId);
+
+  const wins = Data.Results.filter((r) => r.driverId === driverId && r.position === 1)
+    .map((r) => {
+      const race = Index.Race.get(r.raceId);
+      const raceResults = resultsByRace.get(r.raceId) || [];
+      const p2 = raceResults.find((rr) => rr.position === 2);
+      const p3 = raceResults.find((rr) => rr.position === 3);
+      return {
+        year: race.year,
+        round: race.round,
+        raceName: race.name,
+        raceId: r.raceId,
+        p2Driver: p2 ? Index.Driver.get(p2.driverId) : null,
+        p3Driver: p3 ? Index.Driver.get(p3.driverId) : null,
+      };
+    });
+
+  wins.sort((a, b) => a.year !== b.year ? a.year - b.year : a.round - b.round);
+  return wins;
+}
+
 function computeRaceIdsWonBy(driverId, yearMaybe) {
   let list = Data.Results.filter((r) => r.driverId === driverId)
     .filter((r) => r.position === 1)

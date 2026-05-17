@@ -205,11 +205,10 @@ h3 {
 }
 
 .row.scene1 {
-  /* // grid-template-columns: */
+  gap: 0.5em;
+  align-items: center;
 }
 .header > .row.scene1 {
-  /* // grid-template-columns: 2fr 3fr 4fr 4fr; */
-  gap: 0.5em;
   justify-items: start;
 }
 

@@ -277,7 +277,6 @@ function showDriverCareer(driver) {
   Content.selectAll(".row").append("div").attr("class", "wins").each(showWins);
 
   setUrlParam("timeline", driver.driverRef);
-  d3.select(State.isMobile ? "#InlineSidebar2" : "#Scene2").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showDriverDescription(driver) {

@@ -99,15 +99,58 @@ function showDriverStats(driverId) {
   clear();
 
   const driver = Index.Driver.get(driverId);
-  const name = nameFn(driver);
-  showHeadline(name, 1);
+  showHeadline(nameFn(driver), 1);
 
   const html = computeDriverSummaryHtml(driverId);
-  const Subtitle = d3.select("#Sidebar .subtitle");
-  Subtitle.html(html);
+  d3.select("#Sidebar .subtitle").html(html);
 
   const wrapper = d3.select("#Sidebar .portrait-wrapper").html("");
   showPortrait(wrapper, driver.driverRef);
+
+  showRaceWinsTable(driverId);
+}
+
+function showRaceWinsTable(driverId) {
+  const wins = computeRaceWins(driverId);
+  const cols = "auto 4fr 3fr 3fr";
+
+  const Header = d3.select("#Sidebar .header");
+  Header.append("div")
+    .attr("class", "row scene1")
+    .style("grid-template-columns", cols)
+    .selectAll("div")
+    .data(["Year", "Race", "2nd", "3rd"])
+    .enter()
+    .append("div")
+    .text(String);
+
+  const rows = d3.select("#Sidebar .content")
+    .selectAll(".row")
+    .data(wins)
+    .enter()
+    .append("div")
+    .attr("class", "row scene1")
+    .style("grid-template-columns", cols);
+
+  rows.append("div").attr("class", "year").text((d) => d.year);
+  rows.append("div").attr("class", "name").text((d) => grandPrixNameFn(d.raceName, true));
+
+  ["p2Driver", "p3Driver"].forEach((key) => {
+    rows.append("div")
+      .style("display", "flex")
+      .style("align-items", "center")
+      .style("gap", "0.3em")
+      .each(function (d) {
+        const driver = d[key];
+        if (!driver) return;
+        const el = d3.select(this);
+        const sm = el.append("div").attr("class", "portrait-sm");
+        const img = new Image();
+        img.onload = () => sm.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
+        img.src = `images/drivers/${driver.driverRef}.jpg`;
+        el.append("span").text(nameFn(driver, true));
+      });
+  });
 }
 
 function highlightRacesWonBy(driverId, yearMaybe) {
