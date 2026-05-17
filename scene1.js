@@ -86,6 +86,13 @@ function showDriverStats(driverId) {
   const html = computeDriverSummaryHtml(driverId);
   const Subtitle = d3.select("#Sidebar .subtitle");
   Subtitle.html(html);
+
+  const portraitEl = d3.select("#Sidebar .portrait-wrapper")
+    .html(`<div class="portrait"></div>`)
+    .select(".portrait");
+  const img = new Image();
+  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
+  img.src = `images/drivers/${driver.driverRef}.jpg`;
 }
 
 function highlightRacesWonBy(driverId, yearMaybe) {

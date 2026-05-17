@@ -207,6 +207,15 @@ function showDriverCareer(driver) {
 
   highlightChampionRow(driver);
 
+  const portraitEl = Container.select(".portrait-wrapper")
+    .html(`<div class="portrait"></div>`)
+    .select(".portrait");
+
+  const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
+  const img = new Image();
+  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+  img.src = `images/drivers/${driverRef}.jpg`;
+
   const Subtitle = Container.select(".subtitle");
   const Header = Container.select(".header");
   const Content = Container.select(".content");

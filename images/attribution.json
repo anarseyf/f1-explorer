@@ -1,0 +1,57 @@
+{
+  "michael_schumacher": {
+    "name": "Michael Schumacher",
+    "file": "images/drivers/michael_schumacher.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Michael_Schumacher",
+    "artist": "Original:  Aécio Neves – Wellington Pedro/Imprensa MG / Derivative work:  F1fans, FMSky",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Aécio_Neves,_Michael_Schumacher_e_Didi_(Cropped).jpg"
+  },
+  "villeneuve": {
+    "name": "Jacques Villeneuve",
+    "file": "images/drivers/villeneuve.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jacques_Villeneuve",
+    "artist": "Smudge 9000",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Jacques_Villeneuve_Peugeot_208_T16_Lydden_Hill_2014_006_(cropped2).jpg"
+  },
+  "senna": {
+    "name": "Ayrton Senna",
+    "file": "images/drivers/senna.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Ayrton_Senna",
+    "artist": "Instituto Ayrton Senna",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Ayrton_Senna_9_(cropped).jpg"
+  },
+  "button": {
+    "name": "Jenson Button",
+    "file": "images/drivers/button.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jenson_Button",
+    "artist": "Morio",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Jenson_Button_2024_WEC_Fuji.jpg"
+  },
+  "mario_andretti": {
+    "name": "Mario Andretti",
+    "file": "images/drivers/mario_andretti.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mario_Andretti",
+    "artist": "United Autosports",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Mario_Andretti_Goodwood_Festival_of_Speed_2021_(cropped).jpg"
+  },
+  "surtees": {
+    "name": "John Surtees",
+    "file": "images/drivers/surtees.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/John_Surtees"
+  },
+  "hawthorn": {
+    "name": "Mike Hawthorn",
+    "file": "images/drivers/hawthorn.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mike_Hawthorn"
+  }
+}

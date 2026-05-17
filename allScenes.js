@@ -7,6 +7,8 @@ function clear() {
   inlineSidebars.selectAll(".sidebarItem").text("");
   inlineSidebars.classed("hidden", true);
 
+  d3.selectAll(".portrait-wrapper").html("");
+
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
 }

@@ -64,6 +64,17 @@ function showYear(year) {
 
   const drivers = rivalsForYear(year);
 
+  const borderColors = ["var(--gold)", "var(--silver)", "var(--bronze)"];
+  const wrapper = Container.select(".portrait-wrapper").html("");
+  drivers.forEach((driver, i) => {
+    const portraitEl = wrapper.append("div")
+      .attr("class", "portrait")
+      .style("border-color", borderColors[i] || "var(--darkline)");
+    const img = new Image();
+    img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
+    img.src = `images/drivers/${driver.driverRef}.jpg`;
+  });
+
   const subtitle = rivalryHtml(drivers);
   showSubtitle(subtitle, 3);
   showHeaderForYear();
