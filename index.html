@@ -1,0 +1,105 @@
+<head>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./d3.min.js"></script>
+  <script src="./models.js"></script>
+  <script src="./descriptions.js"></script>
+  <script src="./allScenes.js"></script>
+  <script src="./scene1.js"></script>
+  <script src="./scene2.js"></script>
+  <script src="./scene3.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div id="Sidebar">
+    <div class="portrait-wrapper"></div>
+    <div class="button"></div>
+    <h2 class="sidebarItem headline"></h2>
+    <h3 class="sidebarItem subtitle"></h3>
+    <!-- <p class="sidebarItem description"></p> -->
+    <div class="sidebarItem header"></div>
+    <div class="sidebarItem content"></div>
+    <!-- <div class="sidebarItem legend row"></div> -->
+    <div class="sidebarItem footer"></div>
+  </div>
+
+  <div id="Main">
+    <div class="scene">
+      <h1>Formula 1 Data Explorer</h1>
+    </div>
+
+    <div id="Intro" class="scene">
+      <p class="description"></p>
+    </div>
+
+    <div id="Scene1" class="scene">
+      <h2>F1 Drivers' Champions 1950-2024</h2>
+      <p class="description"></p>
+      <div class="legend row eitherside"></div>
+      <div class="header"></div>
+      <div class="content"></div>
+      <div class="legend row eitherside"></div>
+      <div class="legend row clickable reset invisible">reset</div>
+    </div>
+
+    <div id="Scene2" class="scene">
+      <h2>Career Timelines</h2>
+      <p class="description"></p>
+
+      <div id="SubScene2-1">
+        <h3>1950s — 1960s</h3>
+        <div class="legend row"></div>
+        <div class="header"></div>
+        <div class="content"></div>
+        <div class="tooltip row"></div>
+      </div>
+      <div id="SubScene2-2">
+        <h3>1970s — 1980s</h3>
+        <div class="legend row"></div>
+        <div class="header"></div>
+        <div class="content"></div>
+        <div class="tooltip row"></div>
+      </div>
+      <div id="SubScene2-3">
+        <h3>1990s — Today</h3>
+        <div class="legend row"></div>
+        <div class="header"></div>
+        <div class="content"></div>
+        <div class="tooltip row"></div>
+      </div>
+      <div class="legend row clickable reset invisible">reset</div>
+    </div>
+
+    <div id="InlineSidebar2" class="inlineSidebar">
+      <div class="portrait-wrapper"></div>
+      <h3 class="sidebarItem subtitle"></h3>
+      <div class="sidebarItem header"></div>
+      <div class="sidebarItem content"></div>
+      <div class="sidebarItem footer"></div>
+    </div>
+
+    <div id="Scene3" class="scene">
+      <h2>All Seasons</h2>
+      <p class="description"></p>
+      <div class="header"></div>
+      <div class="content"></div>
+      <div class="legend row clickable reset invisible">reset</div>
+    </div>
+
+    <div id="InlineSidebar3" class="inlineSidebar">
+      <div class="portrait-wrapper"></div>
+      <h2 class="sidebarItem headline"></h2>
+      <h3 class="sidebarItem subtitle"></h3>
+      <div class="sidebarItem header"></div>
+      <div class="sidebarItem content"></div>
+      <div class="sidebarItem footer"></div>
+    </div>
+
+    <div id="Credits" class="scene">
+      <h2>Credits</h2>
+      <p class="dataNotes"></p>
+      <p class="author"></p>
+    </div>
+  </div>
+</body>
