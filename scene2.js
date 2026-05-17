@@ -257,7 +257,8 @@ function showDriverCareer(driver) {
     .attr("class", "year")
     .text((d) => d.year);
 
-  Content.selectAll(".row").append("div").attr("class", "name podium-team").text(teamFn);
+  Content.selectAll(".row").append("div").attr("class", "name podium-team")
+    .text((d) => d.position === 0 ? "" : (getTeamsForDriverInYear(driver.driverId, d.year).join(", ") || teamFn(d)));
 
   Content.selectAll(".row")
     .append("div")

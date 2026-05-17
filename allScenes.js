@@ -76,14 +76,12 @@ function showClearButton() {
 
 function showSceneDescriptions() {
   const Intro = d3.select("#Intro"),
-    Legend = d3.select("#Legend"),
     Scene1 = d3.select("#Scene1"),
     Scene2 = d3.select("#Scene2"),
     Scene3 = d3.select("#Scene3");
   Credits = d3.select("#Credits");
 
   const Desc0 = Intro.select(".description"),
-    Legend0 = Legend.select(".legend"),
     Desc1 = Scene1.select(".description"),
     Legend1 = Scene1.select(".legend"),
     Desc2 = Scene2.select(".description"),
@@ -94,7 +92,6 @@ function showSceneDescriptions() {
     Author = Credits.select(".author");
 
   Desc0.html(Descriptions.Intro.description);
-  Legend0.html(Descriptions.Intro.legend);
   Desc1.html(Descriptions.Scene1.description());
   Legend1.html(Descriptions.Scene1.legend);
   Desc2.html(Descriptions.Scene2.description());
@@ -103,8 +100,6 @@ function showSceneDescriptions() {
   Legend3.html(Descriptions.Scene3.legend);
   DataNotes.html(Descriptions.Credits.dataNotes);
   Author.html(Descriptions.Credits.author);
-
-  console.log("Legend: ", Descriptions.Scene1.legend);
 }
 
 function addClickHandlers() {

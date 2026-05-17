@@ -51,6 +51,22 @@ function rivalsForYear(year) {
   return computeContendersForYear(year);
 }
 
+function showRivalryGrid(Container, drivers, year) {
+  const Subtitle = Container.select(".subtitle").html("");
+  const grid = Subtitle.append("div").attr("class", "driver-grid");
+  const borderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
+
+  drivers.forEach((driver, i) => {
+    const borderColor = borderColors[i] || "var(--darkline)";
+    const teams = getTeamsForDriverInYear(driver.driverId, year);
+    const card = grid.append("div").attr("class", "driver-card");
+    showPortrait(card, driver.driverRef, borderColor);
+    const info = card.append("div").attr("class", "driver-card-info");
+    info.append("div").attr("class", "emphasis").text(nameFn(driver));
+    info.append("div").attr("class", "podium-team").text(teams.join(", "));
+  });
+}
+
 function showYear(year) {
   console.log("Show ", year);
 
@@ -64,12 +80,7 @@ function showYear(year) {
 
   const drivers = rivalsForYear(year);
 
-  const borderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
-  const wrapper = Container.select(".portrait-wrapper").html("");
-  drivers.forEach((driver, i) => showPortrait(wrapper, driver.driverRef, borderColors[i]));
-
-  const subtitle = rivalryHtml(drivers);
-  showSubtitle(subtitle, 3);
+  showRivalryGrid(Container, drivers, year);
   showHeaderForYear();
   showTableForYear(year, drivers);
   showLegendForYear(year, drivers);
@@ -200,7 +211,8 @@ function showLegendForYear(year, drivers) {
 
 function showLegendRow(d) {
   const { name, wins, color } = d;
-  const html = `won by <span class='emphasis'>${d.name}</span>`;
+  const nameHtml = d.name === "others" ? d.name : `<span class='emphasis'>${d.name}</span>`;
+  const html = `won by ${nameHtml}`;
 
   d3.select(this)
     .append("div")

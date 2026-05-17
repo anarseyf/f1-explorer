@@ -237,6 +237,24 @@ function computeRaceWins(driverId) {
   return wins;
 }
 
+function getTeamsForDriverInYear(driverId, year) {
+  const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
+  const seen = new Set();
+  const teams = [];
+  races.forEach((race) => {
+    const results = Index.ResultsByRaceByDriver.get(race.raceId)?.get(driverId);
+    if (results && results.length) {
+      const constructorId = results[0].constructorId;
+      if (!seen.has(constructorId)) {
+        seen.add(constructorId);
+        const name = Index.Constructor.get(constructorId)?.name;
+        if (name) teams.push(name);
+      }
+    }
+  });
+  return teams;
+}
+
 function computeRaceIdsWonBy(driverId, yearMaybe) {
   let list = Data.Results.filter((r) => r.driverId === driverId)
     .filter((r) => r.position === 1)
@@ -350,7 +368,7 @@ function computeIntersectionHtml(year, driverId, position) {
 
   const championship = position === 0 ? `${year}` : `the ${year} championship`;
 
-  return `<span class="bright">${name}</span> ${pos} ${championship}.`;
+  return `<span class="emphasis">${name}</span> ${pos} ${championship}.`;
 }
 
 function computeDriverSummaryHtml(driverId) {
