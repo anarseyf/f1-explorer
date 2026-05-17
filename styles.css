@@ -419,6 +419,32 @@ a {
   margin-bottom: 1em;
 }
 
+.race-entry {
+  display: grid;
+  grid-template-columns: 2em 1fr 1fr 1fr;
+  column-gap: 0.4em;
+  row-gap: 0.15em;
+  align-items: center;
+  margin: 0.4em 0.25em;
+}
+.win-num {
+  color: var(--darktext);
+  font-size: 0.8em;
+  text-align: right;
+}
+.race-header {
+  grid-column: span 3;
+  color: var(--brighttext);
+  font-size: 0.85em;
+}
+.podium-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.85em;
+  overflow: hidden;
+}
+
 .pointsChart {
   position: relative;
   padding: 5px;

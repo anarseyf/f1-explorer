@@ -112,44 +112,33 @@ function showDriverStats(driverId) {
 
 function showRaceWinsTable(driverId) {
   const wins = computeRaceWins(driverId);
-  const cols = "auto 4fr 3fr 3fr";
+  const Content = d3.select("#Sidebar .content");
 
-  const Header = d3.select("#Sidebar .header");
-  Header.append("div")
-    .attr("class", "row scene1")
-    .style("grid-template-columns", cols)
-    .selectAll("div")
-    .data(["Year", "Race", "2nd", "3rd"])
-    .enter()
-    .append("div")
-    .text(String);
-
-  const rows = d3.select("#Sidebar .content")
-    .selectAll(".row")
+  const entries = Content.selectAll(".race-entry")
     .data(wins)
     .enter()
     .append("div")
-    .attr("class", "row scene1")
-    .style("grid-template-columns", cols);
+    .attr("class", "race-entry");
 
-  rows.append("div").attr("class", "year").text((d) => d.year);
-  rows.append("div").attr("class", "name").text((d) => grandPrixNameFn(d.raceName, true));
+  entries.each(function (d, i) {
+    const el = d3.select(this);
 
-  ["p2Driver", "p3Driver"].forEach((key) => {
-    rows.append("div")
-      .style("display", "flex")
-      .style("align-items", "center")
-      .style("gap", "0.3em")
-      .each(function (d) {
-        const driver = d[key];
-        if (!driver) return;
-        const el = d3.select(this);
-        const sm = el.append("div").attr("class", "portrait-sm");
-        const img = new Image();
-        img.onload = () => sm.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
-        img.src = `images/drivers/${driver.driverRef}.jpg`;
-        el.append("span").text(nameFn(driver, true));
-      });
+    // Row 1: win number + race name spanning remaining columns
+    el.append("div").attr("class", "win-num").text(`#${i + 1}`);
+    el.append("div").attr("class", "race-header").text(`${d.year} ${d.raceName}`);
+
+    // Row 2: empty spacer + 3 podium cells
+    el.append("div");
+    ["p1", "p2", "p3"].forEach((key) => {
+      const cell = el.append("div").attr("class", "podium-cell");
+      const entry = d[key];
+      if (!entry) return;
+      const sm = cell.append("div").attr("class", "portrait-sm");
+      const img = new Image();
+      img.onload = () => sm.style("background-image", `url('images/drivers/${entry.driver.driverRef}.jpg')`);
+      img.src = `images/drivers/${entry.driver.driverRef}.jpg`;
+      cell.append("span").text(`${nameFn(entry.driver, true)} (${entry.team})`);
+    });
   });
 }
 
