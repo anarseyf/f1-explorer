@@ -184,8 +184,10 @@ function computeWinnersForYear(year) {
 
   // console.log(`${races.length} races in ${year};\n`, races[0]);
 
+  const seenRaces = new Set();
   const winners = Data.Results.filter((r) => raceIds.includes(r.raceId))
     .filter((r) => r.position === 1)
+    .filter((r) => { if (seenRaces.has(r.raceId)) return false; seenRaces.add(r.raceId); return true; })
     .map(({ raceId, driverId }) => ({
       round: Index.Race.get(raceId).round,
       forename: Index.Driver.get(driverId).forename,

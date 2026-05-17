@@ -130,30 +130,23 @@ function handleUrlParams(champions) {
   const timelineRef = params.get("timeline");
   const seasonStr = params.get("season");
 
-  if (driverRef) {
-    const champion = champions.find((c) => c.driverRef === driverRef);
-    if (champion) {
-      nameClick(null, champion);
-      d3.select("#Scene1 .name.selected").node()?.scrollIntoView({ behavior: "smooth" });
-      return true;
-    }
-  }
+  if (!driverRef && !timelineRef && !seasonStr) return false;
 
-  if (timelineRef) {
-    const driver = Index.DriverByRef.get(timelineRef);
-    if (driver) {
-      showDriverCareer(driver);
-      return true;
+  setTimeout(() => {
+    if (driverRef) {
+      const champion = champions.find((c) => c.driverRef === driverRef);
+      if (champion) {
+        nameClick(null, champion);
+        d3.select("#Scene1 .name.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (timelineRef) {
+      const driver = Index.DriverByRef.get(timelineRef);
+      if (driver) showDriverCareer(driver);
+    } else if (seasonStr) {
+      const year = +seasonStr;
+      if (Index.RacesByYear.has(year)) showYear(year);
     }
-  }
+  }, 100);
 
-  if (seasonStr) {
-    const year = +seasonStr;
-    if (Index.RacesByYear.has(year)) {
-      showYear(year);
-      return true;
-    }
-  }
-
-  return false;
+  return true;
 }
