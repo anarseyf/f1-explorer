@@ -23,20 +23,23 @@ const Descriptions = {
     legend: "<span class='race highlight thatyear'></span> races won by that year's champion",
   },
   Scene2: {
-    description: () =>
-      `<p>Only <span class='bright'>${
-        computeUniqueDrivers(computeChampions()).length
-      } different drivers</span> have won a world title as of ${
-        d3.max([...Index.RacesByYear.keys()])
-      }. Their careers are summarized in these interactive timelines.</p>` +
-      `<p>The two most successful drivers of all time are <span class='bright'>Michael Schumacher</span> and <span class='bright'>Lewis Hamilton</span>, with 7 titles each. The only period of domination by a single driver before the modern era dates back to the 1950's with <span class='bright'>Juan Manuel Fangio</span> winning a total of 5 titles.</p>` +
-      "<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare Hamilton and <span class='bright'>Nico Rosberg</span>: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while it took the latter over a decade.</p>" +
-      `<p><span class='bright'>${
-        State.isMobile ? "Tap" : "Mouse-over"
-      } on a timeline</span> to see where each driver placed in a given season.</p>` +
-      `<p><span class='bright'>${
-        State.isMobile ? "Tap" : "Click"
-      } on a driver's name</span> to take a closer look at their career.</p>`,
+    description: () => {
+      const d = (name, ref) =>
+        `<span class='rival clickable' onclick='selectTimeline("${ref}")'>` +
+        `<span class='portrait-sm' style='background-image:url("images/drivers/${ref}.jpg")'></span>` +
+        `<span>${name}</span></span>`;
+      return (
+        `<p>Only <span class='bright'>${
+          computeUniqueDrivers(computeChampions()).length
+        } different drivers</span> have won a world title as of ${
+          d3.max([...Index.RacesByYear.keys()])
+        }. Their careers are summarized in these interactive timelines.</p>` +
+        `<p>The two most successful drivers of all time are ${d("Michael Schumacher", "michael_schumacher")} and ${d("Lewis Hamilton", "hamilton")}, with 7 titles each. The only period of domination by a single driver before the modern era dates back to the 1950s with ${d("Juan Manuel Fangio", "fangio")} winning a total of 5 titles.</p>` +
+        `<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare ${d("Hamilton", "hamilton")} and ${d("Nico Rosberg", "rosberg")}: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while it took the latter over a decade.</p>` +
+        `<p><span class='bright'>${State.isMobile ? "Tap" : "Mouse-over"} on a timeline</span> to see where each driver placed in a given season.</p>` +
+        `<p><span class='bright'>${State.isMobile ? "Tap" : "Click"} on a driver's name</span> to take a closer look at their career.</p>`
+      );
+    },
     // legend: "Championship won: <span class='champion'>&nbsp;</span>",
     legend: "",
     drivers: {

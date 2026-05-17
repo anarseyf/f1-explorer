@@ -124,6 +124,13 @@ function clearUrlParams() {
   history.replaceState(null, "", location.pathname);
 }
 
+function selectTimeline(driverRef) {
+  const driver = Index.DriverByRef.get(driverRef);
+  if (!driver) return;
+  showDriverCareer(driver);
+  d3.select("#Scene2 .driver.selected").node()?.scrollIntoView({ behavior: "smooth" });
+}
+
 function handleUrlParams(champions) {
   const params = new URLSearchParams(location.search);
   const driverRef = params.get("driver");

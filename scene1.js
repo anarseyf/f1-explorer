@@ -120,24 +120,32 @@ function showRaceWinsTable(driverId) {
     .append("div")
     .attr("class", "race-entry");
 
+  const podiumColors = ["var(--gold)", "var(--silver)", "var(--bronze)"];
+
   entries.each(function (d, i) {
     const el = d3.select(this);
 
-    // Row 1: win number + race name spanning remaining columns
+    // Row 1: win number + race name (linked to Wikipedia)
     el.append("div").attr("class", "win-num").text(`#${i + 1}`);
-    el.append("div").attr("class", "race-header").text(`${d.year} ${d.raceName}`);
+    const header = el.append("div").attr("class", "race-header");
+    header.append("a")
+      .attr("href", d.raceUrl || null)
+      .attr("target", d.raceUrl ? "_blank" : null)
+      .text(`${d.year} ${d.raceName}`);
 
-    // Row 2: empty spacer + 3 podium cells
+    // Row 2: empty spacer + p1/p2/p3 podium cells
     el.append("div");
-    ["p1", "p2", "p3"].forEach((key) => {
+    ["p1", "p2", "p3"].forEach((key, idx) => {
       const cell = el.append("div").attr("class", "podium-cell");
       const entry = d[key];
       if (!entry) return;
-      const sm = cell.append("div").attr("class", "portrait-sm");
+      const sm = cell.append("div").attr("class", "portrait-sm").style("border-color", podiumColors[idx]);
       const img = new Image();
       img.onload = () => sm.style("background-image", `url('images/drivers/${entry.driver.driverRef}.jpg')`);
       img.src = `images/drivers/${entry.driver.driverRef}.jpg`;
-      cell.append("span").text(`${nameFn(entry.driver, true)} (${entry.team})`);
+      const text = cell.append("div");
+      text.append("div").attr("class", "podium-name").text(nameFn(entry.driver, true));
+      text.append("div").attr("class", "podium-team").text(entry.team);
     });
   });
 }

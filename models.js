@@ -225,6 +225,7 @@ function computeRaceWins(driverId) {
         year: race.year,
         round: race.round,
         raceName: race.name,
+        raceUrl: race.url || null,
         raceId: r.raceId,
         p1: podiumEntry(r),
         p2: podiumEntry(raceResults.find((rr) => rr.position === 2)),
