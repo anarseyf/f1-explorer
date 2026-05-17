@@ -18,6 +18,7 @@ function resetAll() {
   resetScene2();
   resetScene3();
   clear();
+  clearUrlParams();
 }
 
 function showPortrait(wrapper, driverRef, borderColor = "var(--gold)") {
@@ -110,6 +111,17 @@ function addClickHandlers() {
   d3.select("#NextSection").on("click", () => {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
   });
+}
+
+function setUrlParam(key, value) {
+  const params = new URLSearchParams();
+  if (key && value !== undefined) params.set(key, value);
+  const search = params.toString();
+  history.replaceState(null, "", search ? `?${search}` : location.pathname);
+}
+
+function clearUrlParams() {
+  history.replaceState(null, "", location.pathname);
 }
 
 function handleUrlParams(champions) {

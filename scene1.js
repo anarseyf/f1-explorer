@@ -59,6 +59,7 @@ function nameClick(e, d) {
   showDriverStats(d.driverId);
   highlightRacesWonBy(d.driverId);
   showLegendForDriver(d);
+  setUrlParam("driver", d.driverRef);
 }
 
 function showDefaultHighlights() {
