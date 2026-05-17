@@ -27,6 +27,7 @@ function prepareScene1(champions) {
   Content.selectAll(".row")
     .append("div")
     .attr("class", "name clickable")
+    .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driverId)?.driverRef])
     .text((d) => nameFn(d, State.isMobile))
     .on("click", nameClick);
 
@@ -87,12 +88,8 @@ function showDriverStats(driverId) {
   const Subtitle = d3.select("#Sidebar .subtitle");
   Subtitle.html(html);
 
-  const portraitEl = d3.select("#Sidebar .portrait-wrapper")
-    .html(`<div class="portrait"></div>`)
-    .select(".portrait");
-  const img = new Image();
-  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
-  img.src = `images/drivers/${driver.driverRef}.jpg`;
+  const wrapper = d3.select("#Sidebar .portrait-wrapper").html("");
+  showPortrait(wrapper, driver.driverRef);
 }
 
 function highlightRacesWonBy(driverId, yearMaybe) {

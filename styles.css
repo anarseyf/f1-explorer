@@ -9,6 +9,7 @@
   --line: rgb(84, 84, 84);
   --darkline: rgb(63, 63, 63);
   --clickable: rgb(139, 178, 255);
+  --clickable-bright: hsl(220, 100%, 88%);
   --orange: rgb(168, 110, 35);
   --win: rgb(135, 138, 148);
   --row-bg: rgb(27, 29, 39);
@@ -77,7 +78,10 @@ body {
   right: 1em;
   display: flex;
   gap: 0.4em;
-  pointer-events: none;
+}
+
+.portrait-item {
+  position: relative;
 }
 
 .portrait {
@@ -88,6 +92,29 @@ body {
   background-color: var(--point-bg);
   background-size: cover;
   background-position: top center;
+}
+
+.portrait-attribution {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  white-space: nowrap;
+  font-size: 0.65em;
+  color: var(--text);
+  background: var(--sidebar-bg);
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid var(--darkline);
+  z-index: 10;
+}
+
+.portrait-item:hover .portrait-attribution {
+  display: block;
+}
+
+.clickable.has-portrait {
+  color: var(--clickable-bright);
 }
 
 #Sidebar .sidebarItem {

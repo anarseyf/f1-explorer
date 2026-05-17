@@ -81,6 +81,7 @@ async function readData() {
   Data.Standings = await d3.csv("./data/driver_standings.csv", parseRow);
   Data.Results = await d3.csv("./data/results.csv", parseRow);
   Data.Constructors = await d3.csv("./data/constructors.csv", parseRow);
+  Data.Attribution = await d3.json("./images/attribution.json").catch(() => ({}));
 }
 
 function computeIndexes() {

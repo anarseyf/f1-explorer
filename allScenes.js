@@ -20,6 +20,21 @@ function resetAll() {
   clear();
 }
 
+function showPortrait(wrapper, driverRef, borderColor = "var(--gold)") {
+  const attr = Data.Attribution?.[driverRef];
+  const item = wrapper.append("div").attr("class", "portrait-item");
+  const portraitEl = item.append("div")
+    .attr("class", "portrait")
+    .style("border-color", borderColor);
+  const img = new Image();
+  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+  img.src = `images/drivers/${driverRef}.jpg`;
+  if (attr) {
+    const parts = [attr.artist, attr.license].filter(Boolean);
+    if (parts.length) item.append("div").attr("class", "portrait-attribution").text(parts.join(" • "));
+  }
+}
+
 const nameFn = (d, abbreviate) => {
   const first = abbreviate ? "" : `${d.forename} `;
   return `${first}${d.surname}`;

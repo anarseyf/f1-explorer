@@ -51,6 +51,7 @@ function prepareSubscene2(container, drivers, yearRange) {
   rows
     .append("div")
     .attr("class", "driver clickable")
+    .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driver.driverId)?.driverRef])
     .text((d) => nameFn(d.driver))
     .on("click", (e, d) => {
       showDriverCareer(d.driver);
@@ -207,14 +208,9 @@ function showDriverCareer(driver) {
 
   highlightChampionRow(driver);
 
-  const portraitEl = Container.select(".portrait-wrapper")
-    .html(`<div class="portrait"></div>`)
-    .select(".portrait");
-
   const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
-  const img = new Image();
-  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
-  img.src = `images/drivers/${driverRef}.jpg`;
+  const wrapper = Container.select(".portrait-wrapper").html("");
+  showPortrait(wrapper, driverRef);
 
   const Subtitle = Container.select(".subtitle");
   const Header = Container.select(".header");
