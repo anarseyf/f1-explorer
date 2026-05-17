@@ -1,14 +1,12 @@
-const TimelineMin = 1991,
-  TimelineMax = 2021;
-
 function prepareScene2(drivers) {
   const dr1 = drivers.slice(0, 12),
     dr2 = drivers.slice(12, 23),
     dr3 = drivers.slice(23);
 
+  const latestYear = d3.max([...Index.RacesByYear.keys()]);
   const y1 = [1950, 1950 + 25],
     y2 = [1968, 1968 + 25],
-    y3 = [1990, 1991 + 31];
+    y3 = [1990, latestYear];
 
   const s1 = d3.select("#SubScene2-1"),
     s2 = d3.select("#SubScene2-2"),
@@ -51,20 +49,31 @@ function prepareSubscene2(container, drivers, yearRange) {
   rows
     .append("div")
     .attr("class", "driver clickable")
-    .text((d) => nameFn(d.driver))
-    .on("click", (e, d) => {
-      showDriverCareer(d.driver);
-    })
-    .on("mouseenter", (e, d) => {
-      highlightTimeline(d.driver.driverId, container);
-    })
-    .on("mouseleave", (e, d) => {
-      highlightTimeline(undefined, container);
+    .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driver.driverId)?.driverRef])
+    .style("display", "flex")
+    .style("align-items", "center")
+    .style("gap", "0.4em")
+    .on("click", (e, d) => { showDriverCareer(d.driver); })
+    .on("mouseenter", (e, d) => { highlightTimeline(d.driver.driverId, container); })
+    .on("mouseleave", (e, d) => { highlightTimeline(undefined, container); });
+
+  rows.select(".driver").append("div").attr("class", "portrait-sm")
+    .each(function (d) {
+      const driverRef = Index.Driver.get(d.driver.driverId)?.driverRef;
+      if (!driverRef) return;
+      const el = d3.select(this);
+      const img = new Image();
+      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+      img.src = `images/drivers/${driverRef}.jpg`;
     });
 
+  rows.select(".driver").append("span").text((d) => nameFn(d.driver));
+
+  const cols = maxYear - minYear + 1;
   rows
     .append("div")
     .attr("class", "timeline")
+    .style("grid-template-columns", `repeat(${cols}, minmax(4px, 1fr))`)
     .each(function (d) {
       showTimeline(this, d.timeline, container);
     });
@@ -106,6 +115,7 @@ function showYearAxis(container, minYear, maxYear) {
   row
     .append("div")
     .attr("class", "timeline axis")
+    .style("grid-template-columns", `repeat(${years.length}, minmax(4px, 1fr))`)
     .selectAll(".tick")
     .data(years)
     .enter()
@@ -187,6 +197,7 @@ const opacityFn = (d) => {
 
 function resetScene2() {
   d3.select("#Scene2 .reset").classed("invisible", true);
+  d3.select("#Scene2").selectAll(".driver").classed("selected", false);
   highlightChampionRow(undefined);
 }
 
@@ -206,6 +217,14 @@ function showDriverCareer(driver) {
   Container.classed("hidden", false);
 
   highlightChampionRow(driver);
+  d3.select("#Scene2").selectAll(".driver")
+    .classed("selected", (d) => d.driver.driverId === driver.driverId);
+
+  showHeadline(nameFn(driver), 2);
+
+  const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
+  const wrapper = Container.select(".portrait-wrapper").html("");
+  showPortrait(wrapper, driverRef);
 
   const Subtitle = Container.select(".subtitle");
   const Header = Container.select(".header");

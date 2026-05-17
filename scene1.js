@@ -24,11 +24,26 @@ function prepareScene1(champions) {
     .attr("class", "year")
     .text((d) => d.year);
 
-  Content.selectAll(".row")
+  const nameEl = Content.selectAll(".row")
     .append("div")
     .attr("class", "name clickable")
-    .text((d) => nameFn(d, State.isMobile))
+    .classed("has-portrait", (d) => !!Data.Attribution[Index.Driver.get(d.driverId)?.driverRef])
+    .style("display", "flex")
+    .style("align-items", "center")
+    .style("gap", "0.4em")
     .on("click", nameClick);
+
+  nameEl.append("div").attr("class", "portrait-sm")
+    .each(function (d) {
+      const driverRef = Index.Driver.get(d.driverId)?.driverRef;
+      if (!driverRef) return;
+      const el = d3.select(this);
+      const img = new Image();
+      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
+      img.src = `images/drivers/${driverRef}.jpg`;
+    });
+
+  nameEl.append("span").text((d) => nameFn(d, State.isMobile));
 
   showDefaultHighlights();
   showLegendForDriver(undefined);
@@ -39,6 +54,8 @@ function prepareScene1(champions) {
 function nameClick(e, d) {
   resetAll();
   clearHighlights();
+  d3.select("#Scene1 .content").selectAll(".name")
+    .classed("selected", (row) => row.driverId === d.driverId);
   showDriverStats(d.driverId);
   highlightRacesWonBy(d.driverId);
   showLegendForDriver(d);
@@ -54,6 +71,7 @@ function showDefaultHighlights() {
 function resetScene1() {
   const Scene = d3.select("#Scene1");
   Scene.select(".reset").classed("invisible", true);
+  d3.select("#Scene1 .content").selectAll(".name").classed("selected", false);
   showLegendForDriver(undefined);
   showDefaultHighlights();
 }
@@ -86,6 +104,9 @@ function showDriverStats(driverId) {
   const html = computeDriverSummaryHtml(driverId);
   const Subtitle = d3.select("#Sidebar .subtitle");
   Subtitle.html(html);
+
+  const wrapper = d3.select("#Sidebar .portrait-wrapper").html("");
+  showPortrait(wrapper, driver.driverRef);
 }
 
 function highlightRacesWonBy(driverId, yearMaybe) {

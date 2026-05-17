@@ -26,7 +26,9 @@ const Descriptions = {
     description: () =>
       `<p>Only <span class='bright'>${
         computeUniqueDrivers(computeChampions()).length
-      } different drivers</span> have won a world title. Their careers are summarized in these interactive timelines.</p>` +
+      } different drivers</span> have won a world title as of ${
+        d3.max([...Index.RacesByYear.keys()])
+      }. Their careers are summarized in these interactive timelines.</p>` +
       `<p>The two most successful drivers of all time are <span class='bright'>Michael Schumacher</span> and <span class='bright'>Lewis Hamilton</span>, with 7 titles each. The only period of domination by a single driver before the modern era dates back to the 1950's with <span class='bright'>Juan Manuel Fangio</span> winning a total of 5 titles.</p>` +
       "<p>A rare few find ultimate success early, while others take years to achieve their first (and sometimes only) title. Compare Hamilton and <span class='bright'>Nico Rosberg</span>: the former came within one point of winning in his rookie season (2007) and did become champion the following year, while it took the latter over a decade.</p>" +
       `<p><span class='bright'>${
@@ -88,6 +90,6 @@ const Descriptions = {
     dataNotes:
       "<a target='_blank' href='https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020'>Source dataset (1950–2024)</a>; <a target='_blank' href='https://github.com/anarseyf/f1-explorer'>source code</a>.",
     author:
-      "<p>Created by <a target='_blank' href='https://www.linkedin.com/in/anarseyf/'>Anar Seyf</a> in 2022.</p>",
+      "<p>Created by <a target='_blank' href='https://www.linkedin.com/in/anarseyf/'>Anar Seyf</a> in 2022. Updated in 2026 using <a target='_blank' href='https://claude.ai/code'>Claude Code</a>.</p>",
   },
 };

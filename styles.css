@@ -9,6 +9,7 @@
   --line: rgb(84, 84, 84);
   --darkline: rgb(63, 63, 63);
   --clickable: rgb(139, 178, 255);
+  --clickable-bright: hsl(220, 100%, 88%);
   --orange: rgb(168, 110, 35);
   --win: rgb(135, 138, 148);
   --row-bg: rgb(27, 29, 39);
@@ -58,16 +59,86 @@ body {
   height: 100%;
   width: 45%;
   background-color: var(--sidebar-bg);
-  /* padding: 2%; */
   border-left: 1px solid var(--darkline);
   margin-bottom: 2em;
+  overflow-y: auto;
 }
 
 .inlineSidebar {
+  position: relative;
   padding: 1em;
   border-top: 1px solid var(--darkline);
   border-bottom: 1px solid var(--darkline);
   background-color: var(--sidebar-bg);
+}
+
+.portrait-wrapper {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  display: flex;
+  gap: 0.4em;
+}
+
+.portrait-item {
+  position: relative;
+}
+
+.portrait {
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  background-color: var(--point-bg);
+  background-size: cover;
+  background-position: top center;
+}
+
+.portrait-attribution {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  white-space: nowrap;
+  font-size: 0.65em;
+  color: var(--text);
+  background: var(--sidebar-bg);
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid var(--darkline);
+  z-index: 10;
+}
+
+.portrait-item:hover .portrait-attribution {
+  display: block;
+}
+
+.clickable.has-portrait {
+  color: var(--clickable-bright);
+}
+
+.name.selected,
+.driver.selected {
+  color: var(--gold);
+}
+
+.portrait-sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--win);
+  background-color: var(--point-bg);
+  background-size: cover;
+  background-position: top center;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.name.selected .portrait-sm,
+.driver.selected .portrait-sm {
+  border-color: var(--gold);
 }
 
 #Sidebar .sidebarItem {
@@ -233,10 +304,7 @@ a {
   display: grid;
   grid-template-columns: 2fr 3fr;
   gap: 0;
-  margin: 0;
-
-  /* // border: 1px dotted slateblue; */
-  /* // margin-bottom: 0.5em; */
+  margin: 0 0 0.2em;
 }
 .scene2row.highlighted {
   background-color: var(--highlight-bg);
@@ -255,6 +323,10 @@ a {
   color: --text;
   cursor: pointer;
 }
+
+.rival + .rival {
+  margin-left: 0.4em;
+}
 .scene3row:hover,
 .scene3row.selected {
   background-color: var(--highlight-bg);
@@ -263,7 +335,7 @@ a {
 .timeline {
   display: grid;
   grid-template-columns: repeat(32, minmax(4px, 1fr));
-  grid-template-rows: 20px;
+  grid-template-rows: 1fr;
   gap: 0;
   /* // overflow: hidden; */
   /* // border: 1px dotted orange; */
@@ -397,7 +469,10 @@ a {
   /* font-weight: bold; */
 }
 .rival {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  vertical-align: middle;
 }
 
 @media (max-width: 900px) {

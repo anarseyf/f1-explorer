@@ -81,6 +81,7 @@ async function readData() {
   Data.Standings = await d3.csv("./data/driver_standings.csv", parseRow);
   Data.Results = await d3.csv("./data/results.csv", parseRow);
   Data.Constructors = await d3.csv("./data/constructors.csv", parseRow);
+  Data.Attribution = await d3.json("./images/attribution.json").catch(() => ({}));
 }
 
 function computeIndexes() {
@@ -93,6 +94,8 @@ function computeIndexes() {
     (d) => d.surname
   );
   Index.Constructor = d3.index(Data.Constructors, (c) => c.constructorId);
+
+  Index.DriverByRef = d3.index(Data.Drivers, (d) => d.driverRef);
 
   // grouped
   Index.RacesByYear = d3.group(Data.Races, (r) => r.year);
@@ -122,12 +125,13 @@ function computeYearEndListAtPosition(position) {
     }));
 
   const list = leaderStandings.map(({ driverId, year, wins }) => {
-    const { forename, surname } = Index.Driver.get(driverId);
+    const { forename, surname, driverRef } = Index.Driver.get(driverId);
     return {
       year,
       driverId,
       forename,
       surname,
+      driverRef,
       wins,
     };
   });
