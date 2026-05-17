@@ -206,6 +206,55 @@ function computeWinnersByRoundForYear(year) {
   return d3.index(list, (e) => e.round);
 }
 
+function computeRaceWins(driverId) {
+  const resultsByRace = d3.group(Data.Results, (r) => r.raceId);
+
+  const podiumEntry = (result) => {
+    if (!result) return null;
+    return {
+      driver: Index.Driver.get(result.driverId),
+      team: Index.Constructor.get(result.constructorId)?.name ?? "",
+    };
+  };
+
+  const wins = Data.Results.filter((r) => r.driverId === driverId && r.position === 1)
+    .map((r) => {
+      const race = Index.Race.get(r.raceId);
+      const raceResults = resultsByRace.get(r.raceId) || [];
+      return {
+        year: race.year,
+        round: race.round,
+        raceName: race.name,
+        raceUrl: race.url || null,
+        raceId: r.raceId,
+        p1: podiumEntry(r),
+        p2: podiumEntry(raceResults.find((rr) => rr.position === 2)),
+        p3: podiumEntry(raceResults.find((rr) => rr.position === 3)),
+      };
+    });
+
+  wins.sort((a, b) => a.year !== b.year ? a.year - b.year : a.round - b.round);
+  return wins;
+}
+
+function getTeamsForDriverInYear(driverId, year) {
+  const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
+  const seen = new Set();
+  const teams = [];
+  races.forEach((race) => {
+    const results = Index.ResultsByRaceByDriver.get(race.raceId)?.get(driverId);
+    if (results && results.length) {
+      const constructorId = results[0].constructorId;
+      if (!seen.has(constructorId)) {
+        seen.add(constructorId);
+        const name = Index.Constructor.get(constructorId)?.name;
+        if (name) teams.push(name);
+      }
+    }
+  });
+  return teams;
+}
+
 function computeRaceIdsWonBy(driverId, yearMaybe) {
   let list = Data.Results.filter((r) => r.driverId === driverId)
     .filter((r) => r.position === 1)
@@ -319,7 +368,7 @@ function computeIntersectionHtml(year, driverId, position) {
 
   const championship = position === 0 ? `${year}` : `the ${year} championship`;
 
-  return `<span class="bright">${name}</span> ${pos} ${championship}.`;
+  return `<span class="emphasis">${name}</span> ${pos} ${championship}.`;
 }
 
 function computeDriverSummaryHtml(driverId) {

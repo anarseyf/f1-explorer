@@ -179,5 +179,503 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://en.wikipedia.org/wiki/File:Sebastian_Vettel_-_2022236172324_2022-08-24_Champions_for_Charity_-_Sven_-_1D_X_MK_II_-_0418_-_B70I2428_(cropped).jpg"
+  },
+  "piquet": {
+    "name": "Nelson Piquet",
+    "file": "images/drivers/piquet.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Nelson_Piquet",
+    "artist": "Agência Brasília",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Cerimonia_de_entrega_da_medalha_Brasília_60_anos_-_16.jpg"
+  },
+  "emerson_fittipaldi": {
+    "name": "Emerson Fittipaldi",
+    "file": "images/drivers/emerson_fittipaldi.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Emerson_Fittipaldi",
+    "artist": "Palácio do Planalto",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Emerson_Fittipaldi_in_2020_(cropped).JPG"
+  },
+  "clark": {
+    "name": "Jim Clark",
+    "file": "images/drivers/clark.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jim_Clark",
+    "artist": "Joop van Bilsen / Anefo",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Jim_Clark_in_1963_(cropped).JPG"
+  },
+  "ascari": {
+    "name": "Alberto Ascari",
+    "file": "images/drivers/ascari.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Alberto_Ascari",
+    "artist": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Ascari_last_photo_in_car.jpg"
+  },
+  "rosberg": {
+    "name": "Nico Rosberg",
+    "file": "images/drivers/rosberg.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Nico_Rosberg",
+    "artist": "Sven Mandel",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Nico_Rosberg_2016.jpg"
+  },
+  "max_verstappen": {
+    "name": "Max Verstappen",
+    "file": "images/drivers/max_verstappen.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Max_Verstappen",
+    "artist": "Steffen Prößdorf",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2024-08-25_Motorsport,_Formel_1,_Großer_Preis_der_Niederlande_2024_STP_3973_by_Stepro_(medium_crop).jpg"
+  },
+  "scheckter": {
+    "name": "Jody Scheckter",
+    "file": "images/drivers/scheckter.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jody_Scheckter"
+  },
+  "hunt": {
+    "name": "James Hunt",
+    "file": "images/drivers/hunt.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/James_Hunt"
+  },
+  "kubica": {
+    "name": "Robert Kubica",
+    "file": "images/drivers/kubica.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Robert_Kubica",
+    "artist": "bonebeast",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Robert_Kubica_at_Monza_2023.jpg"
+  },
+  "barrichello": {
+    "name": "Rubens Barrichello",
+    "file": "images/drivers/barrichello.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Rubens_Barrichello",
+    "artist": "TV Brasil Central AO VIVO",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://en.wikipedia.org/wiki/File:Rubinho.jpg"
+  },
+  "wurz": {
+    "name": "Alexander Wurz",
+    "file": "images/drivers/wurz.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Alexander_Wurz",
+    "artist": "David Merrett",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Alexander_Wurz_-_2016_24_Hours_of_Le_Mans_-_Pit_Walk_(cropped).jpg"
+  },
+  "webber": {
+    "name": "Mark Webber",
+    "file": "images/drivers/webber.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mark_Webber_(racing_driver)",
+    "artist": "Yu Chu Chin",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Mark_Webber_at_the_Melbourne_Walk_during_the_2026_Australian_Grand_Prix_(028A8720).jpg"
+  },
+  "coulthard": {
+    "name": "David Coulthard",
+    "file": "images/drivers/coulthard.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/David_Coulthard",
+    "artist": "Yu Chu Chin",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:David_Coulthard_at_the_2025_Adelaide_Grand_Final_Parade_-_12.jpg"
+  },
+  "frentzen": {
+    "name": "Heinz-Harald Frentzen",
+    "file": "images/drivers/frentzen.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Heinz-Harald_Frentzen",
+    "artist": "Frent1ah.jpg: The original uploader was Ger1axg at German Wikipedia.\nderivative work: Canis dirus",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://en.wikipedia.org/wiki/File:Heinz-Harald_Frentzen_a_(cropped).jpg"
+  },
+  "irvine": {
+    "name": "Eddie Irvine",
+    "file": "images/drivers/irvine.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Eddie_Irvine",
+    "artist": "Franmarjos",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://en.wikipedia.org/wiki/File:Eddie_Irvine_after_the_1999_Australian_Grand_Prix.jpg"
+  },
+  "blundell": {
+    "name": "Mark Blundell",
+    "file": "images/drivers/blundell.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mark_Blundell",
+    "artist": "United Autosports",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Mark_Blundell_portrait_2011_(cropped).jpg"
+  },
+  "patrese": {
+    "name": "Riccardo Patrese",
+    "file": "images/drivers/patrese.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Riccardo_Patrese"
+  },
+  "angelis": {
+    "name": "Elio de Angelis",
+    "file": "images/drivers/angelis.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Elio_de_Angelis",
+    "artist": "Hans van Dijk for Anefo",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Anefo_932-2371_Elio_de_Angelis_03.07.1982.jpg"
+  },
+  "reutemann": {
+    "name": "Carlos Reutemann",
+    "file": "images/drivers/reutemann.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Carlos_Reutemann",
+    "artist": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Reutemann_1981.jpg"
+  },
+  "watson": {
+    "name": "John Watson",
+    "file": "images/drivers/watson.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/John_Watson_(racing_driver)",
+    "artist": "Chris Bloom from Durban, South Africa",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:John_Watson_(2346102684).jpg"
+  },
+  "regazzoni": {
+    "name": "Clay Regazzoni",
+    "file": "images/drivers/regazzoni.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Clay_Regazzoni",
+    "artist": "Nationaal Archief, Den Haag, Rijksfotoarchief: Fotocollectie Algemeen Nederlands Fotopersbureau (ANEFO), 1945-1989 - negatiefstroken zwart/wit, nummer toegang 2.24.01.05, bestanddeelnummer 924-6609",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://en.wikipedia.org/wiki/File:Anefo_924-6609_Clay_Reggazoni,_Catherine_Blaton,_Jacky_Ickx_Zandvoort_18_06_1971_-_Cropped.jpg"
+  },
+  "gilles_villeneuve": {
+    "name": "Gilles Villeneuve",
+    "file": "images/drivers/gilles_villeneuve.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Gilles_Villeneuve",
+    "artist": "Ferrari SpA",
+    "license": "Fair use",
+    "licenseUrl": "//en.wikipedia.org/wiki/File:Gilles_Villeneuve_1979_Portrait.jpg",
+    "source": "https://en.wikipedia.org/wiki/File:Gilles_Villeneuve_1979_Portrait.jpg"
+  },
+  "peterson": {
+    "name": "Ronnie Peterson",
+    "file": "images/drivers/peterson.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Ronnie_Peterson",
+    "artist": "Suyk, Koen / Anefo / neg. stroken, 1945-1989, 2.24.01.05, item number 929-8748",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Peterson_at_1978_Dutch_Grand_Prix.jpg"
+  },
+  "mass": {
+    "name": "Jochen Mass",
+    "file": "images/drivers/mass.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jochen_Mass",
+    "artist": "Hans van Dijk for Anefo \n\n/ neg. stroken, 1945-1989, 2.24.01.05, item number 932-2376",
+    "license": "CC BY-SA 3.0 nl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Mass_at_1982_Dutch_Grand_Prix.jpg"
+  },
+  "ickx": {
+    "name": "Jacky Ickx",
+    "file": "images/drivers/ickx.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jacky_Ickx",
+    "artist": "Alexander Migl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Jacky_Ickx_Porträt_Mille_Miglia_2018.jpg"
+  },
+  "mclaren": {
+    "name": "Bruce McLaren",
+    "file": "images/drivers/mclaren.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Bruce_McLaren",
+    "artist": "Lothar Spurzem",
+    "license": "CC BY-SA 2.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:McLarenBruce.jpg"
+  },
+  "attwood": {
+    "name": "Richard Attwood",
+    "file": "images/drivers/attwood.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Richard_Attwood",
+    "artist": "Raimund Kommer",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://en.wikipedia.org/wiki/File:Richard_Attwood_1968_kl.JPG"
+  },
+  "gurney": {
+    "name": "Dan Gurney",
+    "file": "images/drivers/gurney.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Dan_Gurney",
+    "artist": "Joost Evers / Anefo",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://en.wikipedia.org/wiki/File:Dan_Gurney_(1970).jpg"
+  },
+  "bandini": {
+    "name": "Lorenzo Bandini",
+    "file": "images/drivers/bandini.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Lorenzo_Bandini"
+  },
+  "ginther": {
+    "name": "Richie Ginther",
+    "file": "images/drivers/ginther.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Richie_Ginther",
+    "artist": "Los Angeles Times",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Richie_Ginther_and_Roger_Penske,_1964_(cropped).jpg"
+  },
+  "gendebien": {
+    "name": "Olivier Gendebien",
+    "file": "images/drivers/gendebien.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Olivier_Gendebien",
+    "artist": "Unknown photographer",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Olivier_Gendebien,_1960s.jpg"
+  },
+  "moss": {
+    "name": "Stirling Moss",
+    "file": "images/drivers/moss.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Stirling_Moss",
+    "artist": "SAS Scandinavian Airlines",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Stirling_Moss.jpg"
+  },
+  "collins": {
+    "name": "Peter Collins",
+    "file": "images/drivers/collins.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Peter_Collins_(racing_driver)"
+  },
+  "gonzalez": {
+    "name": "José Froilán González",
+    "file": "images/drivers/gonzalez.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jos%C3%A9_Froil%C3%A1n_Gonz%C3%A1lez",
+    "artist": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:José_Froilán_González_1950.jpg"
+  },
+  "taruffi": {
+    "name": "Piero Taruffi",
+    "file": "images/drivers/taruffi.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Piero_Taruffi",
+    "artist": "Indeciso42 at the Italian Wikipedia project.",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Piero_Taruffi.jpg"
+  },
+  "castellotti": {
+    "name": "Eugenio Castellotti",
+    "file": "images/drivers/castellotti.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Eugenio_Castellotti",
+    "artist": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Eugenio_Castellotti.jpg"
+  },
+  "fagioli": {
+    "name": "Luigi Fagioli",
+    "file": "images/drivers/fagioli.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Luigi_Fagioli",
+    "artist": "Agence de presse Meurisse",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Luigi_Fagioli_in_his_Maserati_at_the_1932_Targa_Florio_(cropped).jpg"
+  },
+  "whitehead": {
+    "name": "Peter Whitehead",
+    "file": "images/drivers/whitehead.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Peter_Whitehead_(racing_driver)",
+    "artist": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:ERA_of_Peter_Whitehead,_1938_AGP.jpg"
+  },
+  "kobayashi": {
+    "name": "Kamui Kobayashi",
+    "file": "images/drivers/kobayashi.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Kamui_Kobayashi",
+    "artist": "Morio",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Kamui_Kobayashi_2024_WEC_Fuji_2.jpg"
+  },
+  "kevin_magnussen": {
+    "name": "Kevin Magnussen",
+    "file": "images/drivers/kevin_magnussen.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Kevin_Magnussen",
+    "artist": "Marc Alvarado",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:Kevin_Magnussen,_2019_Formula_One_Tests_Barcelona_(cropped).jpg"
+  },
+  "kvyat": {
+    "name": "Daniil Kvyat",
+    "file": "images/drivers/kvyat.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Daniil_Kvyat",
+    "artist": "Morio",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Daniil_Kvyat_2024_Suzuka_A2RL_(cropped).jpg"
+  },
+  "leclerc": {
+    "name": "Charles Leclerc",
+    "file": "images/drivers/leclerc.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Charles_Leclerc",
+    "artist": "Steffen Prößdorf",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2024-08-25_Motorsport,_Formel_1,_Großer_Preis_der_Niederlande_2024_STP_3978_by_Stepro_(cropped2).jpg"
+  },
+  "gasly": {
+    "name": "Pierre Gasly",
+    "file": "images/drivers/gasly.png",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Pierre_Gasly",
+    "artist": "nabtifal",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://en.wikipedia.org/wiki/File:2022_French_Grand_Prix_(52279065728)_(midcrop).png"
+  },
+  "norris": {
+    "name": "Lando Norris",
+    "file": "images/drivers/norris.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Lando_Norris",
+    "artist": "Original:  Steffen Prößdorf; Derivative work:  Mb2437",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2024-08-25_Motorsport,_Formel_1,_Großer_Preis_der_Niederlande_2024_STP_3968_by_Stepro_(cropped2).jpg"
+  },
+  "piastri": {
+    "name": "Oscar Piastri",
+    "file": "images/drivers/piastri.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Oscar_Piastri",
+    "artist": "Liauzh",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2026_Chinese_GP_-_Oscar_Piastri_(cropped)_(cropped).jpg"
+  },
+  "sato": {
+    "name": "Takuma Sato",
+    "file": "images/drivers/sato.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Takuma_Sato",
+    "artist": "Wolkenjaeger",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Takuma_Sato_(2021).jpg"
+  },
+  "alesi": {
+    "name": "Jean Alesi",
+    "file": "images/drivers/alesi.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jean_Alesi",
+    "artist": "Matti Blume",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Jean_Alesi,_GIMS_2019,_Le_Grand-Saconnex_(GIMS0047).jpg"
+  },
+  "cesaris": {
+    "name": "Andrea de Cesaris",
+    "file": "images/drivers/cesaris.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Andrea_de_Cesaris"
+  },
+  "streiff": {
+    "name": "Philippe Streiff",
+    "file": "images/drivers/streiff.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Philippe_Streiff",
+    "artist": "Thesupermat",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Festival_automobile_international_2014_-_Photocall_-_019.jpg"
+  },
+  "hailwood": {
+    "name": "Mike Hailwood",
+    "file": "images/drivers/hailwood.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Mike_Hailwood",
+    "artist": "Jack de Nijs for Anefo",
+    "license": "CC BY-SA 3.0 nl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Mike_Hailwood.jpg"
+  },
+  "pescarolo": {
+    "name": "Henri Pescarolo",
+    "file": "images/drivers/pescarolo.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Henri_Pescarolo",
+    "artist": "Lothar Spurzem",
+    "license": "CC BY-SA 2.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:PescaroloHenry1973Nürb.jpg"
+  },
+  "beltoise": {
+    "name": "Jean-Pierre Beltoise",
+    "file": "images/drivers/beltoise.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Jean-Pierre_Beltoise",
+    "artist": "Anefo",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Jean_Pierre_Beltoise_te_Zandvoort_1968.jpg"
+  },
+  "trips": {
+    "name": "Wolfgang von Trips",
+    "file": "images/drivers/trips.JPG",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Wolfgang_Graf_Berghe_von_Trips",
+    "artist": "Spin2Win at English Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Wolfgang_von_Trips_in_1957.JPG"
+  },
+  "perez": {
+    "name": "Sergio Pérez",
+    "file": "images/drivers/perez.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Sergio_P%C3%A9rez",
+    "artist": "Grahampurse",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:2021_US_GP_driver_parade_(cropped2).jpg"
+  },
+  "grosjean": {
+    "name": "Romain Grosjean",
+    "file": "images/drivers/grosjean.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Romain_Grosjean",
+    "artist": "City of Detroit",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "source": "https://en.wikipedia.org/wiki/File:Grosjean_at_2024_Chevrolet_Detroit_Grand_Prix.jpg"
+  },
+  "ricciardo": {
+    "name": "Daniel Ricciardo",
+    "file": "images/drivers/ricciardo.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Daniel_Ricciardo",
+    "artist": "DaHuzyBru",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Daniel_Ricciardo_January_2024.jpg"
+  },
+  "bottas": {
+    "name": "Valtteri Bottas",
+    "file": "images/drivers/bottas.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Valtteri_Bottas",
+    "artist": "Yu Chu Chin",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://en.wikipedia.org/wiki/File:Valtteri_Bottas_at_the_2026_Adelaide_Motorsport_Festival_(028A7556).jpg"
+  },
+  "ocon": {
+    "name": "Esteban Ocon",
+    "file": "images/drivers/ocon.jpg",
+    "wikipediaUrl": "http://en.wikipedia.org/wiki/Esteban_Ocon",
+    "artist": "Rrtb505050",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://en.wikipedia.org/wiki/File:Esteban_Ocon_2024_Suzuka_(cropped).jpg"
   }
 }

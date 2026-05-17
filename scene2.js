@@ -257,7 +257,8 @@ function showDriverCareer(driver) {
     .attr("class", "year")
     .text((d) => d.year);
 
-  Content.selectAll(".row").append("div").attr("class", "name").text(teamFn);
+  Content.selectAll(".row").append("div").attr("class", "name podium-team")
+    .text((d) => d.position === 0 ? "" : (getTeamsForDriverInYear(driver.driverId, d.year).join(", ") || teamFn(d)));
 
   Content.selectAll(".row")
     .append("div")
@@ -277,7 +278,6 @@ function showDriverCareer(driver) {
   Content.selectAll(".row").append("div").attr("class", "wins").each(showWins);
 
   setUrlParam("timeline", driver.driverRef);
-  d3.select("#InlineSidebar2").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showDriverDescription(driver) {

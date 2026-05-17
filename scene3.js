@@ -18,7 +18,8 @@ function prepareScene3(years) {
     .attr("class", "row scene3row")
     .on("click", (e, d) => showYear(d));
 
-  Content.selectAll(".row").append("div").attr("class", "year clickable").text(String);
+  Content.selectAll(".row").append("div").attr("class", "year clickable")
+    .text((d) => Descriptions.Scene3.years[d]?.dsq ? `${d}*` : String(d));
 
   Content.selectAll(".row").append("div").attr("class", "name").html(rivalryHtmlForYear);
 
@@ -35,11 +36,12 @@ function resetScene3() {
 const rivalBorderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
 
 const rivalryHtml = (drivers) => {
-  return drivers.map((d, i) => {
+  return Array.from({ length: 4 }, (_, i) => {
+    const d = drivers[i];
+    if (!d) return `<span class='rival'></span>`;
     const color = rivalBorderColors[i] || "var(--darkline)";
     const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/${d.driverRef}.jpg')"></div>`;
-    const vs = i < drivers.length - 1 ? `<span> vs </span>` : "";
-    return `<span class='rival'>${circle}<span class="bright">${nameFn(d)}</span>${vs}</span>`;
+    return `<span class='rival'>${circle}<span class="clickable">${nameFn(d, true)}</span></span>`;
   }).join("");
 };
 
@@ -49,6 +51,28 @@ function rivalryHtmlForYear(year) {
 
 function rivalsForYear(year) {
   return computeContendersForYear(year);
+}
+
+function showDsqNoteForYear(Container, year) {
+  const dsq = Descriptions.Scene3.years[year]?.dsq;
+  if (!dsq) return;
+  Container.select(".subtitle").append("p").attr("class", "dsq-note").text(dsq);
+}
+
+function showRivalryGrid(Container, drivers, year) {
+  const Subtitle = Container.select(".subtitle").html("");
+  const grid = Subtitle.append("div").attr("class", "driver-grid");
+  const borderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
+
+  drivers.forEach((driver, i) => {
+    const borderColor = borderColors[i] || "var(--darkline)";
+    const teams = getTeamsForDriverInYear(driver.driverId, year);
+    const card = grid.append("div").attr("class", "driver-card");
+    showPortrait(card, driver.driverRef, borderColor);
+    const info = card.append("div").attr("class", "driver-card-info");
+    info.append("div").attr("class", "emphasis").text(nameFn(driver));
+    info.append("div").attr("class", "podium-team").text(teams.join(", "));
+  });
 }
 
 function showYear(year) {
@@ -64,12 +88,8 @@ function showYear(year) {
 
   const drivers = rivalsForYear(year);
 
-  const borderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
-  const wrapper = Container.select(".portrait-wrapper").html("");
-  drivers.forEach((driver, i) => showPortrait(wrapper, driver.driverRef, borderColors[i]));
-
-  const subtitle = rivalryHtml(drivers);
-  showSubtitle(subtitle, 3);
+  showRivalryGrid(Container, drivers, year);
+  showDsqNoteForYear(Container, year);
   showHeaderForYear();
   showTableForYear(year, drivers);
   showLegendForYear(year, drivers);
@@ -81,7 +101,6 @@ function showYear(year) {
   Scene.selectAll(".scene3row").classed("selected", (d) => d === year);
 
   setUrlParam("season", year);
-  d3.select("#InlineSidebar3").node().scrollIntoView({ behavior: "smooth" });
 }
 
 function showHeaderForYear() {
@@ -141,6 +160,9 @@ function showTableForYear(year, drivers) {
   Content.selectAll(".row")
     .append("div")
     .attr("class", "name")
+    .append("a")
+    .attr("href", (d) => d.url || null)
+    .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
@@ -198,7 +220,8 @@ function showLegendForYear(year, drivers) {
 
 function showLegendRow(d) {
   const { name, wins, color } = d;
-  const html = `won by <span class='bright'>${d.name}</span>`;
+  const nameHtml = d.name === "others" ? d.name : `<span class='emphasis'>${d.name}</span>`;
+  const html = `won by ${nameHtml}`;
 
   d3.select(this)
     .append("div")

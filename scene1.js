@@ -99,15 +99,56 @@ function showDriverStats(driverId) {
   clear();
 
   const driver = Index.Driver.get(driverId);
-  const name = nameFn(driver);
-  showHeadline(name, 1);
+  showHeadline(nameFn(driver), 1);
 
   const html = computeDriverSummaryHtml(driverId);
-  const Subtitle = d3.select("#Sidebar .subtitle");
-  Subtitle.html(html);
+  d3.select("#Sidebar .subtitle").html(html);
 
   const wrapper = d3.select("#Sidebar .portrait-wrapper").html("");
   showPortrait(wrapper, driver.driverRef);
+
+  showRaceWinsTable(driverId);
+}
+
+function showRaceWinsTable(driverId) {
+  const wins = computeRaceWins(driverId);
+  const Content = d3.select("#Sidebar .content");
+
+  const entries = Content.selectAll(".race-entry")
+    .data(wins)
+    .enter()
+    .append("div")
+    .attr("class", "race-entry");
+
+  const podiumColors = ["var(--gold)", "var(--silver)", "var(--bronze)"];
+
+  entries.each(function (d, i) {
+    const el = d3.select(this);
+
+    // Row 1: win number + race name (linked to Wikipedia)
+    el.append("div").attr("class", "win-num").text(`#${i + 1}`);
+    const header = el.append("div").attr("class", "race-header");
+    header.append("a")
+      .attr("href", d.raceUrl || null)
+      .attr("target", d.raceUrl ? "_blank" : null)
+      .text(`${d.year} ${d.raceName}`);
+
+    // Row 2: empty spacer + p1/p2/p3 podium cells
+    el.append("div");
+    ["p1", "p2", "p3"].forEach((key, idx) => {
+      const cell = el.append("div").attr("class", "podium-cell");
+      const entry = d[key];
+      if (!entry) return;
+      const sm = cell.append("div").attr("class", "portrait-sm").style("border-color", podiumColors[idx]);
+      const img = new Image();
+      img.onload = () => sm.style("background-image", `url('images/drivers/${entry.driver.driverRef}.jpg')`);
+      img.src = `images/drivers/${entry.driver.driverRef}.jpg`;
+      const text = cell.append("div");
+      const colorClass = ["gold", "silver", "bronze"][idx];
+      text.append("div").attr("class", `podium-name ${colorClass}`).text(nameFn(entry.driver, true));
+      text.append("div").attr("class", "podium-team").text(entry.team);
+    });
+  });
 }
 
 function highlightRacesWonBy(driverId, yearMaybe) {
