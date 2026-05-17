@@ -64,7 +64,8 @@ const Descriptions = {
         "<p>The driver with the most points at the end of the season is World Champion. The points system has changed many times — in the 1950s a win earned just 8 points, and only the best results counted toward the total. The modern scheme, in place since 2010, awards <span class='bright'>25 points for a win</span>, 18 for second, down to 1 point for 10<sup>th</sup>.</p>" +
         "<p>Most seasons come down to two drivers. Thirteen saw a genuine <span class='bright'>three-way fight</span> into the final race: " +
         threeWay.map(yearLink).join(", ") + ". " +
-        `${yearLink(2010)} stands alone as the only <span class='bright'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>`
+        `${yearLink(2010)} stands alone as the only <span class='bright'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>` +
+        `<p>In the early years of the sport, <span class='bright'>shared drives</span> were permitted: two drivers could take turns in the same car during a race and split the championship points. This occurred in ${yearLink(1951)}, ${yearLink(1956)}, and ${yearLink(1957)}.</p>`
       );
     },
     legend: "",
