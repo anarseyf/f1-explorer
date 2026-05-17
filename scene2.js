@@ -1,14 +1,12 @@
-const TimelineMin = 1991,
-  TimelineMax = 2021;
-
 function prepareScene2(drivers) {
   const dr1 = drivers.slice(0, 12),
     dr2 = drivers.slice(12, 23),
     dr3 = drivers.slice(23);
 
+  const latestYear = d3.max([...Index.RacesByYear.keys()]);
   const y1 = [1950, 1950 + 25],
     y2 = [1968, 1968 + 25],
-    y3 = [1990, 1991 + 31];
+    y3 = [1990, latestYear];
 
   const s1 = d3.select("#SubScene2-1"),
     s2 = d3.select("#SubScene2-2"),
@@ -63,9 +61,11 @@ function prepareSubscene2(container, drivers, yearRange) {
       highlightTimeline(undefined, container);
     });
 
+  const cols = maxYear - minYear + 1;
   rows
     .append("div")
     .attr("class", "timeline")
+    .style("grid-template-columns", `repeat(${cols}, minmax(4px, 1fr))`)
     .each(function (d) {
       showTimeline(this, d.timeline, container);
     });
@@ -107,6 +107,7 @@ function showYearAxis(container, minYear, maxYear) {
   row
     .append("div")
     .attr("class", "timeline axis")
+    .style("grid-template-columns", `repeat(${years.length}, minmax(4px, 1fr))`)
     .selectAll(".tick")
     .data(years)
     .enter()
