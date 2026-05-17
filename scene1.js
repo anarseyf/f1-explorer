@@ -40,6 +40,8 @@ function prepareScene1(champions) {
 function nameClick(e, d) {
   resetAll();
   clearHighlights();
+  d3.select("#Scene1 .content").selectAll(".name")
+    .classed("selected", (row) => row.driverId === d.driverId);
   showDriverStats(d.driverId);
   highlightRacesWonBy(d.driverId);
   showLegendForDriver(d);
@@ -55,6 +57,7 @@ function showDefaultHighlights() {
 function resetScene1() {
   const Scene = d3.select("#Scene1");
   Scene.select(".reset").classed("invisible", true);
+  d3.select("#Scene1 .content").selectAll(".name").classed("selected", false);
   showLegendForDriver(undefined);
   showDefaultHighlights();
 }

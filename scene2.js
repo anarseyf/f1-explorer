@@ -188,6 +188,7 @@ const opacityFn = (d) => {
 
 function resetScene2() {
   d3.select("#Scene2 .reset").classed("invisible", true);
+  d3.select("#Scene2").selectAll(".driver").classed("selected", false);
   highlightChampionRow(undefined);
 }
 
@@ -207,6 +208,8 @@ function showDriverCareer(driver) {
   Container.classed("hidden", false);
 
   highlightChampionRow(driver);
+  d3.select("#Scene2").selectAll(".driver")
+    .classed("selected", (d) => d.driver.driverId === driver.driverId);
 
   const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
   const wrapper = Container.select(".portrait-wrapper").html("");

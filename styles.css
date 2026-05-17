@@ -59,9 +59,9 @@ body {
   height: 100%;
   width: 45%;
   background-color: var(--sidebar-bg);
-  /* padding: 2%; */
   border-left: 1px solid var(--darkline);
   margin-bottom: 2em;
+  overflow-y: auto;
 }
 
 .inlineSidebar {
@@ -115,6 +115,11 @@ body {
 
 .clickable.has-portrait {
   color: var(--clickable-bright);
+}
+
+.name.selected,
+.driver.selected {
+  color: var(--gold);
 }
 
 #Sidebar .sidebarItem {
