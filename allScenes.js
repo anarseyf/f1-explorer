@@ -111,3 +111,37 @@ function addClickHandlers() {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
   });
 }
+
+function handleUrlParams(champions) {
+  const params = new URLSearchParams(location.search);
+  const driverRef = params.get("driver");
+  const timelineRef = params.get("timeline");
+  const seasonStr = params.get("season");
+
+  if (driverRef) {
+    const champion = champions.find((c) => c.driverRef === driverRef);
+    if (champion) {
+      nameClick(null, champion);
+      d3.select("#Scene1 .name.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      return true;
+    }
+  }
+
+  if (timelineRef) {
+    const driver = Index.DriverByRef.get(timelineRef);
+    if (driver) {
+      showDriverCareer(driver);
+      return true;
+    }
+  }
+
+  if (seasonStr) {
+    const year = +seasonStr;
+    if (Index.RacesByYear.has(year)) {
+      showYear(year);
+      return true;
+    }
+  }
+
+  return false;
+}
