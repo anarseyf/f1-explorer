@@ -4,8 +4,8 @@ const TextRows = {
   dob: true,
   driverRef: true,
   fastestLapTime: true,
-  firstname: true,
-  lastname: true,
+  forename: true,
+  surname: true,
   name: true,
   nationality: true,
   number: true,
@@ -27,9 +27,7 @@ window.onload = async () => {
   const champions = computeChampions();
   const uniqueChampions = computeUniqueDrivers(champions);
 
-  const years = [
-    1958, 1976, 1982, 1984, 1986, 1989, 1994, 1999, 2005, 2007, 2008, 2012, 2016, 2021,
-  ];
+  const years = [...Index.RacesByYear.keys()].sort((a, b) => a - b);
 
   showSceneDescriptions();
   addClickHandlers();
@@ -91,8 +89,8 @@ function computeIndexes() {
   Index.Driver = d3.index(Data.Drivers, (d) => d.driverId);
   Index.DriverByName = d3.index(
     Data.Drivers,
-    (d) => d.firstname,
-    (d) => d.lastname
+    (d) => d.forename,
+    (d) => d.surname
   );
   Index.Constructor = d3.index(Data.Constructors, (c) => c.constructorId);
 
@@ -124,12 +122,12 @@ function computeYearEndListAtPosition(position) {
     }));
 
   const list = leaderStandings.map(({ driverId, year, wins }) => {
-    const { firstname, lastname } = Index.Driver.get(driverId);
+    const { forename, surname } = Index.Driver.get(driverId);
     return {
       year,
       driverId,
-      firstname,
-      lastname,
+      forename,
+      surname,
       wins,
     };
   });
@@ -153,6 +151,32 @@ function computeDriverForYearAtPosition(year, position) {
   return Index.Driver.get(entry.driverId);
 }
 
+function computeContendersForYear(year) {
+  const d1 = computeDriverForYearAtPosition(year, 1);
+  const d2 = computeDriverForYearAtPosition(year, 2);
+
+  const yearRaces = Index.RacesByYear.get(year).slice().sort((a, b) => a.round - b.round);
+  if (yearRaces.length < 2) return [d1, d2];
+
+  const lastRace = yearRaces[yearRaces.length - 1];
+  const penultimateRace = yearRaces[yearRaces.length - 2];
+
+  const maxPts = d3.max(Data.Results.filter(r => r.raceId === lastRace.raceId), r => +r.points) || 0;
+
+  const preLastStandings = (Index.StandingsByRace.get(penultimateRace.raceId) || [])
+    .slice()
+    .sort((a, b) => +b.points - +a.points);
+
+  const leaderPts = preLastStandings.length ? +preLastStandings[0].points : 0;
+
+  const extras = preLastStandings
+    .filter(s => leaderPts - +s.points <= maxPts)
+    .filter(s => s.driverId !== d1.driverId && s.driverId !== d2.driverId)
+    .map(s => Index.Driver.get(s.driverId));
+
+  return [d1, d2, ...extras];
+}
+
 function computeWinnersForYear(year) {
   const races = Data.Races.filter((r) => r.year === year);
   const raceIds = races.map((r) => r.raceId);
@@ -163,8 +187,8 @@ function computeWinnersForYear(year) {
     .filter((r) => r.position === 1)
     .map(({ raceId, driverId }) => ({
       round: Index.Race.get(raceId).round,
-      firstname: Index.Driver.get(driverId).firstname,
-      lastname: Index.Driver.get(driverId).lastname,
+      forename: Index.Driver.get(driverId).forename,
+      surname: Index.Driver.get(driverId).surname,
       raceId,
       driverId,
     }));

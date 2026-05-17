@@ -53,12 +53,18 @@ const Descriptions = {
     },
   },
   Scene3: {
-    description: () =>
-      "<p>These were some of the most memorable seasons in Formula 1 history.</p>" +
-      "<p>The driver with the most points at the end of a season is that year's World Champion. The points system has changed over the years, with the current scheme awarding <span class='bright'>25 points for a race win</span>, 18 points for second place, and on down to a single point for 10<sup>th</sup>.</p>" +
-      `<p><span class='bright'>${
-        State.isMobile ? "Tap" : "Click"
-      } on a year</span> to see the race-by-race rivalry between the eventual champion and the runner-up.</p>`,
+    description: () => {
+      const threeWay = [1950, 1951, 1956, 1959, 1964, 1968, 1974, 1981, 1982, 1983, 1986, 2003, 2007];
+      const yearLink = (y) => `<span class='clickable' onclick='showYear(${y})'>${y}</span>`;
+      return (
+        "<p>Every Formula 1 season from 1950 to 2024. " +
+        `<span class='bright'>${State.isMobile ? "Tap" : "Click"} a year</span> to see the race-by-race points battle between the champion and the runner-up.</p>` +
+        "<p>The driver with the most points at the end of the season is World Champion. The points system has changed many times — in the 1950s a win earned just 8 points, and only the best results counted toward the total. The modern scheme, in place since 2010, awards <span class='bright'>25 points for a win</span>, 18 for second, down to 1 point for 10<sup>th</sup>.</p>" +
+        "<p>Most seasons come down to two drivers. Thirteen saw a genuine <span class='bright'>three-way fight</span> into the final race: " +
+        threeWay.map(yearLink).join(", ") + ". " +
+        `${yearLink(2010)} stands alone as the only <span class='bright'>four-way finale</span> in F1 history, with Vettel, Alonso, Webber, and Hamilton all in mathematical contention at Abu Dhabi.</p>`
+      );
+    },
     legend: "",
     years: {
       2012: {
@@ -80,7 +86,7 @@ const Descriptions = {
   },
   Credits: {
     dataNotes:
-      "<a target='_blank' href='https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020'>Source dataset</a>; <a target='_blank' href='https://github.com/anarseyf/f1-explorer'>source code</a>.",
+      "<a target='_blank' href='https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020'>Source dataset (1950–2024)</a>; <a target='_blank' href='https://github.com/anarseyf/f1-explorer'>source code</a>.",
     author:
       "<p>Created by <a target='_blank' href='https://www.linkedin.com/in/anarseyf/'>Anar Seyf</a> in 2022.</p>",
   },

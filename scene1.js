@@ -113,6 +113,6 @@ function showRacesForYear(d) {
 
 function driverClick(e, d) {
   const driver = Index.Driver.get(d.driverId);
-  console.log("Driver:", driver.lastname);
+  console.log("Driver:", driver.surname);
   showDriverCareer(driver);
 }
