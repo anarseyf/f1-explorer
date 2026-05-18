@@ -2,6 +2,7 @@
   --bg: rgb(20, 21, 25);
   --sidebar-bg: rgb(25, 26, 32);
   --highlight-bg: #222;
+  --row-hover-bg: rgb(42, 44, 58);
   --point-bg: #34353a;
   --text: rgb(189, 189, 189);
   --brighttext: rgb(246, 246, 246);
@@ -129,6 +130,11 @@ body {
   display: block;
 }
 
+.driver-card .portrait-attribution {
+  left: 0;
+  right: auto;
+}
+
 
 .name.selected,
 .driver.selected {
@@ -234,6 +240,11 @@ h3 {
 #Scene1 .content .row {
   align-items: center;
 }
+#Scene1 .content .row:hover,
+.row.scene2:hover,
+.row.scene3:hover {
+  background-color: var(--row-hover-bg);
+}
 
 .row.scene2 {
   grid-template-columns: auto 3.25fr 1fr 1.5fr 1fr 3.25fr;
@@ -246,11 +257,14 @@ h3 {
 
 .row.scene3 {
   grid-template-columns: 0.5fr 1fr 7fr 3fr;
+  align-items: center;
+}
+.row.scene3 .pointsChart {
+  align-self: stretch;
 }
 .header > .row.scene3 {
   grid-template-columns: 1.5fr 7fr 3fr;
   gap: 1em;
-  /* justify-items: start; */
 }
 .sidebarItem.header {
   padding-bottom: 0;
@@ -285,14 +299,25 @@ a {
   color: var(--clickable-bright);
 }
 
+.clickable {
+  border-radius: 3px;
+  padding: 0 4px;
+  background-color: transparent;
+}
+
 .clickable:hover {
-  color: var(--clickable-hover);
-  background-color: var(--highlight-bg);
-  border-radius: 2px;
+  color: var(--bg);
+  background-color: var(--gold);
 }
 a:hover {
   color: var(--clickable-hover);
   text-decoration: underline;
+}
+
+.dsq-marker {
+  color: var(--brighttext);
+  font-size: 0.85em;
+  margin-left: 2px;
 }
 
 .race {
@@ -304,6 +329,9 @@ a:hover {
   font-size: 0.9em;
   padding-right: 2px;
   vertical-align: middle;
+}
+.race.small::before {
+  font-size: 0.8em;
 }
 .race:hover:before {
   /* // color: green; */
@@ -335,7 +363,7 @@ a:hover {
   margin: 0 0 0.2em;
 }
 .scene2row.highlighted {
-  background-color: var(--highlight-bg);
+  background-color: var(--row-hover-bg);
 }
 
 .header > .scene2row {
@@ -347,6 +375,7 @@ a:hover {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1em;
+  align-items: center;
 
   color: var(--text);
   cursor: pointer;
@@ -363,9 +392,18 @@ a:hover {
   gap: 0.3em;
   overflow: hidden;
 }
+.scene3row .name .clickable {
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+.scene3row .name .clickable:hover {
+  color: var(--clickable-bright);
+  background-color: transparent;
+}
 .scene3row:hover,
 .scene3row.selected {
-  background-color: var(--highlight-bg);
+  background-color: var(--row-hover-bg);
 }
 
 .timeline {
@@ -392,7 +430,7 @@ a:hover {
   background-color: var(--transparent);
 }
 .timelineYear.missing.highlighted {
-  background-color: var(--highlight-bg);
+  background-color: var(--row-hover-bg);
 }
 
 .tick {
@@ -408,7 +446,11 @@ a:hover {
 
 .driver:hover,
 .driver.highlighted {
-  background-color: var(--highlight-bg);
+  background-color: var(--row-hover-bg);
+}
+.driver.clickable:hover {
+  color: var(--bg);
+  background-color: var(--gold);
 }
 .champion {
   background-color: var(--gold);
@@ -516,7 +558,7 @@ a:hover {
 .podium-team {
   font-style: italic;
   color: var(--text);
-  font-size: 0.85em;
+  font-size: 0.9em;
   line-height: 1.2;
 }
 

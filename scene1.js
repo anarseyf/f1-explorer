@@ -8,7 +8,7 @@ function prepareScene1(champions) {
   const Header = Scene.select(".header");
   const Content = Scene.select(".content");
 
-  const headerData = ["Year", "Champion", "Races"];
+  const headerData = ["Season", "Champion", "Races"];
   Header.append("div")
     .attr("class", "row scene1")
     .selectAll("div")
