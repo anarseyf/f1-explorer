@@ -102,6 +102,47 @@ function showSceneDescriptions() {
   Author.html(Descriptions.Credits.author);
 }
 
+function getOrCreateTooltip() {
+  let tip = document.getElementById("AppTooltip");
+  if (!tip) {
+    tip = document.createElement("div");
+    tip.id = "AppTooltip";
+    tip.className = "app-tooltip app-tooltip-hidden";
+    document.body.appendChild(tip);
+    document.addEventListener("click", () => hideTooltip());
+  }
+  return tip;
+}
+
+function showTooltip(anchorEl, html) {
+  const tip = getOrCreateTooltip();
+  tip.innerHTML = html;
+  tip.classList.remove("app-tooltip-hidden");
+
+  const rect = anchorEl.getBoundingClientRect();
+  const goBelow = (window.innerHeight - rect.bottom) >= rect.top;
+  tip.dataset.direction = goBelow ? "down" : "up";
+
+  if (goBelow) {
+    tip.style.top = `${rect.bottom + 8}px`;
+    tip.style.bottom = "";
+  } else {
+    tip.style.top = "";
+    tip.style.bottom = `${window.innerHeight - rect.top + 8}px`;
+  }
+
+  const anchorCx = rect.left + rect.width / 2;
+  const halfWidth = 110;
+  const margin = 8;
+  const left = Math.max(margin, Math.min(anchorCx - halfWidth, window.innerWidth - halfWidth * 2 - margin));
+  tip.style.left = `${left}px`;
+}
+
+function hideTooltip() {
+  const tip = document.getElementById("AppTooltip");
+  if (tip) tip.classList.add("app-tooltip-hidden");
+}
+
 function addClickHandlers() {
   d3.select("#NextSection").on("click", () => {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });

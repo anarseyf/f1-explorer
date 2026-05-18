@@ -526,6 +526,55 @@ a:hover {
 .clinch-trophy {
   font-size: 0.85em;
   opacity: 0.85;
+  cursor: default;
+}
+
+.app-tooltip {
+  position: fixed;
+  z-index: 1000;
+  background: var(--sidebar-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.5em 0.75em;
+  font-size: 0.8em;
+  color: var(--text);
+  pointer-events: none;
+  max-width: 220px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  line-height: 1.4;
+}
+.app-tooltip-hidden {
+  display: none;
+}
+.app-tooltip[data-direction="down"]::before,
+.app-tooltip[data-direction="down"]::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--line);
+}
+.app-tooltip[data-direction="down"]::after {
+  border-width: 5px;
+  border-bottom-color: var(--sidebar-bg);
+  margin-bottom: -1px;
+}
+.app-tooltip[data-direction="up"]::before,
+.app-tooltip[data-direction="up"]::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--line);
+}
+.app-tooltip[data-direction="up"]::after {
+  border-width: 5px;
+  border-top-color: var(--sidebar-bg);
+  margin-top: -1px;
 }
 
 .driver-grid {

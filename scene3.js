@@ -166,7 +166,13 @@ function showTableForYear(year, drivers) {
     .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
   nameDivs.filter((d) => d.raceId === clinchRaceId)
-    .append("span").attr("class", "clinch-trophy").text(" 🏆");
+    .append("span").attr("class", "clinch-trophy").text(" 🏆")
+    .on("mouseenter", function () {
+      const champion = drivers[0];
+      const name = champion ? nameFn(champion, true) : "champion";
+      showTooltip(this, `${name} clinched the title here`);
+    })
+    .on("mouseleave", hideTooltip);
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
   // Content.selectAll(".row").append("div").attr("class", "place2");
