@@ -237,6 +237,16 @@ function computeRaceWins(driverId) {
   return wins;
 }
 
+function computeTitleClinchRaceId(year, championDriverId) {
+  const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
+  for (const race of races) {
+    const standings = Index.StandingsByRace.get(race.raceId) || [];
+    const entry = standings.find((s) => s.driverId === championDriverId);
+    if (entry && +entry.position === 1) return race.raceId;
+  }
+  return null;
+}
+
 function getTeamsForDriverInYear(driverId, year) {
   const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
   const seen = new Set();

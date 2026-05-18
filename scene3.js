@@ -139,6 +139,8 @@ function showTableForYear(year, drivers) {
 
   const pointsArrays = drivers.map((d) => computePointsForDriverAtRaces(d.driverId, raceIds));
 
+  const clinchRaceId = drivers[0] ? computeTitleClinchRaceId(year, drivers[0].driverId) : null;
+
   const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
   const Content = Container.select(".content");
 
@@ -158,13 +160,13 @@ function showTableForYear(year, drivers) {
     .attr("class", "year")
     .text((d) => d.round);
 
-  Content.selectAll(".row")
-    .append("div")
-    .attr("class", "name")
-    .append("a")
+  const nameDivs = Content.selectAll(".row").append("div").attr("class", "name");
+  nameDivs.append("a")
     .attr("href", (d) => d.url || null)
     .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
+  nameDivs.filter((d) => d.raceId === clinchRaceId)
+    .append("span").attr("class", "clinch-trophy").text(" 🏆");
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
   // Content.selectAll(".row").append("div").attr("class", "place2");

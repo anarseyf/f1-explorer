@@ -523,6 +523,11 @@ a:hover {
   font-weight: normal;
 }
 
+.clinch-trophy {
+  font-size: 0.85em;
+  opacity: 0.85;
+}
+
 .driver-grid {
   display: flex;
   flex-wrap: wrap;
