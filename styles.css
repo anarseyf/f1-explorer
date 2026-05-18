@@ -410,16 +410,15 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(32, minmax(4px, 1fr));
   grid-template-rows: 1fr;
-  gap: 0;
-  /* // overflow: hidden; */
-  /* // border: 1px dotted orange; */
+  gap: 1px;
+  background-color: var(--bg);
 }
 .timeline.axis {
   margin-top: 0.25em;
+  background-color: transparent;
 }
 .timelineYear {
   background-color: rgb(99, 67, 16);
-  border: 1px solid var(--bg);
   height: 100%;
 }
 .timelineYear.champion {
