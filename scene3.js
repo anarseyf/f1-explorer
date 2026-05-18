@@ -2,7 +2,7 @@ function prepareScene3(years) {
   const Header = d3.select("#Scene3 .header");
   const Content = d3.select("#Scene3 .content");
 
-  const headerData = ["Year", "Main rivalry"];
+  const headerData = ["Season", "Main rivalry"];
   Header.append("div")
     .attr("class", "row scene3row")
     .selectAll("div")
@@ -18,8 +18,7 @@ function prepareScene3(years) {
     .attr("class", "row scene3row")
     .on("click", (e, d) => showYear(d));
 
-  Content.selectAll(".row").append("div").attr("class", "year clickable")
-    .text((d) => Descriptions.Scene3.years[d]?.dsq ? `${d}*` : String(d));
+  Content.selectAll(".row").append("div").attr("class", "year clickable").text(String);
 
   Content.selectAll(".row").append("div").attr("class", "name").html(rivalryHtmlForYear);
 
@@ -35,18 +34,20 @@ function resetScene3() {
 
 const rivalBorderColors = ["var(--gold)", "var(--silver)", "var(--bronze)", "var(--darkline)"];
 
-const rivalryHtml = (drivers) => {
+const rivalryHtml = (drivers, excludedRef = null) => {
   return Array.from({ length: 4 }, (_, i) => {
     const d = drivers[i];
     if (!d) return `<span class='rival'></span>`;
     const color = rivalBorderColors[i] || "var(--darkline)";
     const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/${d.driverRef}.jpg')"></div>`;
-    return `<span class='rival'>${circle}<span class="clickable">${nameFn(d, true)}</span></span>`;
+    const marker = excludedRef && d.driverRef === excludedRef ? `<span class="dsq-marker">(*)</span>` : "";
+    return `<span class='rival'>${circle}<span class="clickable">${nameFn(d, true)}</span>${marker}</span>`;
   }).join("");
 };
 
 function rivalryHtmlForYear(year) {
-  return rivalryHtml(rivalsForYear(year));
+  const excludedRef = Descriptions.Scene3.years[year]?.excludedDriverRef ?? null;
+  return rivalryHtml(rivalsForYear(year), excludedRef);
 }
 
 function rivalsForYear(year) {
@@ -70,7 +71,7 @@ function showRivalryGrid(Container, drivers, year) {
     const card = grid.append("div").attr("class", "driver-card");
     showPortrait(card, driver.driverRef, borderColor);
     const info = card.append("div").attr("class", "driver-card-info");
-    info.append("div").attr("class", "emphasis").text(nameFn(driver));
+    info.append("div").attr("class", "emphasis").style("color", borderColor).text(nameFn(driver));
     info.append("div").attr("class", "podium-team").text(teams.join(", "));
   });
 }
@@ -110,7 +111,8 @@ function showHeaderForYear() {
   const headerData = [
     "Round",
     State.isMobile ? "Grand Prix" : "Race",
-    State.isMobile ? "Points" : "Points total",
+    "Winner",
+    State.isMobile ? "Points" : "Season points",
   ];
   Header.append("div")
     .attr("class", "row scene3")
@@ -144,13 +146,6 @@ function showTableForYear(year, drivers) {
   Content.selectAll(".row").data(races).enter().append("div").attr("class", "row scene3");
 
   const winnersByRound = computeWinnersByRoundForYear(year);
-  const raceColorFn = (d) => {
-    const driverId = winnersByRound.get(d.round).driverId;
-    const idx = drivers.findIndex((dr) => dr.driverId === driverId);
-    return `race ${indexToColor(idx)}`;
-  };
-
-  Content.selectAll(".row").append("div").attr("class", raceColorFn);
 
   Content.selectAll(".row")
     .append("div")
@@ -164,6 +159,23 @@ function showTableForYear(year, drivers) {
     .attr("href", (d) => d.url || null)
     .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
+
+  Content.selectAll(".row")
+    .append("div")
+    .attr("class", "race-winner")
+    .each(function(d) {
+      const winner = winnersByRound.get(d.round);
+      if (!winner) return;
+      const driver = Index.Driver.get(winner.driverId);
+      const idx = drivers.findIndex((dr) => dr.driverId === winner.driverId);
+      const borderColor = rivalBorderColors[idx] || "var(--darkline)";
+      const el = d3.select(this);
+      const sm = el.append("div").attr("class", "portrait-sm").style("border-color", borderColor);
+      const img = new Image();
+      img.onload = () => sm.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
+      img.src = `images/drivers/${driver.driverRef}.jpg`;
+      el.append("span").text(driver.surname);
+    });
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
   // Content.selectAll(".row").append("div").attr("class", "place2");

@@ -75,7 +75,8 @@ const Descriptions = {
     legend: "",
     years: {
       1997: {
-        dsq: "* Schumacher was excluded from the championship standings after deliberately colliding with Villeneuve at the European Grand Prix in Jerez.",
+        excludedDriverRef: "michael_schumacher",
+        dsq: "(*) Schumacher was excluded from the championship standings after deliberately colliding with Villeneuve at the European Grand Prix in Jerez.",
       },
       2012: {
         summary: "2012 season summary",

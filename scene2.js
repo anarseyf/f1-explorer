@@ -235,7 +235,7 @@ function showDriverCareer(driver) {
   const html = computeDriverSummaryHtml(driver.driverId);
   Subtitle.html(html);
 
-  const headerData = ["Year", "Team", "Result", "Races won"];
+  const headerData = ["Season", "Team", "Result", "Races won"];
   Header.append("div")
     .attr("class", "row scene2")
     .selectAll("div")
