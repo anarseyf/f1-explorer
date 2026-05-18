@@ -111,7 +111,6 @@ function showHeaderForYear() {
   const headerData = [
     "Round",
     State.isMobile ? "Grand Prix" : "Race",
-    "Winner",
     State.isMobile ? "Points" : "Season points",
   ];
   Header.append("div")
@@ -146,6 +145,13 @@ function showTableForYear(year, drivers) {
   Content.selectAll(".row").data(races).enter().append("div").attr("class", "row scene3");
 
   const winnersByRound = computeWinnersByRoundForYear(year);
+  const raceColorFn = (d) => {
+    const driverId = winnersByRound.get(d.round).driverId;
+    const idx = drivers.findIndex((dr) => dr.driverId === driverId);
+    return `race ${indexToColor(idx)}`;
+  };
+
+  Content.selectAll(".row").append("div").attr("class", raceColorFn);
 
   Content.selectAll(".row")
     .append("div")
@@ -159,23 +165,6 @@ function showTableForYear(year, drivers) {
     .attr("href", (d) => d.url || null)
     .attr("target", (d) => d.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.name, State.isMobile));
-
-  Content.selectAll(".row")
-    .append("div")
-    .attr("class", "race-winner")
-    .each(function(d) {
-      const winner = winnersByRound.get(d.round);
-      if (!winner) return;
-      const driver = Index.Driver.get(winner.driverId);
-      const idx = drivers.findIndex((dr) => dr.driverId === winner.driverId);
-      const borderColor = rivalBorderColors[idx] || "var(--darkline)";
-      const el = d3.select(this);
-      const sm = el.append("div").attr("class", "portrait-sm").style("border-color", borderColor);
-      const img = new Image();
-      img.onload = () => sm.style("background-image", `url('images/drivers/${driver.driverRef}.jpg')`);
-      img.src = `images/drivers/${driver.driverRef}.jpg`;
-      el.append("span").text(driver.surname);
-    });
 
   // Content.selectAll(".row").append("div").attr("class", "place1");
   // Content.selectAll(".row").append("div").attr("class", "place2");

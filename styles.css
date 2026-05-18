@@ -256,23 +256,15 @@ h3 {
 }
 
 .row.scene3 {
-  grid-template-columns: 1fr 5fr 2.5fr 3fr;
+  grid-template-columns: 0.5fr 1fr 7fr 3fr;
   align-items: center;
 }
 .row.scene3 .pointsChart {
   align-self: stretch;
 }
 .header > .row.scene3 {
-  grid-template-columns: 1fr 5fr 2.5fr 3fr;
+  grid-template-columns: 1.5fr 7fr 3fr;
   gap: 1em;
-}
-
-.race-winner {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-  overflow: hidden;
-  white-space: nowrap;
 }
 .sidebarItem.header {
   padding-bottom: 0;
