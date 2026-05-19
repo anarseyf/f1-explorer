@@ -6,8 +6,10 @@ function clear() {
   const inlineSidebars = d3.selectAll(".inlineSidebar");
   inlineSidebars.selectAll(".sidebarItem").text("");
   inlineSidebars.classed("hidden", true);
+  inlineSidebars.classed("mobile-overlay-active", false);
 
   d3.selectAll(".portrait-wrapper").html("");
+  document.getElementById("PointsHint")?.classList.add("app-tooltip-hidden");
 
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
@@ -100,6 +102,83 @@ function showSceneDescriptions() {
   Legend3.html(Descriptions.Scene3.legend);
   DataNotes.html(Descriptions.Credits.dataNotes);
   Author.html(Descriptions.Credits.author);
+}
+
+function getOrCreateTooltip() {
+  let tip = document.getElementById("AppTooltip");
+  if (!tip) {
+    tip = document.createElement("div");
+    tip.id = "AppTooltip";
+    tip.className = "app-tooltip app-tooltip-hidden";
+    document.body.appendChild(tip);
+    document.addEventListener("click", () => hideTooltip());
+  }
+  return tip;
+}
+
+function showTooltip(anchorEl, html, { side = "auto", clinch = false, fill = false } = {}) {
+  const tip = getOrCreateTooltip();
+  tip.innerHTML = html;
+  tip.style.visibility = "hidden";
+  tip.classList.remove("app-tooltip-hidden");
+  tip.classList.toggle("app-tooltip-clinch", clinch);
+
+  const rect = anchorEl.getBoundingClientRect();
+  const margin = 8;
+  const gap = 10;
+
+  if (side === "left") {
+    tip.dataset.direction = "right";
+    tip.style.transform = "";
+    tip.style.bottom = "";
+
+    if (fill) {
+      tip.style.width = `${Math.max(80, rect.left - 6 - margin)}px`;
+      const tipH = tip.offsetHeight;
+      const top = Math.max(margin, Math.min(
+        rect.top + rect.height / 2 - tipH / 2,
+        window.innerHeight - tipH - margin
+      ));
+      tip.style.top = `${top}px`;
+      tip.style.left = `${margin}px`;
+    } else {
+      const sidebar = document.getElementById("Sidebar");
+      const sidebarW = sidebar ? sidebar.offsetWidth : window.innerWidth * 0.45;
+      tip.style.width = `${Math.round(0.4 * sidebarW)}px`;
+
+      const tipW = tip.offsetWidth;
+      const tipH = tip.offsetHeight;
+      const top = Math.max(margin, Math.min(
+        rect.top + rect.height / 2 - tipH / 2,
+        window.innerHeight - tipH - margin
+      ));
+      const left = Math.max(margin, rect.left - tipW - gap);
+      tip.style.top = `${top}px`;
+      tip.style.left = `${left}px`;
+    }
+  } else {
+    tip.dataset.direction = (window.innerHeight - rect.bottom) >= rect.top ? "down" : "up";
+    tip.style.transform = "";
+    tip.style.bottom = "";
+    tip.style.width = "";
+
+    if (tip.dataset.direction === "down") {
+      tip.style.top = `${rect.bottom + gap}px`;
+    } else {
+      tip.style.top = `${rect.top - tip.offsetHeight - gap}px`;
+    }
+    const anchorCx = rect.left + rect.width / 2;
+    const halfWidth = 110;
+    const left = Math.max(margin, Math.min(anchorCx - halfWidth, window.innerWidth - halfWidth * 2 - margin));
+    tip.style.left = `${left}px`;
+  }
+
+  tip.style.visibility = "";
+}
+
+function hideTooltip() {
+  const tip = document.getElementById("AppTooltip");
+  if (tip) tip.classList.add("app-tooltip-hidden");
 }
 
 function addClickHandlers() {

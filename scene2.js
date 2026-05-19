@@ -79,6 +79,7 @@ function prepareSubscene2(container, drivers, yearRange) {
     });
 
   d3.select("#Scene2 .reset").on("click", resetAll);
+  d3.select("#InlineSidebar2 .overlay-close").on("click", resetAll);
 
   showYearAxis(container, minYear, maxYear);
   showIntersectionTooltip(undefined, container);
@@ -216,6 +217,21 @@ function showDriverCareer(driver) {
 
   Container.classed("hidden", false);
 
+  if (State.isMobile) {
+    Container.classed("mobile-overlay-active", true);
+    // Scroll selected driver name to be visible above the overlay
+    requestAnimationFrame(() => {
+      const overlayH = Container.node().offsetHeight;
+      const selectedEl = d3.select("#Scene2 .driver.selected").node();
+      if (selectedEl) {
+        const rect = selectedEl.getBoundingClientRect();
+        const visibleH = window.innerHeight - overlayH;
+        const targetY = rect.top + window.scrollY - visibleH / 2;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    });
+  }
+
   highlightChampionRow(driver);
   d3.select("#Scene2").selectAll(".driver")
     .classed("selected", (d) => d.driver.driverId === driver.driverId);
@@ -270,7 +286,7 @@ function showDriverCareer(driver) {
 
   Content.selectAll(".row")
     .append("div")
-    .attr("class", "name right")
+    .attr("class", "name right wins-num")
     .text((d) => (d.position === 0 ? "" : d.wins || "-"));
 
   // console.log(`>> raceWinsByYear: `, raceWinsByYear);
@@ -303,13 +319,15 @@ function showPosition(d) {
 }
 
 function showWins(d) {
-  const data = d3.range(d.wins);
-  d3.select(this)
-    .selectAll(".race")
-    .data(data)
-    .enter()
-    .append("div")
-    .attr("class", "race small gold");
+  const el = d3.select(this);
+  if (State.isMobile) {
+    if (d.wins > 0) {
+      el.append("div").attr("class", "race small gold");
+      el.append("span").attr("class", "win-count").text(d.wins);
+    }
+    return;
+  }
+  el.selectAll(".race").data(d3.range(d.wins)).enter().append("div").attr("class", "race small gold");
 }
 
 const teamFn = (d) => {
