@@ -258,6 +258,7 @@ h3 {
 .row.scene3 {
   grid-template-columns: 0.5fr 1fr 7fr 3fr;
   align-items: center;
+  margin: 0;
 }
 .row.scene3 .pointsChart {
   align-self: stretch;
@@ -530,7 +531,7 @@ a:hover {
 
 .sprint-label {
   font-size: 0.8em;
-  color: var(--darktext);
+  color: var(--text);
   font-style: italic;
 }
 
@@ -545,10 +546,16 @@ a:hover {
 }
 .tt-driver {
   display: grid;
-  grid-template-columns: 20px 1fr auto auto;
+  grid-template-columns: 20px 1fr auto;
   align-items: center;
   gap: 0.35em;
-  padding: 0.1em 0;
+  padding: 0.15em 0;
+}
+.tt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05em;
+  min-width: 0;
 }
 .tt-name {
   color: var(--brighttext);
@@ -559,15 +566,15 @@ a:hover {
 .tt-name.bronze { color: var(--bronze); }
 .tt-team {
   color: var(--text);
-  font-size: 0.85em;
+  font-size: 0.8em;
   font-style: italic;
-  text-align: right;
 }
 .tt-pts {
   color: var(--brighttext);
   font-weight: 600;
   text-align: right;
   min-width: 2.5em;
+  align-self: center;
 }
 .tt-note {
   margin-top: 0.35em;

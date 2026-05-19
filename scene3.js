@@ -205,7 +205,8 @@ function showTableForYear(year, drivers) {
     return `race ${indexToColor(idx)}`;
   });
 
-  rows.append("div").attr("class", "year").text((d) => d.type === "sprint" ? "S" : d.race.round);
+  rows.append("div").attr("class", (d) => d.type === "sprint" ? "year sprint-label" : "year")
+    .text((d) => d.type === "sprint" ? "S" : d.race.round);
 
   const nameDivs = rows.append("div").attr("class", "name");
   nameDivs.append("a")
@@ -236,11 +237,18 @@ function showRaceRowTooltip(anchorEl, item, drivers, year) {
     const team = teamResult ? (Index.Constructor.get(teamResult.constructorId)?.name || "") : "";
     const portraitStyle = driverRef ? `background-image:url('images/drivers/${driverRef}.jpg')` : "";
     const nameClass = colors[i] ? ` ${colors[i]}` : "";
-    html += `<div class="tt-driver"><div class="portrait-sm" style="${portraitStyle}"></div><span class="tt-name${nameClass}">${driverObj.surname}</span><span class="tt-team">${team}</span><span class="tt-pts">${pts}</span></div>`;
+    html += `<div class="tt-driver">` +
+      `<div class="portrait-sm" style="${portraitStyle}"></div>` +
+      `<div class="tt-info"><span class="tt-name${nameClass}">${driverObj.surname}</span><span class="tt-team">${team}</span></div>` +
+      `<span class="tt-pts">${pts}</span>` +
+      `</div>`;
   });
 
-  if (item.isCliching) {
-    html += `<div class="tt-note">${item.remainingMax} max pts remaining</div>`;
+  if (item.isCliching && drivers.length >= 2) {
+    const d0 = (Index.Driver.get(drivers[0].driverId) || drivers[0]).surname;
+    const d1 = (Index.Driver.get(drivers[1].driverId) || drivers[1]).surname;
+    const gap = item.points[0] - item.points[1];
+    html += `<div class="tt-note">${d0} is ahead of ${d1} by ${gap} pts, with ${item.remainingMax} max pts remaining</div>`;
   }
 
   const anchor = anchorEl.querySelector(".pointsChart") || anchorEl;

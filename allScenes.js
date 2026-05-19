@@ -130,6 +130,10 @@ function showTooltip(anchorEl, html, { side = "auto" } = {}) {
     tip.style.transform = "";
     tip.style.bottom = "";
 
+    const sidebar = document.getElementById("Sidebar");
+    const sidebarW = sidebar ? sidebar.offsetWidth : window.innerWidth * 0.45;
+    tip.style.width = `${Math.round(0.4 * sidebarW)}px`;
+
     const tipW = tip.offsetWidth;
     const tipH = tip.offsetHeight;
     const top = Math.max(margin, Math.min(
@@ -143,6 +147,7 @@ function showTooltip(anchorEl, html, { side = "auto" } = {}) {
     tip.dataset.direction = (window.innerHeight - rect.bottom) >= rect.top ? "down" : "up";
     tip.style.transform = "";
     tip.style.bottom = "";
+    tip.style.width = "";
 
     if (tip.dataset.direction === "down") {
       tip.style.top = `${rect.bottom + gap}px`;
