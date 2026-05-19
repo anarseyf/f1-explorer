@@ -9,6 +9,7 @@ function clear() {
   inlineSidebars.classed("mobile-overlay-active", false);
 
   d3.selectAll(".portrait-wrapper").html("");
+  document.getElementById("PointsHint")?.classList.add("app-tooltip-hidden");
 
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
@@ -115,11 +116,12 @@ function getOrCreateTooltip() {
   return tip;
 }
 
-function showTooltip(anchorEl, html, { side = "auto" } = {}) {
+function showTooltip(anchorEl, html, { side = "auto", clinch = false, fill = false } = {}) {
   const tip = getOrCreateTooltip();
   tip.innerHTML = html;
   tip.style.visibility = "hidden";
   tip.classList.remove("app-tooltip-hidden");
+  tip.classList.toggle("app-tooltip-clinch", clinch);
 
   const rect = anchorEl.getBoundingClientRect();
   const margin = 8;
@@ -130,19 +132,30 @@ function showTooltip(anchorEl, html, { side = "auto" } = {}) {
     tip.style.transform = "";
     tip.style.bottom = "";
 
-    const sidebar = document.getElementById("Sidebar");
-    const sidebarW = sidebar ? sidebar.offsetWidth : window.innerWidth * 0.45;
-    tip.style.width = `${Math.round(0.4 * sidebarW)}px`;
+    if (fill) {
+      tip.style.width = `${Math.max(80, rect.left - 6 - margin)}px`;
+      const tipH = tip.offsetHeight;
+      const top = Math.max(margin, Math.min(
+        rect.top + rect.height / 2 - tipH / 2,
+        window.innerHeight - tipH - margin
+      ));
+      tip.style.top = `${top}px`;
+      tip.style.left = `${margin}px`;
+    } else {
+      const sidebar = document.getElementById("Sidebar");
+      const sidebarW = sidebar ? sidebar.offsetWidth : window.innerWidth * 0.45;
+      tip.style.width = `${Math.round(0.4 * sidebarW)}px`;
 
-    const tipW = tip.offsetWidth;
-    const tipH = tip.offsetHeight;
-    const top = Math.max(margin, Math.min(
-      rect.top + rect.height / 2 - tipH / 2,
-      window.innerHeight - tipH - margin
-    ));
-    const left = Math.max(margin, rect.left - tipW - gap);
-    tip.style.top = `${top}px`;
-    tip.style.left = `${left}px`;
+      const tipW = tip.offsetWidth;
+      const tipH = tip.offsetHeight;
+      const top = Math.max(margin, Math.min(
+        rect.top + rect.height / 2 - tipH / 2,
+        window.innerHeight - tipH - margin
+      ));
+      const left = Math.max(margin, rect.left - tipW - gap);
+      tip.style.top = `${top}px`;
+      tip.style.left = `${left}px`;
+    }
   } else {
     tip.dataset.direction = (window.innerHeight - rect.bottom) >= rect.top ? "down" : "up";
     tip.style.transform = "";

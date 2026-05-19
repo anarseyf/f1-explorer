@@ -49,6 +49,7 @@ function prepareScene1(champions) {
   showLegendForDriver(undefined);
 
   Scene.select(".reset").on("click", resetAll);
+  d3.select("#InlineSidebar1 .overlay-close").on("click", resetAll);
 }
 
 function nameClick(e, d) {
@@ -101,18 +102,35 @@ function showDriverStats(driverId) {
   const driver = Index.Driver.get(driverId);
   showHeadline(nameFn(driver), 1);
 
-  const html = computeDriverSummaryHtml(driverId);
-  d3.select("#Sidebar .subtitle").html(html);
+  const Container = d3.select(State.isMobile ? "#InlineSidebar1" : "#Sidebar");
 
-  const wrapper = d3.select("#Sidebar .portrait-wrapper").html("");
+  if (State.isMobile) {
+    Container.classed("hidden", false);
+    Container.classed("mobile-overlay-active", true);
+    requestAnimationFrame(() => {
+      const overlayH = Container.node().offsetHeight;
+      const selectedEl = d3.select("#Scene1 .content .name.selected").node();
+      if (selectedEl) {
+        const rect = selectedEl.getBoundingClientRect();
+        const visibleH = window.innerHeight - overlayH;
+        const targetY = rect.top + window.scrollY - visibleH / 2;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    });
+  }
+
+  const html = computeDriverSummaryHtml(driverId);
+  Container.select(".subtitle").html(html);
+
+  const wrapper = Container.select(".portrait-wrapper").html("");
   showPortrait(wrapper, driver.driverRef);
 
-  showRaceWinsTable(driverId);
+  showRaceWinsTable(driverId, Container);
 }
 
-function showRaceWinsTable(driverId) {
+function showRaceWinsTable(driverId, Container) {
   const wins = computeRaceWins(driverId);
-  const Content = d3.select("#Sidebar .content");
+  const Content = (Container || d3.select("#Sidebar")).select(".content");
 
   const entries = Content.selectAll(".race-entry")
     .data(wins)

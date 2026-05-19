@@ -286,7 +286,7 @@ function showDriverCareer(driver) {
 
   Content.selectAll(".row")
     .append("div")
-    .attr("class", "name right")
+    .attr("class", "name right wins-num")
     .text((d) => (d.position === 0 ? "" : d.wins || "-"));
 
   // console.log(`>> raceWinsByYear: `, raceWinsByYear);

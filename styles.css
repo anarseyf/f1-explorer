@@ -87,9 +87,9 @@ body {
 }
 
 .portrait-wrapper {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  float: right;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
   display: flex;
   gap: 0.4em;
 }
@@ -528,6 +528,10 @@ a:hover {
   opacity: 0.85;
   cursor: default;
 }
+.tt-trophy {
+  font-size: 0.8em;
+  margin-right: 0.15em;
+}
 
 .sprint-label {
   font-size: 0.8em;
@@ -535,8 +539,17 @@ a:hover {
   font-style: italic;
 }
 
+.sprint-s {
+  font-size: 0.8em;
+  font-style: normal;
+  font-weight: 600;
+}
+.sprint-s.gold { color: var(--gold); }
+.sprint-s.silver { color: var(--silver); }
+.sprint-s.bronze { color: var(--bronze); }
+.sprint-s.other { color: var(--other); }
+
 .tt-label {
-  font-size: 0.75em;
   color: var(--text);
 }
 .tt-race-name {
@@ -546,7 +559,7 @@ a:hover {
 }
 .tt-driver {
   display: grid;
-  grid-template-columns: 20px 1fr auto;
+  grid-template-columns: 30px 1fr auto;
   align-items: center;
   gap: 0.35em;
   padding: 0.15em 0;
@@ -566,7 +579,6 @@ a:hover {
 .tt-name.bronze { color: var(--bronze); }
 .tt-team {
   color: var(--text);
-  font-size: 0.8em;
   font-style: italic;
 }
 .tt-pts {
@@ -579,9 +591,12 @@ a:hover {
 .tt-note {
   margin-top: 0.35em;
   padding-top: 0.3em;
-  font-size: 0.8em;
   color: var(--text);
   border-top: 1px solid var(--darkline);
+}
+.tt-num {
+  color: var(--brighttext);
+  font-weight: 600;
 }
 
 .win-count {
@@ -599,6 +614,11 @@ a:hover {
   opacity: 0.7;
 }
 
+.row.scene3 > :first-child {
+  text-align: center;
+  justify-self: center;
+}
+
 .app-tooltip {
   position: fixed;
   z-index: 1000;
@@ -606,7 +626,7 @@ a:hover {
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 0.5em 0.75em;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: var(--text);
   pointer-events: none;
   max-width: 220px;
@@ -660,6 +680,45 @@ a:hover {
   border-width: 5px;
   border-left-color: var(--sidebar-bg);
   margin-left: -1px;
+}
+.app-tooltip.app-tooltip-clinch {
+  border-color: var(--gold);
+}
+.app-tooltip.app-tooltip-clinch[data-direction="right"]::before {
+  border-left-color: var(--gold);
+}
+.app-tooltip[data-direction="up-right"]::before,
+.app-tooltip[data-direction="up-right"]::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  left: auto;
+  transform: none;
+  border: 6px solid transparent;
+  border-top-color: var(--line);
+}
+.app-tooltip[data-direction="up-right"]::after {
+  border-width: 5px;
+  border-top-color: var(--sidebar-bg);
+  margin-top: -1px;
+}
+.points-discover-hint {
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+.points-discover-hint[data-direction="up-right"]::before {
+  border-top-color: rgba(246, 246, 246, 1);
+}
+
+@keyframes hint-pulse {
+  0%, 100% {
+    border-color: rgba(246, 246, 246, 0.45);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 4px rgba(246, 246, 246, 0.1);
+  }
+  50% {
+    border-color: rgba(246, 246, 246, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 7px 1px rgba(246, 246, 246, 0.25);
+  }
 }
 
 .driver-grid {
@@ -771,6 +830,15 @@ a:hover {
   .scene2row {
     grid-template-columns: 1fr 1fr;
   }
+  .wins-num {
+    display: none;
+  }
+  .row.scene2 {
+    grid-template-columns: auto 4fr 1fr 1.5fr 2fr;
+  }
+  .header > .row.scene2 {
+    grid-template-columns: auto 4fr 2.5fr 2fr;
+  }
   .scene3row {
     grid-template-columns: auto 1fr;
     gap: 2em;
@@ -781,7 +849,7 @@ a:hover {
     gap: 0.2em 0;
   }
   .scene3row .rival {
-    flex: 1 0 33%;
+    flex: 1 0 45%;
     min-width: 0;
   }
   .inlineSidebar.mobile-overlay-active {
@@ -802,10 +870,13 @@ a:hover {
   }
   .inlineSidebar.mobile-overlay-active .overlay-close {
     display: block;
-    position: sticky;
+    position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
     text-align: center;
-    padding: 0.6em;
+    padding: 0.9em;
     background: var(--sidebar-bg);
     border-top: 1px solid var(--darkline);
     color: var(--clickable-bright);
