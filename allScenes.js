@@ -29,6 +29,7 @@ function setupMobileTabs() {
       return;
     }
     _setTab(sceneNum, true);
+    setUrlParam("tab", _tabNames[sceneNum]);
   });
 }
 
@@ -408,11 +409,15 @@ function selectTimeline(driverRef) {
   d3.select("#Scene2 .driver.selected").node()?.scrollIntoView({ behavior: "smooth" });
 }
 
+const _tabNames = { "1": "champions", "2": "timelines", "3": "seasons" };
+const _tabNums = { champions: "1", timelines: "2", seasons: "3" };
+
 function handleUrlParams(champions) {
   const params = new URLSearchParams(location.search);
   const driverRef = params.get("driver");
   const timelineRef = params.get("timeline");
   const seasonStr = params.get("season");
+  const tabStr = params.get("tab");
 
   if (driverRef) {
     const champion = champions.find((c) => c.driverRef === driverRef);
@@ -442,6 +447,11 @@ function handleUrlParams(champions) {
       d3.select("#Scene3 .scene3row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
     }
+  }
+
+  if (tabStr && State.isMobile) {
+    const num = _tabNums[tabStr];
+    if (num) { _setTab(num); return true; }
   }
 
   return false;
