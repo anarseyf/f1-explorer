@@ -872,12 +872,46 @@ a:hover {
   line-height: 1.4;
 }
 
+#MobileNav {
+  display: none;
+}
+
 @media (max-width: 900px) {
   #Main {
     width: 100%;
+    padding-bottom: 52px;
   }
   #Sidebar {
     display: none;
+  }
+
+  #MobileNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--sidebar-bg);
+    border-top: 1px solid var(--darkline);
+    height: 52px;
+  }
+  .mobile-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 0.8em;
+    border-top: 3px solid transparent;
+    cursor: pointer;
+  }
+  .mobile-tab.active {
+    color: var(--brighttext);
+    border-top-color: var(--gold);
+  }
+  .tab-hidden {
+    display: none !important;
   }
   .scene {
     padding: 0.5em 1em;

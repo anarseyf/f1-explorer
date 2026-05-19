@@ -1,3 +1,24 @@
+let _activeTab = "1";
+
+function setupMobileTabs() {
+  if (!State.isMobile) return;
+  _setTab("1");
+  d3.selectAll(".mobile-tab").on("click", function () {
+    _setTab(this.dataset.scene, true);
+  });
+}
+
+function _setTab(sceneNum, doReset = false) {
+  if (doReset) resetAll();
+  _activeTab = sceneNum;
+  d3.selectAll(".mobile-tab").classed("active", function () {
+    return this.dataset.scene === sceneNum;
+  });
+  ["1", "2", "3"].forEach((n) => {
+    d3.select(`#Scene${n}`).classed("tab-hidden", n !== sceneNum);
+  });
+}
+
 function clear() {
   console.log("Clear");
   detachOverlayScroll();
@@ -367,6 +388,7 @@ function handleUrlParams(champions) {
   if (driverRef) {
     const champion = champions.find((c) => c.driverRef === driverRef);
     if (champion) {
+      if (State.isMobile) _setTab("1");
       nameClick(null, champion);
       d3.select("#Scene1 .content .row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
@@ -376,6 +398,7 @@ function handleUrlParams(champions) {
   if (timelineRef) {
     const driver = Index.DriverByRef.get(timelineRef);
     if (driver) {
+      if (State.isMobile) _setTab("2");
       showDriverCareer(driver);
       d3.select("#Scene2 .driver.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
@@ -385,6 +408,7 @@ function handleUrlParams(champions) {
   if (seasonStr) {
     const year = +seasonStr;
     if (Index.RacesByYear.has(year)) {
+      if (State.isMobile) _setTab("3");
       showYear(year);
       d3.select("#Scene3 .scene3row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;

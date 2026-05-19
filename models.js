@@ -35,6 +35,7 @@ window.onload = async () => {
   prepareScene2(uniqueChampions);
   prepareScene3(years);
   clear();
+  setupMobileTabs();
   // showClearButton();
 
   const handled = handleUrlParams(champions);
