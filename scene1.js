@@ -39,8 +39,8 @@ function prepareScene1(champions) {
       if (!driverRef) return;
       const el = d3.select(this);
       const img = new Image();
-      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
-      img.src = `images/drivers/${driverRef}.jpg`;
+      img.onload = () => el.style("background-image", `url('images/drivers/sm/${driverRef}.jpg')`);
+      img.src = `images/drivers/sm/${driverRef}.jpg`;
     });
 
   nameEl.append("span").text((d) => nameFn(d, State.isMobile));
@@ -163,8 +163,8 @@ function showRaceWinsTable(driverId, Container) {
       if (!entry) return;
       const sm = cell.append("div").attr("class", "portrait-sm").style("border-color", podiumColors[idx]);
       const img = new Image();
-      img.onload = () => sm.style("background-image", `url('images/drivers/${entry.driver.driverRef}.jpg')`);
-      img.src = `images/drivers/${entry.driver.driverRef}.jpg`;
+      img.onload = () => sm.style("background-image", `url('images/drivers/sm/${entry.driver.driverRef}.jpg')`);
+      img.src = `images/drivers/sm/${entry.driver.driverRef}.jpg`;
       const text = cell.append("div");
       const colorClass = ["gold", "silver", "bronze"][idx];
       text.append("div").attr("class", `podium-name ${colorClass}`).text(nameFn(entry.driver, true));

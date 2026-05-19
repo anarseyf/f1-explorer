@@ -61,10 +61,7 @@ function prepareSubscene2(container, drivers, yearRange) {
     .each(function (d) {
       const driverRef = Index.Driver.get(d.driver.driverId)?.driverRef;
       if (!driverRef) return;
-      const el = d3.select(this);
-      const img = new Image();
-      img.onload = () => el.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
-      img.src = `images/drivers/${driverRef}.jpg`;
+      observePortrait(this, driverRef);
     });
 
   rows.select(".driver").append("span").text((d) => nameFn(d.driver));
