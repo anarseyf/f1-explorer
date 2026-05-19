@@ -123,23 +123,35 @@ function showScene3OverlayHeader(year, container) {
   yearRow.append("span").attr("class", "scene3-year-label").text(year);
 
   const nav = yearRow.append("div").attr("class", "scene3-year-nav");
-  if (prevYear !== null) {
-    nav.append("div").attr("class", "clickable scene3-nav-btn")
-      .text(`↑ ${prevYear}`)
-      .on("click", (e) => { e.stopPropagation(); showYear(prevYear); });
-  }
-  if (nextYear !== null) {
-    nav.append("div").attr("class", "clickable scene3-nav-btn")
-      .text(`↓ ${nextYear}`)
-      .on("click", (e) => { e.stopPropagation(); showYear(nextYear); });
-  }
+  nav.append("div")
+    .attr("class", `scene3-nav-btn${prevYear !== null ? " clickable" : " invisible"}`)
+    .text(`↑ ${prevYear ?? year - 1}`)
+    .on("click", prevYear !== null ? (e) => { e.stopPropagation(); refreshScene3Overlay(prevYear); } : null);
+  nav.append("div")
+    .attr("class", `scene3-nav-btn${nextYear !== null ? " clickable" : " invisible"}`)
+    .text(`↓ ${nextYear ?? year + 1}`)
+    .on("click", nextYear !== null ? (e) => { e.stopPropagation(); refreshScene3Overlay(nextYear); } : null);
+}
 
-  const colRow = Header.append("div").attr("class", "row scene3");
-  ["Round", "Grand Prix", "Points"].forEach((label, i) => {
-    colRow.append("div")
-      .attr("class", i === 2 ? "points-col-header" : "")
-      .text(label);
-  });
+function refreshScene3Overlay(year) {
+  const Container = d3.select("#InlineSidebar3");
+  Container.select(".header").html("");
+  Container.select(".content").html("");
+  Container.select(".footer").html("");
+  Container.select(".portrait-wrapper").html("");
+
+  showScene3OverlayHeader(year, Container);
+  const drivers = rivalsForYear(year);
+  showRivalryGrid(Container, drivers, year);
+  showDsqNoteForYear(Container, year);
+  showHeaderForYear();
+  showTableForYear(year, drivers);
+  showLegendForYear(year, drivers);
+  showDescriptionForYear(year);
+
+  d3.select("#Scene3").selectAll(".scene3row").classed("selected", (d) => d === year);
+  Container.node().scrollTop = 0;
+  setUrlParam("season", year);
 }
 
 function showYear(year) {
@@ -166,7 +178,7 @@ function showYear(year) {
 
   showRivalryGrid(Container, drivers, year);
   showDsqNoteForYear(Container, year);
-  if (!State.isMobile) showHeaderForYear();
+  showHeaderForYear();
   showTableForYear(year, drivers);
   showLegendForYear(year, drivers);
   showDescriptionForYear(year);
