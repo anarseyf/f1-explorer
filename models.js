@@ -77,6 +77,7 @@ async function readData() {
   Data.Drivers = await d3.csv("./data/drivers.csv", parseRow);
   Data.Standings = await d3.csv("./data/driver_standings.csv", parseRow);
   Data.Results = await d3.csv("./data/results.csv", parseRow);
+  Data.SprintResults = await d3.csv("./data/sprint_results.csv", parseRow);
   Data.Constructors = await d3.csv("./data/constructors.csv", parseRow);
   Data.Attribution = await d3.json("./images/attribution.json").catch(() => ({}));
 }
@@ -102,6 +103,15 @@ function computeIndexes() {
     (r) => r.raceId,
     (r) => r.driverId
   );
+  Index.SprintResultsByRace = d3.group(Data.SprintResults, (r) => r.raceId);
+
+  // Max points any driver could score from a race weekend (GP + sprint if applicable)
+  const gpMaxByRace = d3.rollup(Data.Results, (v) => d3.max(v, (r) => +r.points), (r) => r.raceId);
+  const sprintMaxByRace = d3.rollup(Data.SprintResults, (v) => d3.max(v, (r) => +r.points), (r) => r.raceId);
+  Index.MaxPointsByRace = new Map();
+  for (const raceId of Index.Race.keys()) {
+    Index.MaxPointsByRace.set(raceId, (gpMaxByRace.get(raceId) || 0) + (sprintMaxByRace.get(raceId) || 0));
+  }
 }
 
 function computeLastRaceIds() {
@@ -239,11 +249,28 @@ function computeRaceWins(driverId) {
 
 function computeTitleClinchRaceId(year, championDriverId) {
   const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
-  for (const race of races) {
+
+  for (let i = 0; i < races.length; i++) {
+    const race = races[i];
     const standings = Index.StandingsByRace.get(race.raceId) || [];
-    const entry = standings.find((s) => s.driverId === championDriverId);
-    if (entry && +entry.position === 1) return race.raceId;
+    const champEntry = standings.find((s) => s.driverId === championDriverId);
+    if (!champEntry) continue;
+
+    const champPts = +champEntry.points;
+
+    // Sum of maximum points available in all remaining race weekends
+    const remainingMax = races
+      .slice(i + 1)
+      .reduce((sum, r) => sum + (Index.MaxPointsByRace.get(r.raceId) || 0), 0);
+
+    // Title is clinched if no rival can reach champion's points even with perfect remaining races
+    const rivalCanCatch = standings.some(
+      (s) => s.driverId !== championDriverId && +s.points + remainingMax >= champPts
+    );
+
+    if (!rivalCanCatch) return race.raceId;
   }
+
   return null;
 }
 

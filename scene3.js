@@ -134,38 +134,73 @@ function showDescriptionForYear(year) {
 
 function showTableForYear(year, drivers) {
   const races = Index.RacesByYear.get(year).sort((a, b) => a.round - b.round);
-
   const raceIds = races.map((r) => r.raceId);
 
-  const pointsArrays = drivers.map((d) => computePointsForDriverAtRaces(d.driverId, raceIds));
-
   const clinchRaceId = drivers[0] ? computeTitleClinchRaceId(year, drivers[0].driverId) : null;
+  const winnersByRound = computeWinnersByRoundForYear(year);
+
+  // Cumulative GP points per driver per race (from standings, includes sprint pts)
+  const gpPointsArrays = drivers.map((d) => computePointsForDriverAtRaces(d.driverId, raceIds));
+  const gpMax = d3.max(gpPointsArrays[0]) || 0;
+
+  // Sprint points per driver per sprint race
+  const sprintRaces = races.filter((r) => Index.SprintResultsByRace.has(r.raceId));
+  const sprintPointsArrays = drivers.map((d) =>
+    sprintRaces.map((r) => {
+      const entry = (Index.SprintResultsByRace.get(r.raceId) || []).find((sr) => sr.driverId === d.driverId);
+      return entry ? +entry.points : 0;
+    })
+  );
+  const sprintMax = d3.max(sprintPointsArrays.flat()) || 8;
+
+  // Build ordered table items (sprint before its GP)
+  let gpIdx = 0;
+  const sprintIdxByRace = new Map();
+  sprintRaces.forEach((r, i) => sprintIdxByRace.set(r.raceId, i));
+
+  const items = [];
+  for (const race of races) {
+    if (sprintIdxByRace.has(race.raceId)) {
+      const si = sprintIdxByRace.get(race.raceId);
+      const sprintWinnerId = (Index.SprintResultsByRace.get(race.raceId) || []).find((r) => +r.position === 1)?.driverId;
+      items.push({
+        type: "sprint",
+        race,
+        points: drivers.map((_, di) => sprintPointsArrays[di][si]),
+        max: sprintMax,
+        winnerDriverId: sprintWinnerId,
+      });
+    }
+    items.push({
+      type: "gp",
+      race,
+      points: drivers.map((_, di) => gpPointsArrays[di][gpIdx]),
+      max: gpMax,
+      winnerDriverId: winnersByRound.get(race.round)?.driverId,
+    });
+    gpIdx++;
+  }
 
   const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
   const Content = Container.select(".content");
 
-  Content.selectAll(".row").data(races).enter().append("div").attr("class", "row scene3");
+  const rows = Content.selectAll(".row").data(items).enter().append("div")
+    .attr("class", (d) => `row scene3${d.type === "sprint" ? " sprint-row" : ""}`);
 
-  const winnersByRound = computeWinnersByRoundForYear(year);
-  const raceColorFn = (d) => {
-    const driverId = winnersByRound.get(d.round).driverId;
-    const idx = drivers.findIndex((dr) => dr.driverId === driverId);
+  rows.append("div").attr("class", (d) => {
+    const idx = drivers.findIndex((dr) => dr.driverId === d.winnerDriverId);
     return `race ${indexToColor(idx)}`;
-  };
+  });
 
-  Content.selectAll(".row").append("div").attr("class", raceColorFn);
+  rows.append("div").attr("class", "year").text((d) => d.type === "sprint" ? "S" : d.race.round);
 
-  Content.selectAll(".row")
-    .append("div")
-    .attr("class", "year")
-    .text((d) => d.round);
-
-  const nameDivs = Content.selectAll(".row").append("div").attr("class", "name");
+  const nameDivs = rows.append("div").attr("class", "name");
   nameDivs.append("a")
-    .attr("href", (d) => d.url || null)
-    .attr("target", (d) => d.url ? "_blank" : null)
-    .text((d) => grandPrixNameFn(d.name, State.isMobile));
-  nameDivs.filter((d) => d.raceId === clinchRaceId)
+    .attr("href", (d) => d.race.url || null)
+    .attr("target", (d) => d.race.url ? "_blank" : null)
+    .text((d) => grandPrixNameFn(d.race.name, State.isMobile));
+  nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (sprint)");
+  nameDivs.filter((d) => d.type === "gp" && d.race.raceId === clinchRaceId)
     .append("span").attr("class", "clinch-trophy").text(" 🏆")
     .on("mouseenter", function () {
       const champion = drivers[0];
@@ -174,16 +209,9 @@ function showTableForYear(year, drivers) {
     })
     .on("mouseleave", hideTooltip);
 
-  // Content.selectAll(".row").append("div").attr("class", "place1");
-  // Content.selectAll(".row").append("div").attr("class", "place2");
-  // Content.selectAll(".place1").data(points1).text(String);
-  // Content.selectAll(".place2").data(points2).text(String);
-
-  Content.selectAll(".row").append("div").attr("class", "pointsChart");
-
-  const max = d3.max(pointsArrays[0]);
-  const pointsData = d3.zip(...pointsArrays).map((points) => ({ points, max }));
-  Content.selectAll(".pointsChart").data(pointsData).each(showPointsChart);
+  rows.append("div").attr("class", "pointsChart").each(function (d) {
+    showPointsChart.call(this, d);
+  });
 }
 
 const grandPrixNameFn = (fullName, abbreviate) =>

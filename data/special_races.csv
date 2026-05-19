@@ -1,0 +1,59 @@
+year,round,raceId,name,standard_p1,actual_max_pts,note
+1959,1,756,Monaco Grand Prix,8.0,9.0,fastest lap bonus
+1959,6,761,German Grand Prix,8.0,9.0,fastest lap bonus
+1959,7,762,Portuguese Grand Prix,8.0,9.0,fastest lap bonus
+1958,3,767,Dutch Grand Prix,8.0,9.0,fastest lap bonus
+1958,6,770,French Grand Prix,8.0,9.0,fastest lap bonus
+1958,11,775,Moroccan Grand Prix,8.0,9.0,fastest lap bonus
+1957,2,777,Monaco Grand Prix,8.0,9.0,fastest lap bonus
+1957,6,781,German Grand Prix,8.0,9.0,fastest lap bonus
+1957,7,782,Pescara Grand Prix,8.0,9.0,fastest lap bonus
+1956,7,790,German Grand Prix,8.0,9.0,fastest lap bonus
+1956,8,791,Italian Grand Prix,8.0,9.0,fastest lap bonus
+1955,1,792,Argentine Grand Prix,8.0,9.0,fastest lap bonus
+1955,4,795,Belgian Grand Prix,8.0,9.0,fastest lap bonus
+1955,6,797,British Grand Prix,8.0,9.0,fastest lap bonus
+1954,3,801,Belgian Grand Prix,8.0,9.0,fastest lap bonus
+1954,5,803,British Grand Prix,8.0,8.14,fastest lap bonus
+1954,7,805,Swiss Grand Prix,8.0,9.0,fastest lap bonus
+1951,1,825,Swiss Grand Prix,8.0,9.0,fastest lap bonus
+1951,2,826,Indianapolis 500,8.0,9.0,fastest lap bonus
+1951,8,832,Spanish Grand Prix,8.0,9.0,fastest lap bonus
+2014,19,918,Abu Dhabi Grand Prix,25.0,50.0,double points
+2019,1,1010,Australian Grand Prix,25.0,26.0,fastest lap bonus
+2019,5,1014,Spanish Grand Prix,25.0,26.0,fastest lap bonus
+2019,9,1018,Austrian Grand Prix,25.0,26.0,fastest lap bonus
+2019,10,1019,British Grand Prix,25.0,26.0,fastest lap bonus
+2019,11,1020,German Grand Prix,25.0,26.0,fastest lap bonus
+2019,16,1025,Russian Grand Prix,25.0,26.0,fastest lap bonus
+2019,21,1030,Abu Dhabi Grand Prix,25.0,26.0,fastest lap bonus
+2020,3,1033,Hungarian Grand Prix,25.0,26.0,fastest lap bonus
+2020,9,1039,Tuscan Grand Prix,25.0,26.0,fastest lap bonus
+2020,10,1040,Russian Grand Prix,25.0,26.0,fastest lap bonus
+2020,12,1042,Portuguese Grand Prix,25.0,26.0,fastest lap bonus
+2020,13,1043,Emilia Romagna Grand Prix,25.0,26.0,fastest lap bonus
+2021,7,1059,French Grand Prix,25.0,26.0,fastest lap bonus
+2021,9,1060,Austrian Grand Prix,25.0,26.0,fastest lap bonus
+2021,14,1065,Italian Grand Prix,25.0,26.0,fastest lap bonus
+2021,16,1067,Turkish Grand Prix,25.0,26.0,fastest lap bonus
+2021,21,1072,Saudi Arabian Grand Prix,25.0,26.0,fastest lap bonus
+2021,22,1073,Abu Dhabi Grand Prix,25.0,26.0,fastest lap bonus
+2022,1,1074,Bahrain Grand Prix,25.0,26.0,fastest lap bonus
+2022,3,1076,Australian Grand Prix,25.0,26.0,fastest lap bonus
+2022,4,1077,Emilia Romagna Grand Prix,25.0,26.0,fastest lap bonus
+2022,5,1078,Miami Grand Prix,25.0,26.0,fastest lap bonus
+2022,14,1087,Belgian Grand Prix,25.0,26.0,fastest lap bonus
+2022,15,1088,Dutch Grand Prix,25.0,26.0,fastest lap bonus
+2022,21,1095,São Paulo Grand Prix,25.0,26.0,fastest lap bonus
+2023,5,1102,Miami Grand Prix,25.0,26.0,fastest lap bonus
+2023,7,1105,Spanish Grand Prix,25.0,26.0,fastest lap bonus
+2023,9,1107,Austrian Grand Prix,25.0,26.0,fastest lap bonus
+2023,10,1108,British Grand Prix,25.0,26.0,fastest lap bonus
+2023,11,1109,Hungarian Grand Prix,25.0,26.0,fastest lap bonus
+2023,16,1114,Japanese Grand Prix,25.0,26.0,fastest lap bonus
+2023,17,1115,Qatar Grand Prix,25.0,26.0,fastest lap bonus
+2023,22,1120,Abu Dhabi Grand Prix,25.0,26.0,fastest lap bonus
+2024,1,1121,Bahrain Grand Prix,25.0,26.0,fastest lap bonus
+2024,4,1124,Japanese Grand Prix,25.0,26.0,fastest lap bonus
+2024,15,1135,Dutch Grand Prix,25.0,26.0,fastest lap bonus
+2024,21,1141,São Paulo Grand Prix,25.0,26.0,fastest lap bonus
