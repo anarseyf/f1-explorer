@@ -124,11 +124,11 @@ function showScene3OverlayHeader(year, container) {
 
   const nav = yearRow.append("div").attr("class", "scene3-year-nav");
   nav.append("div")
-    .attr("class", `scene3-nav-btn${prevYear !== null ? " clickable" : " invisible"}`)
+    .attr("class", `scene3-nav-btn${prevYear === null ? " invisible" : ""}`)
     .text(`↑ ${prevYear ?? year - 1}`)
     .on("click", prevYear !== null ? (e) => { e.stopPropagation(); refreshScene3Overlay(prevYear); } : null);
   nav.append("div")
-    .attr("class", `scene3-nav-btn${nextYear !== null ? " clickable" : " invisible"}`)
+    .attr("class", `scene3-nav-btn${nextYear === null ? " invisible" : ""}`)
     .text(`↓ ${nextYear ?? year + 1}`)
     .on("click", nextYear !== null ? (e) => { e.stopPropagation(); refreshScene3Overlay(nextYear); } : null);
 }
@@ -152,6 +152,17 @@ function refreshScene3Overlay(year) {
   d3.select("#Scene3").selectAll(".scene3row").classed("selected", (d) => d === year);
   Container.node().scrollTop = 0;
   setUrlParam("season", year);
+
+  requestAnimationFrame(() => {
+    const overlayH = Container.node().offsetHeight;
+    const selectedEl = d3.select("#Scene3 .scene3row.selected").node();
+    if (selectedEl) {
+      const rect = selectedEl.getBoundingClientRect();
+      const visibleH = window.innerHeight - overlayH;
+      const targetY = rect.top + window.scrollY - visibleH / 2;
+      window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+    }
+  });
 }
 
 function showYear(year) {
