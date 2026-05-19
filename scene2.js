@@ -22,7 +22,6 @@ function prepareScene2(drivers) {
     s3 = d3.select("#SubScene2-3"),
     s4 = d3.select("#SubScene2-4");
 
-  console.log("scene2 drivers:", drivers.length, "dr1:", dr1.length, "dr2:", dr2.length, "dr3:", dr3.length, "dr4:", dr4.length, dr4.map(d=>d.surname));
   prepareSubscene2(s1, dr1, y1);
   prepareSubscene2(s2, dr2, y2);
   prepareSubscene2(s3, dr3, y3);
