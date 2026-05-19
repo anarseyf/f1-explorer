@@ -876,7 +876,8 @@ a:hover {
   display: none;
 }
 
-.scene3-sticky-header {
+.scene3-sticky-header,
+.scene2-sticky-header {
   display: none;
 }
 
@@ -917,7 +918,8 @@ a:hover {
   .tab-hidden {
     display: none !important;
   }
-  .scene3-sticky-header {
+  .scene3-sticky-header,
+  .scene2-sticky-header {
     display: block;
     position: sticky;
     top: 0;
