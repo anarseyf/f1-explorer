@@ -122,6 +122,7 @@ function showYear(year) {
 
   if (State.isMobile) {
     Container.classed("mobile-overlay-active", true);
+    attachOverlayScroll(Container.node());
   }
 
   showHeadline(year, 3);
@@ -269,8 +270,8 @@ function showTableForYear(year, drivers) {
 
   const nameDivs = rows.append("div").attr("class", "name");
   nameDivs.append("a")
-    .attr("href", (d) => d.race.url || null)
-    .attr("target", (d) => d.race.url ? "_blank" : null)
+    .attr("href", (d) => State.isMobile ? null : (d.race.url || null))
+    .attr("target", (d) => !State.isMobile && d.race.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.race.name, State.isMobile));
   nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (Sprint)");
   nameDivs.filter((d) => d.type === "gp" && d.race.raceId === clinchRaceId)
@@ -289,18 +290,16 @@ function showTableForYear(year, drivers) {
     let dragging = false;
 
     node.addEventListener("touchstart", (e) => {
-      if (!e.target.closest(".pointsChart")) return;
+      const rowEl = e.target.closest(".row.scene3");
+      if (!rowEl) return;
       e.preventDefault();
       dragging = true;
       if (!pointsDiscovered) {
         pointsDiscovered = true;
         hidePointsHint();
       }
-      const rowEl = e.target.closest(".row.scene3");
-      if (rowEl) {
-        const d = d3.select(rowEl).datum();
-        if (d) showRaceRowTooltip(rowEl, d, drivers, year, true);
-      }
+      const d = d3.select(rowEl).datum();
+      if (d) showRaceRowTooltip(rowEl, d, drivers, year, true);
     }, { passive: false, signal: sig });
 
     node.addEventListener("touchmove", (e) => {

@@ -256,7 +256,7 @@ h3 {
 }
 
 .row.scene3 {
-  grid-template-columns: 0.5fr 1fr 7fr 3fr;
+  grid-template-columns: minmax(0, 0.5fr) 1fr 7fr 3fr;
   align-items: center;
   margin: 0;
 }
@@ -504,7 +504,9 @@ a:hover {
   column-gap: 0.4em;
   row-gap: 0.2em;
   align-items: start;
-  margin: 0.75em 0.25em 0.25em;
+  margin: 0 0.25em 0;
+  padding: 0.5em 0 0.25em;
+  border-top: 1px solid var(--darkline);
 }
 .win-num {
   color: var(--text);
@@ -860,13 +862,14 @@ a:hover {
     right: 0;
     height: 72vh;
     overflow-y: auto;
+    overscroll-behavior: contain;
     z-index: 100;
     border-top: 2px solid var(--line);
     border-bottom: none;
     border-left: none;
     border-right: none;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5);
-    padding-bottom: 3em;
+    padding: 1em 0.5em 3em;
   }
   .inlineSidebar.mobile-overlay-active .overlay-close {
     display: block;
@@ -879,7 +882,7 @@ a:hover {
     padding: 0.9em;
     background: var(--sidebar-bg);
     border-top: 1px solid var(--darkline);
-    color: var(--clickable-bright);
+    color: var(--brighttext);
   }
   .race.small::before {
     padding-right: 1px;

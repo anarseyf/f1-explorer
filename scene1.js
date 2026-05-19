@@ -107,6 +107,7 @@ function showDriverStats(driverId) {
   if (State.isMobile) {
     Container.classed("hidden", false);
     Container.classed("mobile-overlay-active", true);
+    attachOverlayScroll(Container.node());
     requestAnimationFrame(() => {
       const overlayH = Container.node().offsetHeight;
       const selectedEl = d3.select("#Scene1 .content .name.selected").node();

@@ -1,5 +1,7 @@
 function clear() {
   console.log("Clear");
+  detachOverlayScroll();
+
   const Sidebar = d3.select("#Sidebar");
   Sidebar.selectAll(".sidebarItem").text("");
 
@@ -13,6 +15,40 @@ function clear() {
 
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
+}
+
+let _overlayScrollEl = null;
+let _overlayScrollFn = null;
+let _overlayScrollLastY = 0;
+let _overlayTranslateY = 0;
+
+function attachOverlayScroll(overlayEl) {
+  detachOverlayScroll();
+  _overlayScrollEl = overlayEl;
+  _overlayScrollLastY = window.scrollY;
+  _overlayTranslateY = 0;
+  overlayEl.style.bottom = "0px";
+  _overlayScrollFn = () => {
+    const newY = window.scrollY;
+    const delta = newY - _overlayScrollLastY;
+    _overlayScrollLastY = newY;
+    const max = Math.max(0, _overlayScrollEl.offsetHeight - 80);
+    _overlayTranslateY = Math.max(0, Math.min(max, _overlayTranslateY + delta));
+    _overlayScrollEl.style.bottom = `${-_overlayTranslateY}px`;
+  };
+  window.addEventListener("scroll", _overlayScrollFn, { passive: true });
+}
+
+function detachOverlayScroll() {
+  if (_overlayScrollFn) {
+    window.removeEventListener("scroll", _overlayScrollFn);
+    _overlayScrollFn = null;
+  }
+  if (_overlayScrollEl) {
+    _overlayScrollEl.style.bottom = "";
+    _overlayScrollEl = null;
+    _overlayTranslateY = 0;
+  }
 }
 
 function resetAll() {

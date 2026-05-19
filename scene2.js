@@ -219,6 +219,7 @@ function showDriverCareer(driver) {
 
   if (State.isMobile) {
     Container.classed("mobile-overlay-active", true);
+    attachOverlayScroll(Container.node());
     // Scroll selected driver name to be visible above the overlay
     requestAnimationFrame(() => {
       const overlayH = Container.node().offsetHeight;
