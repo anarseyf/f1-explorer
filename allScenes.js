@@ -1,5 +1,8 @@
 function clear() {
   console.log("Clear");
+  detachOverlayScroll();
+  document.getElementById("SidebarFooter")?.classList.add("hidden");
+
   const Sidebar = d3.select("#Sidebar");
   Sidebar.selectAll(".sidebarItem").text("");
 
@@ -13,6 +16,114 @@ function clear() {
 
   const sidebarHint = Descriptions.Sidebar.hint;
   Sidebar.select(".subtitle").html(sidebarHint);
+}
+
+let _overlayEl = null;
+let _overlayScrollFn = null;
+let _overlayScrollLastY = 0;
+let _overlayOffset = 0;
+let _overlayClosing = false;
+
+function attachOverlayScroll(overlayEl) {
+  detachOverlayScroll();
+  _overlayEl = overlayEl;
+  _overlayOffset = 0;
+  _overlayClosing = false;
+
+  // Force off-screen before first paint, then slide in
+  overlayEl.style.transition = "none";
+  overlayEl.style.bottom = "-100vh";
+  overlayEl.getBoundingClientRect(); // force reflow
+  overlayEl.style.transition = "bottom 0.35s cubic-bezier(0.22, 0.61, 0.36, 1)";
+  overlayEl.style.bottom = "0px";
+
+  const bd = _getOrCreateBackdrop();
+  bd.style.display = "block";
+  requestAnimationFrame(() => { bd.style.opacity = "1"; });
+
+  // Attach scroll listener only after animation + programmatic scroll settle
+  const target = overlayEl;
+  setTimeout(() => {
+    if (_overlayEl !== target) return;
+    overlayEl.style.transition = "";
+    _overlayScrollLastY = window.scrollY;
+    _overlayScrollFn = () => {
+      if (!_overlayEl) return;
+      const newY = window.scrollY;
+      const delta = newY - _overlayScrollLastY;
+      _overlayScrollLastY = newY;
+      const max = Math.max(0, _overlayEl.offsetHeight - 80);
+      _overlayOffset = Math.max(0, Math.min(max, _overlayOffset + delta));
+      _overlayEl.style.bottom = `${-_overlayOffset}px`;
+    };
+    window.addEventListener("scroll", _overlayScrollFn, { passive: true });
+  }, 700);
+}
+
+function closeMobileOverlay() {
+  if (_overlayClosing) return;
+  const overlayEl = _overlayEl;
+  if (!overlayEl) { resetAll(); return; }
+
+  _overlayClosing = true;
+  _overlayEl = null;
+  _overlayOffset = 0;
+
+  if (_overlayScrollFn) {
+    window.removeEventListener("scroll", _overlayScrollFn);
+    _overlayScrollFn = null;
+  }
+
+  // Fade backdrop, animate overlay out
+  const bd = document.getElementById("OverlayBackdrop");
+  if (bd) bd.style.opacity = "0";
+  overlayEl.style.transition = "bottom 0.3s ease-in";
+  overlayEl.style.bottom = "-100vh";
+
+  setTimeout(() => {
+    _overlayClosing = false;
+    overlayEl.style.transition = "";
+    overlayEl.style.bottom = "";
+    _hideBackdrop();
+    resetAll();
+  }, 320);
+}
+
+function detachOverlayScroll() {
+  if (_overlayScrollFn) {
+    window.removeEventListener("scroll", _overlayScrollFn);
+    _overlayScrollFn = null;
+  }
+  if (_overlayEl) {
+    _overlayEl.style.transition = "";
+    _overlayEl.style.bottom = "";
+    _overlayEl = null;
+    _overlayOffset = 0;
+  }
+  _overlayClosing = false;
+  _hideBackdrop();
+}
+
+function _getOrCreateBackdrop() {
+  let bd = document.getElementById("OverlayBackdrop");
+  if (!bd) {
+    bd = document.createElement("div");
+    bd.id = "OverlayBackdrop";
+    bd.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;display:none;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.25s ease;";
+    document.body.appendChild(bd);
+    bd.addEventListener("click", closeMobileOverlay);
+    bd.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      closeMobileOverlay();
+    }, { passive: false });
+    bd.addEventListener("touchmove", (e) => { e.preventDefault(); }, { passive: false });
+  }
+  return bd;
+}
+
+function _hideBackdrop() {
+  const bd = document.getElementById("OverlayBackdrop");
+  if (bd) bd.style.display = "none";
 }
 
 function resetAll() {
@@ -61,6 +172,7 @@ const nameFn = (d, abbreviate) => {
 function showHeadline(textOrHtml, sceneNum) {
   const Container = d3.select(State.isMobile ? `#InlineSidebar${sceneNum}` : "#Sidebar");
   Container.select(".headline").html(textOrHtml);
+  if (!State.isMobile) document.getElementById("SidebarFooter")?.classList.remove("hidden");
 }
 
 function showSubtitle(textOrHtml, sceneNum) {
@@ -185,6 +297,65 @@ function addClickHandlers() {
   d3.select("#NextSection").on("click", () => {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
   });
+
+  const sf = document.getElementById("SidebarFooter");
+  if (sf) {
+    const resetBtn = document.createElement("div");
+    resetBtn.className = "clickable";
+    resetBtn.textContent = "reset";
+    resetBtn.addEventListener("click", resetAll);
+    const hint = document.createElement("div");
+    hint.className = "sidebar-footer-hint";
+    hint.innerHTML = `<kbd class="sidebar-key">↑</kbd><kbd class="sidebar-key">↓</kbd> navigate &nbsp;<kbd class="sidebar-key">Esc</kbd> clear`;
+    sf.appendChild(resetBtn);
+    sf.appendChild(hint);
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { resetAll(); return; }
+    if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+    const dir = e.key === "ArrowDown" ? 1 : -1;
+    if (_keyNavScene1(dir) || _keyNavScene2(dir) || _keyNavScene3(dir)) e.preventDefault();
+  });
+}
+
+function _keyNavScene1(dir) {
+  const sel = document.querySelector("#Scene1 .content .row.selected");
+  if (!sel) return false;
+  const rows = [...document.querySelectorAll("#Scene1 .content .row")];
+  const idx = rows.indexOf(sel);
+  const next = idx + dir;
+  if (next >= 0 && next < rows.length) {
+    const d = d3.select(rows[next]).datum();
+    if (d) { nameClick(null, d, rows[next]); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
+}
+
+function _keyNavScene2(dir) {
+  const sel = document.querySelector("#Scene2 .driver.selected");
+  if (!sel) return false;
+  const all = [...document.querySelectorAll("#Scene2 .driver")];
+  const idx = all.indexOf(sel);
+  const next = idx + dir;
+  if (next >= 0 && next < all.length) {
+    const d = d3.select(all[next]).datum();
+    if (d) { showDriverCareer(d.driver); all[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
+}
+
+function _keyNavScene3(dir) {
+  const sel = document.querySelector("#Scene3 .content .scene3row.selected");
+  if (!sel) return false;
+  const rows = [...document.querySelectorAll("#Scene3 .content .scene3row")];
+  const idx = rows.indexOf(sel);
+  const next = idx + dir;
+  if (next >= 0 && next < rows.length) {
+    const year = d3.select(rows[next]).datum();
+    if (year) { showYear(year); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
 }
 
 function setUrlParam(key, value) {
@@ -215,7 +386,7 @@ function handleUrlParams(champions) {
     const champion = champions.find((c) => c.driverRef === driverRef);
     if (champion) {
       nameClick(null, champion);
-      d3.select("#Scene1 .name.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      d3.select("#Scene1 .content .row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
     }
   }

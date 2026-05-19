@@ -49,14 +49,17 @@ function prepareScene1(champions) {
   showLegendForDriver(undefined);
 
   Scene.select(".reset").on("click", resetAll);
-  d3.select("#InlineSidebar1 .overlay-close").on("click", resetAll);
+  d3.select("#InlineSidebar1 .overlay-close").on("click", closeMobileOverlay);
 }
 
-function nameClick(e, d) {
+function nameClick(e, d, rowEl = null) {
+  const row = rowEl
+    ?? e?.currentTarget?.closest(".row")
+    ?? d3.select("#Scene1 .content").selectAll(".row").filter((rd) => rd === d).node();
   resetAll();
   clearHighlights();
-  d3.select("#Scene1 .content").selectAll(".name")
-    .classed("selected", (row) => row.driverId === d.driverId);
+  d3.select("#Scene1 .content").selectAll(".row")
+    .classed("selected", function() { return this === row; });
   showDriverStats(d.driverId);
   highlightRacesWonBy(d.driverId);
   showLegendForDriver(d);
@@ -73,7 +76,7 @@ function showDefaultHighlights() {
 function resetScene1() {
   const Scene = d3.select("#Scene1");
   Scene.select(".reset").classed("invisible", true);
-  d3.select("#Scene1 .content").selectAll(".name").classed("selected", false);
+  d3.select("#Scene1 .content").selectAll(".row").classed("selected", false);
   showLegendForDriver(undefined);
   showDefaultHighlights();
 }
@@ -107,6 +110,7 @@ function showDriverStats(driverId) {
   if (State.isMobile) {
     Container.classed("hidden", false);
     Container.classed("mobile-overlay-active", true);
+    attachOverlayScroll(Container.node());
     requestAnimationFrame(() => {
       const overlayH = Container.node().offsetHeight;
       const selectedEl = d3.select("#Scene1 .content .name.selected").node();
@@ -151,8 +155,8 @@ function showRaceWinsTable(driverId, Container) {
       .attr("target", d.raceUrl ? "_blank" : null)
       .text(`${d.year} ${d.raceName}`);
 
-    // Row 2: empty spacer + p1/p2/p3 podium cells
-    el.append("div");
+    // Row 2: spacer (hidden on mobile) + p1/p2/p3 podium cells
+    el.append("div").attr("class", "podium-spacer");
     ["p1", "p2", "p3"].forEach((key, idx) => {
       const cell = el.append("div").attr("class", "podium-cell");
       const entry = d[key];
