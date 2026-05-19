@@ -76,6 +76,8 @@ body {
   border-left: 1px solid var(--darkline);
   margin-bottom: 2em;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .inlineSidebar {
@@ -245,6 +247,7 @@ h3 {
 #Scene1 .content .row {
   align-items: center;
   border-left: 3px solid transparent;
+  padding-left: 0.35em;
 }
 #Scene1 .content .row.selected {
   border-left-color: var(--gold);
@@ -255,6 +258,10 @@ h3 {
 }
 #Scene1 .content .row.selected .portrait-sm {
   border-color: var(--gold);
+}
+#Scene1 .content .name.clickable:hover {
+  color: var(--clickable-bright);
+  background-color: transparent;
 }
 #Scene1 .content .row:hover,
 .row.scene2:hover,
@@ -418,7 +425,6 @@ a:hover {
   color: var(--clickable-bright);
   background-color: transparent;
 }
-.scene3row:hover,
 .scene3row.selected {
   background-color: var(--row-hover-bg);
 }
@@ -465,8 +471,8 @@ a:hover {
   background-color: var(--row-hover-bg);
 }
 .driver.clickable:hover {
-  color: var(--bg);
-  background-color: var(--gold);
+  color: var(--clickable-bright);
+  background-color: transparent;
 }
 .champion {
   background-color: var(--gold);
@@ -641,7 +647,7 @@ a:hover {
   position: fixed;
   z-index: 1000;
   background: var(--sidebar-bg);
-  border: 1px solid var(--line);
+  border: 1px solid var(--win);
   border-radius: 4px;
   padding: 0.5em 0.75em;
   font-size: 0.9em;
@@ -832,6 +838,40 @@ a:hover {
   vertical-align: middle;
 }
 
+.sidebar-footer {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--darkline);
+  padding: 0.5em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+}
+.sidebar-footer.hidden {
+  display: none;
+}
+.sidebar-footer-hint {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+.sidebar-key {
+  display: inline-block;
+  background: var(--point-bg);
+  border: 1px solid var(--win);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+  font-family: inherit;
+  font-size: 0.85em;
+  color: var(--brighttext);
+  font-style: normal;
+  line-height: 1.4;
+}
+
 @media (max-width: 900px) {
   #Main {
     width: 100%;
@@ -909,5 +949,21 @@ a:hover {
   }
   #Legend {
     padding: 1em;
+  }
+  .race-entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .race-header {
+    flex: 1;
+  }
+  .podium-spacer {
+    flex-basis: 100%;
+    height: 0;
+  }
+  .podium-cell {
+    flex: 1 0 0;
+    min-width: 0;
   }
 }

@@ -155,8 +155,8 @@ function showRaceWinsTable(driverId, Container) {
       .attr("target", d.raceUrl ? "_blank" : null)
       .text(`${d.year} ${d.raceName}`);
 
-    // Row 2: empty spacer + p1/p2/p3 podium cells
-    el.append("div");
+    // Row 2: spacer (hidden on mobile) + p1/p2/p3 podium cells
+    el.append("div").attr("class", "podium-spacer");
     ["p1", "p2", "p3"].forEach((key, idx) => {
       const cell = el.append("div").attr("class", "podium-cell");
       const entry = d[key];

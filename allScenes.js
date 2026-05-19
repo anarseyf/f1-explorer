@@ -1,6 +1,7 @@
 function clear() {
   console.log("Clear");
   detachOverlayScroll();
+  document.getElementById("SidebarFooter")?.classList.add("hidden");
 
   const Sidebar = d3.select("#Sidebar");
   Sidebar.selectAll(".sidebarItem").text("");
@@ -36,7 +37,9 @@ function attachOverlayScroll(overlayEl) {
   overlayEl.style.transition = "bottom 0.35s cubic-bezier(0.22, 0.61, 0.36, 1)";
   overlayEl.style.bottom = "0px";
 
-  _getOrCreateBackdrop().style.display = "block";
+  const bd = _getOrCreateBackdrop();
+  bd.style.display = "block";
+  requestAnimationFrame(() => { bd.style.opacity = "1"; });
 
   // Attach scroll listener only after animation + programmatic scroll settle
   const target = overlayEl;
@@ -71,7 +74,9 @@ function closeMobileOverlay() {
     _overlayScrollFn = null;
   }
 
-  // Backdrop stays visible during animation — blocks main page scroll
+  // Fade backdrop, animate overlay out
+  const bd = document.getElementById("OverlayBackdrop");
+  if (bd) bd.style.opacity = "0";
   overlayEl.style.transition = "bottom 0.3s ease-in";
   overlayEl.style.bottom = "-100vh";
 
@@ -104,7 +109,7 @@ function _getOrCreateBackdrop() {
   if (!bd) {
     bd = document.createElement("div");
     bd.id = "OverlayBackdrop";
-    bd.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;display:none;";
+    bd.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;display:none;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.25s ease;";
     document.body.appendChild(bd);
     bd.addEventListener("click", closeMobileOverlay);
     bd.addEventListener("touchstart", (e) => {
@@ -167,6 +172,7 @@ const nameFn = (d, abbreviate) => {
 function showHeadline(textOrHtml, sceneNum) {
   const Container = d3.select(State.isMobile ? `#InlineSidebar${sceneNum}` : "#Sidebar");
   Container.select(".headline").html(textOrHtml);
+  if (!State.isMobile) document.getElementById("SidebarFooter")?.classList.remove("hidden");
 }
 
 function showSubtitle(textOrHtml, sceneNum) {
@@ -291,6 +297,19 @@ function addClickHandlers() {
   d3.select("#NextSection").on("click", () => {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
   });
+
+  const sf = document.getElementById("SidebarFooter");
+  if (sf) {
+    const resetBtn = document.createElement("div");
+    resetBtn.className = "clickable";
+    resetBtn.textContent = "reset";
+    resetBtn.addEventListener("click", resetAll);
+    const hint = document.createElement("div");
+    hint.className = "sidebar-footer-hint";
+    hint.innerHTML = `<kbd class="sidebar-key">↑</kbd><kbd class="sidebar-key">↓</kbd> navigate &nbsp;<kbd class="sidebar-key">Esc</kbd> clear`;
+    sf.appendChild(resetBtn);
+    sf.appendChild(hint);
+  }
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { resetAll(); return; }
