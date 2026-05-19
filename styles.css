@@ -925,6 +925,7 @@ a:hover {
     background: var(--sidebar-bg);
     border-bottom: 1px solid var(--darkline);
     padding: 0.45em 0 0;
+    margin-top: -1em;
     margin-bottom: 0.5em;
   }
   .scene3-year-row {
@@ -945,6 +946,10 @@ a:hover {
   .scene3-nav-btn {
     color: var(--clickable);
     font-size: 1.15em;
+    cursor: pointer;
+  }
+  .scene3-nav-btn.invisible {
+    cursor: default;
   }
   .scene {
     padding: 0.5em 1em;
