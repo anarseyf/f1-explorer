@@ -52,11 +52,14 @@ function prepareScene1(champions) {
   d3.select("#InlineSidebar1 .overlay-close").on("click", closeMobileOverlay);
 }
 
-function nameClick(e, d) {
+function nameClick(e, d, rowEl = null) {
+  const row = rowEl
+    ?? e?.currentTarget?.closest(".row")
+    ?? d3.select("#Scene1 .content").selectAll(".row").filter((rd) => rd === d).node();
   resetAll();
   clearHighlights();
-  d3.select("#Scene1 .content").selectAll(".name")
-    .classed("selected", (row) => row.driverId === d.driverId);
+  d3.select("#Scene1 .content").selectAll(".row")
+    .classed("selected", function() { return this === row; });
   showDriverStats(d.driverId);
   highlightRacesWonBy(d.driverId);
   showLegendForDriver(d);
@@ -73,7 +76,7 @@ function showDefaultHighlights() {
 function resetScene1() {
   const Scene = d3.select("#Scene1");
   Scene.select(".reset").classed("invisible", true);
-  d3.select("#Scene1 .content").selectAll(".name").classed("selected", false);
+  d3.select("#Scene1 .content").selectAll(".row").classed("selected", false);
   showLegendForDriver(undefined);
   showDefaultHighlights();
 }

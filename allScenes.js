@@ -301,14 +301,14 @@ function addClickHandlers() {
 }
 
 function _keyNavScene1(dir) {
-  const sel = document.querySelector("#Scene1 .content .name.selected");
+  const sel = document.querySelector("#Scene1 .content .row.selected");
   if (!sel) return false;
   const rows = [...document.querySelectorAll("#Scene1 .content .row")];
-  const idx = rows.indexOf(sel.closest(".row"));
+  const idx = rows.indexOf(sel);
   const next = idx + dir;
   if (next >= 0 && next < rows.length) {
     const d = d3.select(rows[next]).datum();
-    if (d) { nameClick(null, d); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+    if (d) { nameClick(null, d, rows[next]); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
   }
   return true;
 }
@@ -367,7 +367,7 @@ function handleUrlParams(champions) {
     const champion = champions.find((c) => c.driverRef === driverRef);
     if (champion) {
       nameClick(null, champion);
-      d3.select("#Scene1 .name.selected").node()?.scrollIntoView({ behavior: "smooth" });
+      d3.select("#Scene1 .content .row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
     }
   }
