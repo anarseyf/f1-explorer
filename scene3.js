@@ -243,7 +243,8 @@ function showRaceRowTooltip(anchorEl, item, drivers, year) {
     html += `<div class="tt-note">${item.remainingMax} max pts remaining</div>`;
   }
 
-  showTooltip(anchorEl, html);
+  const anchor = anchorEl.querySelector(".pointsChart") || anchorEl;
+  showTooltip(anchor, html, { side: "left" });
 }
 
 const grandPrixNameFn = (fullName, abbreviate) =>

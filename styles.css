@@ -639,6 +639,21 @@ a:hover {
   border-top-color: var(--sidebar-bg);
   margin-top: -1px;
 }
+.app-tooltip[data-direction="right"]::before,
+.app-tooltip[data-direction="right"]::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--line);
+}
+.app-tooltip[data-direction="right"]::after {
+  border-width: 5px;
+  border-left-color: var(--sidebar-bg);
+  margin-left: -1px;
+}
 
 .driver-grid {
   display: flex;

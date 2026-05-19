@@ -115,28 +115,47 @@ function getOrCreateTooltip() {
   return tip;
 }
 
-function showTooltip(anchorEl, html) {
+function showTooltip(anchorEl, html, { side = "auto" } = {}) {
   const tip = getOrCreateTooltip();
   tip.innerHTML = html;
+  tip.style.visibility = "hidden";
   tip.classList.remove("app-tooltip-hidden");
 
   const rect = anchorEl.getBoundingClientRect();
-  const goBelow = (window.innerHeight - rect.bottom) >= rect.top;
-  tip.dataset.direction = goBelow ? "down" : "up";
+  const margin = 8;
+  const gap = 10;
 
-  if (goBelow) {
-    tip.style.top = `${rect.bottom + 8}px`;
+  if (side === "left") {
+    tip.dataset.direction = "right";
+    tip.style.transform = "";
     tip.style.bottom = "";
+
+    const tipW = tip.offsetWidth;
+    const tipH = tip.offsetHeight;
+    const top = Math.max(margin, Math.min(
+      rect.top + rect.height / 2 - tipH / 2,
+      window.innerHeight - tipH - margin
+    ));
+    const left = Math.max(margin, rect.left - tipW - gap);
+    tip.style.top = `${top}px`;
+    tip.style.left = `${left}px`;
   } else {
-    tip.style.top = "";
-    tip.style.bottom = `${window.innerHeight - rect.top + 8}px`;
+    tip.dataset.direction = (window.innerHeight - rect.bottom) >= rect.top ? "down" : "up";
+    tip.style.transform = "";
+    tip.style.bottom = "";
+
+    if (tip.dataset.direction === "down") {
+      tip.style.top = `${rect.bottom + gap}px`;
+    } else {
+      tip.style.top = `${rect.top - tip.offsetHeight - gap}px`;
+    }
+    const anchorCx = rect.left + rect.width / 2;
+    const halfWidth = 110;
+    const left = Math.max(margin, Math.min(anchorCx - halfWidth, window.innerWidth - halfWidth * 2 - margin));
+    tip.style.left = `${left}px`;
   }
 
-  const anchorCx = rect.left + rect.width / 2;
-  const halfWidth = 110;
-  const margin = 8;
-  const left = Math.max(margin, Math.min(anchorCx - halfWidth, window.innerWidth - halfWidth * 2 - margin));
-  tip.style.left = `${left}px`;
+  tip.style.visibility = "";
 }
 
 function hideTooltip() {
