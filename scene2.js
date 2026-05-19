@@ -79,7 +79,7 @@ function prepareSubscene2(container, drivers, yearRange) {
     });
 
   d3.select("#Scene2 .reset").on("click", resetAll);
-  d3.select("#InlineSidebar2 .overlay-close").on("click", resetAll);
+  d3.select("#InlineSidebar2 .overlay-close").on("click", closeMobileOverlay);
 
   showYearAxis(container, minYear, maxYear);
   showIntersectionTooltip(undefined, container);

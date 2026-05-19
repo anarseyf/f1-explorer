@@ -631,7 +631,7 @@ a:hover {
   font-size: 0.9em;
   color: var(--text);
   pointer-events: none;
-  max-width: 220px;
+  max-width: 260px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   line-height: 1.4;
 }

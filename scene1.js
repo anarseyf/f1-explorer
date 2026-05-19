@@ -49,7 +49,7 @@ function prepareScene1(champions) {
   showLegendForDriver(undefined);
 
   Scene.select(".reset").on("click", resetAll);
-  d3.select("#InlineSidebar1 .overlay-close").on("click", resetAll);
+  d3.select("#InlineSidebar1 .overlay-close").on("click", closeMobileOverlay);
 }
 
 function nameClick(e, d) {

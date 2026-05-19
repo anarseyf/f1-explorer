@@ -57,7 +57,7 @@ function prepareScene3(years) {
   Content.selectAll(".row").append("div").attr("class", "name").html(rivalryHtmlForYear);
 
   d3.select("#Scene3 .reset").on("click", resetAll);
-  d3.select("#InlineSidebar3 .overlay-close").on("click", resetAll);
+  d3.select("#InlineSidebar3 .overlay-close").on("click", closeMobileOverlay);
 }
 
 function resetScene3() {
