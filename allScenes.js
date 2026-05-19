@@ -40,24 +40,6 @@ function attachOverlayScroll(overlayEl) {
   const bd = _getOrCreateBackdrop();
   bd.style.display = "block";
   requestAnimationFrame(() => { bd.style.opacity = "1"; });
-
-  // Attach scroll listener only after animation + programmatic scroll settle
-  const target = overlayEl;
-  setTimeout(() => {
-    if (_overlayEl !== target) return;
-    overlayEl.style.transition = "";
-    _overlayScrollLastY = window.scrollY;
-    _overlayScrollFn = () => {
-      if (!_overlayEl) return;
-      const newY = window.scrollY;
-      const delta = newY - _overlayScrollLastY;
-      _overlayScrollLastY = newY;
-      const max = Math.max(0, _overlayEl.offsetHeight - 80);
-      _overlayOffset = Math.max(0, Math.min(max, _overlayOffset + delta));
-      _overlayEl.style.bottom = `${-_overlayOffset}px`;
-    };
-    window.addEventListener("scroll", _overlayScrollFn, { passive: true });
-  }, 700);
 }
 
 function closeMobileOverlay() {
