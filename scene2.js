@@ -1,20 +1,31 @@
+let _scene2Drivers = [];
+
 function prepareScene2(drivers) {
-  const dr1 = drivers.slice(0, 12),
-    dr2 = drivers.slice(12, 23),
-    dr3 = drivers.slice(23);
+  _scene2Drivers = drivers;
+  // dr1: Farina–Stewart (first 11 unique champions, 1950s–60s)
+  // dr2: Rindt–Senna (1970s–80s; Rindt is index 11)
+  // dr3: Mansell–Hakkinen (1990s–2000s; Mansell is index 22)
+  // dr4: Alonso onwards (2000s–Today; Alonso is index 27)
+  const dr1 = drivers.slice(0, 11),
+    dr2 = drivers.slice(11, 22),
+    dr3 = drivers.slice(22, 27),
+    dr4 = drivers.slice(27);
 
   const latestYear = d3.max([...Index.RacesByYear.keys()]);
-  const y1 = [1950, 1950 + 25],
-    y2 = [1968, 1968 + 25],
-    y3 = [1990, latestYear];
+  const y1 = [1950, 1975],
+    y2 = [1968, 1994],
+    y3 = [1980, 2007],
+    y4 = [2001, latestYear];
 
   const s1 = d3.select("#SubScene2-1"),
     s2 = d3.select("#SubScene2-2"),
-    s3 = d3.select("#SubScene2-3");
+    s3 = d3.select("#SubScene2-3"),
+    s4 = d3.select("#SubScene2-4");
 
   prepareSubscene2(s1, dr1, y1);
   prepareSubscene2(s2, dr2, y2);
   prepareSubscene2(s3, dr3, y3);
+  prepareSubscene2(s4, dr4, y4);
 }
 
 function prepareSubscene2(container, drivers, yearRange) {
@@ -205,36 +216,30 @@ function highlightChampionRow(driver) {
   Scene2.selectAll(".scene2row").classed("highlighted", (d) => d && d.driver.driverId === driverId);
 }
 
-function showDriverCareer(driver) {
-  resetAll();
+function showScene2OverlayHeader(driver, container) {
+  const Header = container.select(".scene2-sticky-header").html("");
+  const idx = _scene2Drivers.findIndex((d) => d.driverId === driver.driverId);
+  const prevDriver = idx > 0 ? _scene2Drivers[idx - 1] : null;
+  const nextDriver = idx < _scene2Drivers.length - 1 ? _scene2Drivers[idx + 1] : null;
 
-  d3.select("#Scene2 .reset").classed("invisible", false);
+  const row = Header.append("div").attr("class", "scene3-year-row");
+  row.append("span").attr("class", "scene3-year-label").text(driver.surname);
 
-  const Container = d3.select(State.isMobile ? "#InlineSidebar2" : "#Sidebar");
+  const nav = row.append("div").attr("class", "scene3-year-nav");
+  nav.append("div")
+    .attr("class", `scene3-nav-btn${prevDriver === null ? " invisible" : ""}`)
+    .text(prevDriver ? `↑ ${prevDriver.surname}` : "↑ ——")
+    .on("click", prevDriver !== null ? (e) => { e.stopPropagation(); refreshScene2Overlay(prevDriver); } : null);
+  nav.append("div")
+    .attr("class", `scene3-nav-btn${nextDriver === null ? " invisible" : ""}`)
+    .text(nextDriver ? `↓ ${nextDriver.surname}` : "↓ ——")
+    .on("click", nextDriver !== null ? (e) => { e.stopPropagation(); refreshScene2Overlay(nextDriver); } : null);
+}
 
-  Container.classed("hidden", false);
-
-  if (State.isMobile) {
-    Container.classed("mobile-overlay-active", true);
-    attachOverlayScroll(Container.node());
-    // Scroll selected driver name to be visible above the overlay
-    requestAnimationFrame(() => {
-      const overlayH = Container.node().offsetHeight;
-      const selectedEl = d3.select("#Scene2 .driver.selected").node();
-      if (selectedEl) {
-        const rect = selectedEl.getBoundingClientRect();
-        const visibleH = window.innerHeight - overlayH;
-        const targetY = rect.top + window.scrollY - visibleH / 2;
-        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
-      }
-    });
-  }
-
+function _fillDriverCareerContent(driver, Container) {
   highlightChampionRow(driver);
   d3.select("#Scene2").selectAll(".driver")
     .classed("selected", (d) => d.driver.driverId === driver.driverId);
-
-  showHeadline(nameFn(driver), 2);
 
   const driverRef = (Index.Driver.get(driver.driverId) || driver).driverRef;
   const wrapper = Container.select(".portrait-wrapper").html("");
@@ -243,11 +248,9 @@ function showDriverCareer(driver) {
   const Subtitle = Container.select(".subtitle");
   const Header = Container.select(".header");
   const Content = Container.select(".content");
-
   const standings = computeDriver(driver.driverId);
 
-  const html = computeDriverSummaryHtml(driver.driverId);
-  Subtitle.html(html);
+  Subtitle.html(computeDriverSummaryHtml(driver.driverId));
 
   const headerData = ["Season", "Team", "Result", "Races won"];
   Header.append("div")
@@ -263,7 +266,6 @@ function showDriverCareer(driver) {
     .enter()
     .append("div")
     .attr("class", "row scene2")
-    // .classed("champion", (d) => d.position === 1)
     .classed("missing", (d) => d.position === 0);
 
   Content.selectAll(".row")
@@ -287,10 +289,60 @@ function showDriverCareer(driver) {
     .attr("class", "name right wins-num")
     .text((d) => (d.position === 0 ? "" : d.wins || "-"));
 
-  // console.log(`>> raceWinsByYear: `, raceWinsByYear);
-
   Content.selectAll(".row").append("div").attr("class", "wins").each(showWins);
+}
 
+function refreshScene2Overlay(driver) {
+  const Container = d3.select("#InlineSidebar2");
+  Container.select(".portrait-wrapper").html("");
+  Container.select(".subtitle").html("");
+  Container.select(".header").html("");
+  Container.select(".content").html("");
+  Container.select(".footer").html("");
+
+  showScene2OverlayHeader(driver, Container);
+  _fillDriverCareerContent(driver, Container);
+  setUrlParam("timeline", driver.driverRef);
+
+  Container.node().scrollTop = 0;
+  requestAnimationFrame(() => {
+    const overlayH = Container.node().offsetHeight;
+    const selectedEl = d3.select("#Scene2 .driver.selected").node();
+    if (selectedEl) {
+      const rect = selectedEl.getBoundingClientRect();
+      const visibleH = window.innerHeight - overlayH;
+      const targetY = rect.top + window.scrollY - visibleH / 2;
+      window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+    }
+  });
+}
+
+function showDriverCareer(driver) {
+  resetAll();
+  d3.select("#Scene2 .reset").classed("invisible", false);
+
+  const Container = d3.select(State.isMobile ? "#InlineSidebar2" : "#Sidebar");
+  Container.classed("hidden", false);
+
+  if (State.isMobile) {
+    Container.classed("mobile-overlay-active", true);
+    attachOverlayScroll(Container.node());
+    requestAnimationFrame(() => {
+      const overlayH = Container.node().offsetHeight;
+      const selectedEl = d3.select("#Scene2 .driver.selected").node();
+      if (selectedEl) {
+        const rect = selectedEl.getBoundingClientRect();
+        const visibleH = window.innerHeight - overlayH;
+        const targetY = rect.top + window.scrollY - visibleH / 2;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    });
+    showScene2OverlayHeader(driver, Container);
+  } else {
+    showHeadline(nameFn(driver), 2);
+  }
+
+  _fillDriverCareerContent(driver, Container);
   setUrlParam("timeline", driver.driverRef);
 }
 
