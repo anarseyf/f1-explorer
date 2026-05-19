@@ -6,6 +6,7 @@ function clear() {
   const inlineSidebars = d3.selectAll(".inlineSidebar");
   inlineSidebars.selectAll(".sidebarItem").text("");
   inlineSidebars.classed("hidden", true);
+  inlineSidebars.classed("mobile-overlay-active", false);
 
   d3.selectAll(".portrait-wrapper").html("");
 

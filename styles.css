@@ -541,6 +541,10 @@ a:hover {
   margin-left: 2px;
 }
 
+.overlay-close {
+  display: none;
+}
+
 .row.scene3.sprint-row {
   opacity: 0.7;
 }
@@ -714,6 +718,32 @@ a:hover {
   .scene3row .rival {
     flex: 1 0 33%;
     min-width: 0;
+  }
+  .inlineSidebar.mobile-overlay-active {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72vh;
+    overflow-y: auto;
+    z-index: 100;
+    border-top: 2px solid var(--line);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5);
+    padding-bottom: 3em;
+  }
+  .inlineSidebar.mobile-overlay-active .overlay-close {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    text-align: center;
+    padding: 0.6em;
+    background: var(--sidebar-bg);
+    border-top: 1px solid var(--darkline);
+    color: var(--clickable-bright);
   }
   .race.small::before {
     padding-right: 1px;

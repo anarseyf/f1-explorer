@@ -79,6 +79,7 @@ function prepareSubscene2(container, drivers, yearRange) {
     });
 
   d3.select("#Scene2 .reset").on("click", resetAll);
+  d3.select("#InlineSidebar2 .overlay-close").on("click", resetAll);
 
   showYearAxis(container, minYear, maxYear);
   showIntersectionTooltip(undefined, container);
@@ -215,6 +216,21 @@ function showDriverCareer(driver) {
   const Container = d3.select(State.isMobile ? "#InlineSidebar2" : "#Sidebar");
 
   Container.classed("hidden", false);
+
+  if (State.isMobile) {
+    Container.classed("mobile-overlay-active", true);
+    // Scroll selected driver name to be visible above the overlay
+    requestAnimationFrame(() => {
+      const overlayH = Container.node().offsetHeight;
+      const selectedEl = d3.select("#Scene2 .driver.selected").node();
+      if (selectedEl) {
+        const rect = selectedEl.getBoundingClientRect();
+        const visibleH = window.innerHeight - overlayH;
+        const targetY = rect.top + window.scrollY - visibleH / 2;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    });
+  }
 
   highlightChampionRow(driver);
   d3.select("#Scene2").selectAll(".driver")
