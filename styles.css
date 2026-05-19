@@ -534,6 +534,49 @@ a:hover {
   font-style: italic;
 }
 
+.tt-label {
+  font-size: 0.75em;
+  color: var(--text);
+}
+.tt-race-name {
+  color: var(--brighttext);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+.tt-driver {
+  display: grid;
+  grid-template-columns: 20px 1fr auto auto;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.1em 0;
+}
+.tt-name {
+  color: var(--brighttext);
+  font-weight: 600;
+}
+.tt-name.gold { color: var(--gold); }
+.tt-name.silver { color: var(--silver); }
+.tt-name.bronze { color: var(--bronze); }
+.tt-team {
+  color: var(--text);
+  font-size: 0.85em;
+  font-style: italic;
+  text-align: right;
+}
+.tt-pts {
+  color: var(--brighttext);
+  font-weight: 600;
+  text-align: right;
+  min-width: 2.5em;
+}
+.tt-note {
+  margin-top: 0.35em;
+  padding-top: 0.3em;
+  font-size: 0.8em;
+  color: var(--text);
+  border-top: 1px solid var(--darkline);
+}
+
 .win-count {
   font-size: 0.85em;
   color: var(--gold);

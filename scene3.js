@@ -136,56 +136,69 @@ function showTableForYear(year, drivers) {
   const races = Index.RacesByYear.get(year).sort((a, b) => a.round - b.round);
   const raceIds = races.map((r) => r.raceId);
 
-  const clinchRaceId = drivers[0] ? computeTitleClinchRaceId(year, drivers[0].driverId) : null;
+  const clinch = drivers[0] ? computeTitleClinch(year, drivers[0].driverId) : null;
+  const clinchRaceId = clinch?.raceId ?? null;
+  const clinchRemainingMax = clinch?.remainingMax ?? 0;
   const winnersByRound = computeWinnersByRoundForYear(year);
 
-  // Cumulative GP points per driver per race (from standings, includes sprint pts)
+  // Cumulative GP points per driver per race (from standings, includes prior sprint pts)
   const gpPointsArrays = drivers.map((d) => computePointsForDriverAtRaces(d.driverId, raceIds));
   const gpMax = d3.max(gpPointsArrays[0]) || 0;
 
-  // Sprint points per driver per sprint race
+  // Sprint raw points per driver per sprint race
   const sprintRaces = races.filter((r) => Index.SprintResultsByRace.has(r.raceId));
-  const sprintPointsArrays = drivers.map((d) =>
-    sprintRaces.map((r) => {
+  const sprintRawByRace = new Map();
+  sprintRaces.forEach((r) => {
+    sprintRawByRace.set(r.raceId, drivers.map((d) => {
       const entry = (Index.SprintResultsByRace.get(r.raceId) || []).find((sr) => sr.driverId === d.driverId);
       return entry ? +entry.points : 0;
-    })
-  );
-  const sprintMax = d3.max(sprintPointsArrays.flat()) || 8;
+    }));
+  });
 
-  // Build ordered table items (sprint before its GP)
-  let gpIdx = 0;
-  const sprintIdxByRace = new Map();
-  sprintRaces.forEach((r, i) => sprintIdxByRace.set(r.raceId, i));
-
+  // Build ordered table items (sprint before its GP), with cumulative points on same scale as GP
   const items = [];
-  for (const race of races) {
-    if (sprintIdxByRace.has(race.raceId)) {
-      const si = sprintIdxByRace.get(race.raceId);
+  for (let ri = 0; ri < races.length; ri++) {
+    const race = races[ri];
+
+    if (sprintRawByRace.has(race.raceId)) {
+      // Sprint cumulative = previous GP standings + sprint pts (sprint happens before GP)
+      const prevRaceId = ri > 0 ? races[ri - 1].raceId : null;
+      const prevStandings = prevRaceId ? (Index.StandingsByRace.get(prevRaceId) || []) : [];
+      const sprintRaw = sprintRawByRace.get(race.raceId);
       const sprintWinnerId = (Index.SprintResultsByRace.get(race.raceId) || []).find((r) => +r.position === 1)?.driverId;
+
       items.push({
         type: "sprint",
         race,
-        points: drivers.map((_, di) => sprintPointsArrays[di][si]),
-        max: sprintMax,
+        points: drivers.map((d, di) => {
+          const prevEntry = prevStandings.find((s) => s.driverId === d.driverId);
+          return (prevEntry ? +prevEntry.points : 0) + sprintRaw[di];
+        }),
+        max: gpMax,
         winnerDriverId: sprintWinnerId,
+        isCliching: false,
+        remainingMax: 0,
       });
     }
+
     items.push({
       type: "gp",
       race,
-      points: drivers.map((_, di) => gpPointsArrays[di][gpIdx]),
+      points: drivers.map((_, di) => gpPointsArrays[di][ri]),
       max: gpMax,
       winnerDriverId: winnersByRound.get(race.round)?.driverId,
+      isCliching: race.raceId === clinchRaceId,
+      remainingMax: race.raceId === clinchRaceId ? clinchRemainingMax : 0,
     });
-    gpIdx++;
   }
 
   const Container = d3.select(State.isMobile ? "#InlineSidebar3" : "#Sidebar");
   const Content = Container.select(".content");
 
   const rows = Content.selectAll(".row").data(items).enter().append("div")
-    .attr("class", (d) => `row scene3${d.type === "sprint" ? " sprint-row" : ""}`);
+    .attr("class", (d) => `row scene3${d.type === "sprint" ? " sprint-row" : ""}`)
+    .on("mouseenter", function (event, d) { showRaceRowTooltip(this, d, drivers, year); })
+    .on("mouseleave", hideTooltip);
 
   rows.append("div").attr("class", (d) => {
     const idx = drivers.findIndex((dr) => dr.driverId === d.winnerDriverId);
@@ -201,17 +214,36 @@ function showTableForYear(year, drivers) {
     .text((d) => grandPrixNameFn(d.race.name, State.isMobile));
   nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (sprint)");
   nameDivs.filter((d) => d.type === "gp" && d.race.raceId === clinchRaceId)
-    .append("span").attr("class", "clinch-trophy").text(" 🏆")
-    .on("mouseenter", function () {
-      const champion = drivers[0];
-      const name = champion ? nameFn(champion, true) : "champion";
-      showTooltip(this, `${name} clinched the title here`);
-    })
-    .on("mouseleave", hideTooltip);
+    .append("span").attr("class", "clinch-trophy").text(" 🏆");
 
   rows.append("div").attr("class", "pointsChart").each(function (d) {
     showPointsChart.call(this, d);
   });
+}
+
+function showRaceRowTooltip(anchorEl, item, drivers, year) {
+  const raceName = grandPrixNameFn(item.race.name, false);
+  const suffix = item.type === "sprint" ? " (sprint)" : "";
+  const colors = ["gold", "silver", "bronze"];
+
+  let html = `<div class="tt-label">Points after</div><div class="tt-race-name">${raceName}${suffix}</div>`;
+
+  drivers.forEach((driver, i) => {
+    const driverObj = Index.Driver.get(driver.driverId) || driver;
+    const driverRef = driverObj.driverRef || "";
+    const pts = item.points[i];
+    const teamResult = Index.ResultsByRaceByDriver.get(item.race.raceId)?.get(driver.driverId)?.[0];
+    const team = teamResult ? (Index.Constructor.get(teamResult.constructorId)?.name || "") : "";
+    const portraitStyle = driverRef ? `background-image:url('images/drivers/${driverRef}.jpg')` : "";
+    const nameClass = colors[i] ? ` ${colors[i]}` : "";
+    html += `<div class="tt-driver"><div class="portrait-sm" style="${portraitStyle}"></div><span class="tt-name${nameClass}">${driverObj.surname}</span><span class="tt-team">${team}</span><span class="tt-pts">${pts}</span></div>`;
+  });
+
+  if (item.isCliching) {
+    html += `<div class="tt-note">${item.remainingMax} max pts remaining</div>`;
+  }
+
+  showTooltip(anchorEl, html);
 }
 
 const grandPrixNameFn = (fullName, abbreviate) =>

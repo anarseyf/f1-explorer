@@ -247,7 +247,7 @@ function computeRaceWins(driverId) {
   return wins;
 }
 
-function computeTitleClinchRaceId(year, championDriverId) {
+function computeTitleClinch(year, championDriverId) {
   const races = (Index.RacesByYear.get(year) || []).slice().sort((a, b) => a.round - b.round);
 
   for (let i = 0; i < races.length; i++) {
@@ -257,21 +257,22 @@ function computeTitleClinchRaceId(year, championDriverId) {
     if (!champEntry) continue;
 
     const champPts = +champEntry.points;
-
-    // Sum of maximum points available in all remaining race weekends
     const remainingMax = races
       .slice(i + 1)
       .reduce((sum, r) => sum + (Index.MaxPointsByRace.get(r.raceId) || 0), 0);
 
-    // Title is clinched if no rival can reach champion's points even with perfect remaining races
     const rivalCanCatch = standings.some(
       (s) => s.driverId !== championDriverId && +s.points + remainingMax >= champPts
     );
 
-    if (!rivalCanCatch) return race.raceId;
+    if (!rivalCanCatch) return { raceId: race.raceId, remainingMax };
   }
 
   return null;
+}
+
+function computeTitleClinchRaceId(year, championDriverId) {
+  return computeTitleClinch(year, championDriverId)?.raceId ?? null;
 }
 
 function getTeamsForDriverInYear(driverId, year) {
