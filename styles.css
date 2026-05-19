@@ -928,6 +928,9 @@ a:hover {
   }
   .scene3-sticky-header {
     display: block;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     background: var(--sidebar-bg);
     border-bottom: 1px solid var(--darkline);
     padding: 0.45em 0 0;
