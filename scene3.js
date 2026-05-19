@@ -111,6 +111,37 @@ function showRivalryGrid(Container, drivers, year) {
   });
 }
 
+function showScene3OverlayHeader(year, container) {
+  const Header = container.select(".scene3-sticky-header").html("");
+
+  const years = [...Index.RacesByYear.keys()].sort((a, b) => a - b);
+  const idx = years.indexOf(year);
+  const prevYear = idx > 0 ? years[idx - 1] : null;
+  const nextYear = idx < years.length - 1 ? years[idx + 1] : null;
+
+  const yearRow = Header.append("div").attr("class", "scene3-year-row");
+  yearRow.append("span").attr("class", "scene3-year-label").text(year);
+
+  const nav = yearRow.append("div").attr("class", "scene3-year-nav");
+  if (prevYear !== null) {
+    nav.append("div").attr("class", "clickable scene3-nav-btn")
+      .text(`↑ ${prevYear}`)
+      .on("click", (e) => { e.stopPropagation(); showYear(prevYear); });
+  }
+  if (nextYear !== null) {
+    nav.append("div").attr("class", "clickable scene3-nav-btn")
+      .text(`↓ ${nextYear}`)
+      .on("click", (e) => { e.stopPropagation(); showYear(nextYear); });
+  }
+
+  const colRow = Header.append("div").attr("class", "row scene3");
+  ["Round", "Grand Prix", "Points"].forEach((label, i) => {
+    colRow.append("div")
+      .attr("class", i === 2 ? "points-col-header" : "")
+      .text(label);
+  });
+}
+
 function showYear(year) {
   console.log("Show ", year);
 
@@ -125,13 +156,17 @@ function showYear(year) {
     attachOverlayScroll(Container.node());
   }
 
-  showHeadline(year, 3);
+  if (State.isMobile) {
+    showScene3OverlayHeader(year, Container);
+  } else {
+    showHeadline(year, 3);
+  }
 
   const drivers = rivalsForYear(year);
 
   showRivalryGrid(Container, drivers, year);
   showDsqNoteForYear(Container, year);
-  showHeaderForYear();
+  if (!State.isMobile) showHeaderForYear();
   showTableForYear(year, drivers);
   showLegendForYear(year, drivers);
   showDescriptionForYear(year);

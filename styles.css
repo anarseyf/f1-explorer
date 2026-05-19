@@ -286,9 +286,18 @@ h3 {
 .row.scene3 .pointsChart {
   align-self: stretch;
 }
-.header > .row.scene3 {
+.header > .row.scene3,
+.scene3-sticky-header .row.scene3 {
   grid-template-columns: 1.5fr 7fr 3fr;
   gap: 1em;
+}
+
+.scene3-sticky-header .row.scene3 {
+  background: transparent;
+  margin: 0;
+  padding: 0.2em 0 0.3em;
+  color: var(--text);
+  font-size: 0.85em;
 }
 .sidebarItem.header {
   padding-bottom: 0;
@@ -876,10 +885,14 @@ a:hover {
   display: none;
 }
 
+.scene3-sticky-header {
+  display: none;
+}
+
 @media (max-width: 900px) {
   #Main {
     width: 100%;
-    padding-bottom: 52px;
+    padding-bottom: 46px;
   }
   #Sidebar {
     display: none;
@@ -894,7 +907,7 @@ a:hover {
     z-index: 50;
     background: var(--sidebar-bg);
     border-top: 1px solid var(--darkline);
-    height: 52px;
+    height: 46px;
   }
   .mobile-tab {
     flex: 1;
@@ -902,16 +915,44 @@ a:hover {
     align-items: center;
     justify-content: center;
     color: var(--text);
-    font-size: 0.8em;
     border-top: 3px solid transparent;
     cursor: pointer;
   }
   .mobile-tab.active {
     color: var(--brighttext);
     border-top-color: var(--gold);
+    font-weight: 600;
   }
   .tab-hidden {
     display: none !important;
+  }
+  .scene3-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--sidebar-bg);
+    border-bottom: 1px solid var(--darkline);
+    margin: -1em -0.5em 0;
+    padding: 0.45em 0.75em 0;
+  }
+  .scene3-year-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.3em;
+  }
+  .scene3-year-label {
+    color: var(--brighttext);
+    font-weight: 600;
+    font-size: 1.05em;
+  }
+  .scene3-year-nav {
+    display: flex;
+    gap: 0.75em;
+  }
+  .scene3-nav-btn {
+    color: var(--clickable);
+    font-size: 0.88em;
   }
   .scene {
     padding: 0.5em 1em;
@@ -950,7 +991,7 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 72vh;
+    height: 58vh;
     overflow-y: auto;
     overscroll-behavior: contain;
     z-index: 100;
