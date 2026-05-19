@@ -348,15 +348,16 @@ function showTableForYear(year, drivers) {
     let dragging = false;
 
     node.addEventListener("touchstart", (e) => {
-      const rowEl = e.target.closest(".row.scene3");
-      if (!rowEl) return;
+      const pointsEl = e.target.closest(".pointsChart");
+      if (!pointsEl) return;
       e.preventDefault();
       dragging = true;
       if (!pointsDiscovered) {
         pointsDiscovered = true;
         hidePointsHint();
       }
-      const d = d3.select(rowEl).datum();
+      const rowEl = pointsEl.closest(".row.scene3");
+      const d = rowEl && d3.select(rowEl).datum();
       if (d) showRaceRowTooltip(rowEl, d, drivers, year, true);
     }, { passive: false, signal: sig });
 
@@ -365,9 +366,10 @@ function showTableForYear(year, drivers) {
       e.preventDefault();
       const touch = e.touches[0];
       const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      const rowEl = el?.closest(".row.scene3");
-      if (!rowEl) { hideTooltip(); return; }
-      const d = d3.select(rowEl).datum();
+      const pointsEl = el?.closest(".pointsChart");
+      if (!pointsEl) { hideTooltip(); return; }
+      const rowEl = pointsEl.closest(".row.scene3");
+      const d = rowEl && d3.select(rowEl).datum();
       if (d) showRaceRowTooltip(rowEl, d, drivers, year, true);
       else hideTooltip();
     }, { passive: false, signal: sig });
