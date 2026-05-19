@@ -291,6 +291,52 @@ function addClickHandlers() {
   d3.select("#NextSection").on("click", () => {
     d3.select("#Scene2").node().scrollIntoView({ behavior: "smooth" });
   });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { resetAll(); return; }
+    if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+    const dir = e.key === "ArrowDown" ? 1 : -1;
+    if (_keyNavScene1(dir) || _keyNavScene2(dir) || _keyNavScene3(dir)) e.preventDefault();
+  });
+}
+
+function _keyNavScene1(dir) {
+  const sel = document.querySelector("#Scene1 .content .name.selected");
+  if (!sel) return false;
+  const rows = [...document.querySelectorAll("#Scene1 .content .row")];
+  const idx = rows.indexOf(sel.closest(".row"));
+  const next = idx + dir;
+  if (next >= 0 && next < rows.length) {
+    const d = d3.select(rows[next]).datum();
+    if (d) { nameClick(null, d); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
+}
+
+function _keyNavScene2(dir) {
+  const sel = document.querySelector("#Scene2 .driver.selected");
+  if (!sel) return false;
+  const all = [...document.querySelectorAll("#Scene2 .driver")];
+  const idx = all.indexOf(sel);
+  const next = idx + dir;
+  if (next >= 0 && next < all.length) {
+    const d = d3.select(all[next]).datum();
+    if (d) { showDriverCareer(d.driver); all[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
+}
+
+function _keyNavScene3(dir) {
+  const sel = document.querySelector("#Scene3 .content .scene3row.selected");
+  if (!sel) return false;
+  const rows = [...document.querySelectorAll("#Scene3 .content .scene3row")];
+  const idx = rows.indexOf(sel);
+  const next = idx + dir;
+  if (next >= 0 && next < rows.length) {
+    const year = d3.select(rows[next]).datum();
+    if (year) { showYear(year); rows[next].scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+  return true;
 }
 
 function setUrlParam(key, value) {
