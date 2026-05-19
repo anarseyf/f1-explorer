@@ -692,15 +692,21 @@ a:hover {
   .row {
     grid-template-columns: 1fr 3fr 4fr;
   }
-  .rival {
-    display: block;
-  }
   .scene2row {
     grid-template-columns: 1fr 1fr;
   }
   .scene3row {
     grid-template-columns: auto 1fr;
     gap: 2em;
+  }
+  .scene3row .name {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em 0;
+  }
+  .scene3row .rival {
+    flex: 1 0 33%;
+    min-width: 0;
   }
   .race.small::before {
     padding-right: 1px;
