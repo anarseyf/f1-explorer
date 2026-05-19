@@ -206,14 +206,14 @@ function showTableForYear(year, drivers) {
   });
 
   rows.append("div").attr("class", (d) => d.type === "sprint" ? "year sprint-label" : "year")
-    .text((d) => d.type === "sprint" ? "S" : d.race.round);
+    .text((d) => d.type === "sprint" ? "(S)" : d.race.round);
 
   const nameDivs = rows.append("div").attr("class", "name");
   nameDivs.append("a")
     .attr("href", (d) => d.race.url || null)
     .attr("target", (d) => d.race.url ? "_blank" : null)
     .text((d) => grandPrixNameFn(d.race.name, State.isMobile));
-  nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (sprint)");
+  nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (Sprint)");
   nameDivs.filter((d) => d.type === "gp" && d.race.raceId === clinchRaceId)
     .append("span").attr("class", "clinch-trophy").text(" 🏆");
 
@@ -224,7 +224,7 @@ function showTableForYear(year, drivers) {
 
 function showRaceRowTooltip(anchorEl, item, drivers, year) {
   const raceName = grandPrixNameFn(item.race.name, false);
-  const suffix = item.type === "sprint" ? " (sprint)" : "";
+  const suffix = item.type === "sprint" ? " (Sprint)" : "";
   const colors = ["gold", "silver", "bronze"];
 
   let html = `<div class="tt-label">Points after</div><div class="tt-race-name">${raceName}${suffix}</div>`;
