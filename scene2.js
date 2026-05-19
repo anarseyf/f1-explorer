@@ -2,30 +2,22 @@ let _scene2Drivers = [];
 
 function prepareScene2(drivers) {
   _scene2Drivers = drivers;
-  // dr1: Farina–Stewart (first 11 unique champions, 1950s–60s)
-  // dr2: Rindt–Senna (1970s–80s; Rindt is index 11)
-  // dr3: Mansell–Hakkinen (1990s–2000s; Mansell is index 22)
-  // dr4: Alonso onwards (2000s–Today; Alonso is index 27)
-  const dr1 = drivers.slice(0, 11),
-    dr2 = drivers.slice(11, 22),
-    dr3 = drivers.slice(22, 27),
-    dr4 = drivers.slice(27);
+  const dr1 = drivers.slice(0, 12),
+    dr2 = drivers.slice(12, 23),
+    dr3 = drivers.slice(23);
 
   const latestYear = d3.max([...Index.RacesByYear.keys()]);
-  const y1 = [1950, 1975],
-    y2 = [1968, 1994],
-    y3 = [1980, 2007],
-    y4 = [2001, latestYear];
+  const y1 = [1950, 1950 + 25],
+    y2 = [1968, 1968 + 25],
+    y3 = [1990, latestYear];
 
   const s1 = d3.select("#SubScene2-1"),
     s2 = d3.select("#SubScene2-2"),
-    s3 = d3.select("#SubScene2-3"),
-    s4 = d3.select("#SubScene2-4");
+    s3 = d3.select("#SubScene2-3");
 
   prepareSubscene2(s1, dr1, y1);
   prepareSubscene2(s2, dr2, y2);
   prepareSubscene2(s3, dr3, y3);
-  prepareSubscene2(s4, dr4, y4);
 }
 
 function prepareSubscene2(container, drivers, yearRange) {
