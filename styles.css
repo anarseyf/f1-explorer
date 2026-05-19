@@ -286,18 +286,9 @@ h3 {
 .row.scene3 .pointsChart {
   align-self: stretch;
 }
-.header > .row.scene3,
-.scene3-sticky-header .row.scene3 {
+.header > .row.scene3 {
   grid-template-columns: 1.5fr 7fr 3fr;
   gap: 1em;
-}
-
-.scene3-sticky-header .row.scene3 {
-  background: transparent;
-  margin: 0;
-  padding: 0.2em 0 0.3em;
-  color: var(--text);
-  font-size: 0.85em;
 }
 .sidebarItem.header {
   padding-bottom: 0;
@@ -945,7 +936,7 @@ a:hover {
   .scene3-year-label {
     color: var(--brighttext);
     font-weight: 600;
-    font-size: 1.05em;
+    font-size: 1.15em;
   }
   .scene3-year-nav {
     display: flex;
@@ -953,7 +944,7 @@ a:hover {
   }
   .scene3-nav-btn {
     color: var(--clickable);
-    font-size: 0.88em;
+    font-size: 1.15em;
   }
   .scene {
     padding: 0.5em 1em;
