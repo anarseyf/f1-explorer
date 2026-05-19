@@ -74,7 +74,7 @@ const rivalryHtml = (drivers, excludedRef = null) => {
     const d = drivers[i];
     if (!d) return `<span class='rival'></span>`;
     const color = rivalBorderColors[i] || "var(--darkline)";
-    const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/${d.driverRef}.jpg')"></div>`;
+    const circle = `<div class="portrait-sm" style="border-color:${color};background-image:url('images/drivers/sm/${d.driverRef}.jpg')"></div>`;
     const marker = excludedRef && d.driverRef === excludedRef ? `<span class="dsq-marker">(*)</span>` : "";
     return `<span class='rival'>${circle}<span class="clickable">${nameFn(d, true)}</span>${marker}</span>`;
   }).join("");
@@ -334,7 +334,7 @@ function showRaceRowTooltip(anchorEl, item, drivers, year, fill = false) {
     const pts = item.points[i];
     const teamResult = Index.ResultsByRaceByDriver.get(item.race.raceId)?.get(driver.driverId)?.[0];
     const team = teamResult ? (Index.Constructor.get(teamResult.constructorId)?.name || "") : "";
-    const portraitStyle = driverRef ? `background-image:url('images/drivers/${driverRef}.jpg')` : "";
+    const portraitStyle = driverRef ? `background-image:url('images/drivers/sm/${driverRef}.jpg')` : "";
     const nameClass = colors[i] ? ` ${colors[i]}` : "";
     const trophy = (i === 0 && item.champClinched) ? `<span class="tt-trophy">🏆</span>` : "";
     html += `<div class="tt-driver">` +

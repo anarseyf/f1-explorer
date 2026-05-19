@@ -26,7 +26,7 @@ const Descriptions = {
     description: () => {
       const d = (name, ref) =>
         `<span class='rival clickable' onclick='selectTimeline("${ref}")'>` +
-        `<span class='portrait-sm' style='background-image:url("images/drivers/${ref}.jpg")'></span>` +
+        `<span class='portrait-sm' style='background-image:url("images/drivers/sm/${ref}.jpg")'></span>` +
         `<span>${name}</span></span>`;
       return (
         `<p>Only <span class='emphasis'>${

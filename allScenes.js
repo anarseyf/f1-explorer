@@ -1,5 +1,24 @@
 let _activeTab = "1";
 
+const _portraitObserver = new IntersectionObserver((entries) => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    const el = entry.target;
+    const src = el.dataset.lazySrc;
+    if (src) {
+      const img = new Image();
+      img.onload = () => { el.style.backgroundImage = `url('${src}')`; };
+      img.src = src;
+    }
+    _portraitObserver.unobserve(el);
+  }
+}, { rootMargin: "200px" });
+
+function observePortrait(el, driverRef) {
+  el.dataset.lazySrc = `images/drivers/sm/${driverRef}.jpg`;
+  _portraitObserver.observe(el);
+}
+
 function setupMobileTabs() {
   if (!State.isMobile) return;
   _setTab("1");
@@ -150,8 +169,8 @@ function showPortrait(wrapper, driverRef, borderColor = "var(--gold)") {
     .style("cursor", wikiUrl ? "pointer" : "default");
 
   const img = new Image();
-  img.onload = () => portraitEl.style("background-image", `url('images/drivers/${driverRef}.jpg')`);
-  img.src = `images/drivers/${driverRef}.jpg`;
+  img.onload = () => portraitEl.style("background-image", `url('images/drivers/sm/${driverRef}.jpg')`);
+  img.src = `images/drivers/sm/${driverRef}.jpg`;
 
   if (attr) {
     const attrEl = item.append("div").attr("class", "portrait-attribution");
