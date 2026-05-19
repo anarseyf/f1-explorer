@@ -136,7 +136,7 @@ function _getOrCreateBackdrop() {
   if (!bd) {
     bd = document.createElement("div");
     bd.id = "OverlayBackdrop";
-    bd.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;display:none;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.25s ease;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
+    bd.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;display:none;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.25s ease;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);";
     document.body.appendChild(bd);
     bd.addEventListener("click", closeMobileOverlay);
     bd.addEventListener("touchstart", (e) => {
