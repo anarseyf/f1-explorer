@@ -113,29 +113,6 @@ body {
   background-position: top center;
 }
 
-.portrait-attribution {
-  display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  white-space: nowrap;
-  font-size: 0.65em;
-  color: var(--text);
-  background: var(--sidebar-bg);
-  padding: 2px 6px;
-  border-radius: 2px;
-  border: 1px solid var(--darkline);
-  z-index: 10;
-}
-
-.portrait-item:hover .portrait-attribution {
-  display: block;
-}
-
-.driver-card .portrait-attribution {
-  left: 0;
-  right: auto;
-}
 
 
 .name.selected,

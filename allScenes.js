@@ -161,30 +161,35 @@ function resetAll() {
   clearUrlParams();
 }
 
+let _portraitTooltipTimer = null;
+
 function showPortrait(wrapper, driverRef, borderColor = "var(--gold)") {
   const attr = Data.Attribution?.[driverRef];
   const wikiUrl = attr?.wikipediaUrl || Index.DriverByRef.get(driverRef)?.url || null;
   const item = wrapper.append("div").attr("class", "portrait-item");
 
-  const portraitEl = item.append("a")
+  const portraitEl = item.append("div")
     .attr("class", "portrait")
-    .attr("href", wikiUrl)
-    .attr("target", wikiUrl ? "_blank" : null)
     .style("border-color", borderColor)
-    .style("cursor", wikiUrl ? "pointer" : "default");
+    .style("cursor", (attr || wikiUrl) ? "pointer" : "default");
 
   const img = new Image();
   img.onload = () => portraitEl.style("background-image", `url('images/drivers/sm/${driverRef}.jpg')`);
   img.src = `images/drivers/sm/${driverRef}.jpg`;
 
-  if (attr) {
-    const attrEl = item.append("div").attr("class", "portrait-attribution");
-    const parts = [attr.artist, attr.license].filter(Boolean);
-    if (parts.length) attrEl.append("span").text(parts.join(" • "));
-    if (attr.source) {
-      if (parts.length) attrEl.append("span").text(" • ");
-      attrEl.append("a").attr("href", attr.source).attr("target", "_blank").text("Wikipedia");
-    }
+  if (attr || wikiUrl) {
+    portraitEl.on("click", function (e) {
+      e.stopPropagation();
+      const parts = [attr?.artist, attr?.license].filter(Boolean);
+      let html = parts.join(" • ");
+      if (wikiUrl) {
+        if (html) html += " • ";
+        html += `<a href="${wikiUrl}" target="_blank">Wikipedia ↗</a>`;
+      }
+      if (_portraitTooltipTimer) { clearTimeout(_portraitTooltipTimer); _portraitTooltipTimer = null; }
+      showTooltip(this, html);
+      _portraitTooltipTimer = setTimeout(() => { hideTooltip(); _portraitTooltipTimer = null; }, 8000);
+    });
   }
 }
 
