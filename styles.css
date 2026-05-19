@@ -242,7 +242,8 @@ h3 {
 }
 #Scene1 .content .row:hover,
 .row.scene2:hover,
-.row.scene3:hover {
+.row.scene3:hover,
+.row.scene3.points-active {
   background-color: var(--row-hover-bg);
 }
 
@@ -905,25 +906,35 @@ a:hover {
   .scene3-year-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding-bottom: 0.3em;
   }
   .scene3-year-label {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
     color: var(--brighttext);
     font-weight: 600;
     font-size: 1.15em;
   }
   .scene3-year-nav {
+    flex: 0 0 66%;
     display: flex;
-    gap: 0.75em;
   }
   .scene3-nav-btn {
+    flex: 1;
     color: var(--clickable);
     font-size: 1.15em;
     cursor: pointer;
   }
   .scene3-nav-btn.invisible {
     cursor: default;
+  }
+  #InlineSidebar2 .subtitle {
+    font-weight: 600;
+    color: var(--brighttext);
+    font-size: 1.15em;
   }
   .scene {
     padding: 0.5em 1em;

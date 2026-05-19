@@ -314,9 +314,12 @@ function showTableForYear(year, drivers) {
   const Content = Container.select(".content");
 
   const rows = Content.selectAll(".row").data(items).enter().append("div")
-    .attr("class", (d) => `row scene3${d.type === "sprint" ? " sprint-row" : ""}`)
-    .on("mouseenter", function (event, d) { showRaceRowTooltip(this, d, drivers, year); })
-    .on("mouseleave", hideTooltip);
+    .attr("class", (d) => `row scene3${d.type === "sprint" ? " sprint-row" : ""}`);
+
+  if (!State.isMobile) {
+    rows.on("mouseenter", function (event, d) { showRaceRowTooltip(this, d, drivers, year); })
+      .on("mouseleave", hideTooltip);
+  }
 
   rows.append("div").attr("class", (d) => {
     const idx = drivers.findIndex((dr) => dr.driverId === d.winnerDriverId);
@@ -327,10 +330,15 @@ function showTableForYear(year, drivers) {
     .text((d) => d.type === "sprint" ? "" : d.race.round);
 
   const nameDivs = rows.append("div").attr("class", "name");
-  nameDivs.append("a")
-    .attr("href", (d) => State.isMobile ? null : (d.race.url || null))
-    .attr("target", (d) => !State.isMobile && d.race.url ? "_blank" : null)
-    .text((d) => grandPrixNameFn(d.race.name, State.isMobile));
+  if (State.isMobile) {
+    nameDivs.append("span")
+      .text((d) => grandPrixNameFn(d.race.name, true));
+  } else {
+    nameDivs.append("a")
+      .attr("href", (d) => d.race.url || null)
+      .attr("target", (d) => d.race.url ? "_blank" : null)
+      .text((d) => grandPrixNameFn(d.race.name, false));
+  }
   nameDivs.filter((d) => d.type === "sprint").append("span").attr("class", "sprint-label").text(" (Sprint)");
   nameDivs.filter((d) => d.type === "gp" && d.race.raceId === clinchRaceId)
     .append("span").attr("class", "clinch-trophy").text(" 🏆");
@@ -367,8 +375,9 @@ function showTableForYear(year, drivers) {
       const touch = e.touches[0];
       const el = document.elementFromPoint(touch.clientX, touch.clientY);
       const pointsEl = el?.closest(".pointsChart");
-      if (!pointsEl) { hideTooltip(); return; }
+      if (!pointsEl) { hideTooltip(); Content.selectAll(".row.scene3").classed("points-active", false); return; }
       const rowEl = pointsEl.closest(".row.scene3");
+      Content.selectAll(".row.scene3").classed("points-active", function () { return this === rowEl; });
       const d = rowEl && d3.select(rowEl).datum();
       if (d) showRaceRowTooltip(rowEl, d, drivers, year, true);
       else hideTooltip();
@@ -377,6 +386,7 @@ function showTableForYear(year, drivers) {
     node.addEventListener("touchend", () => {
       dragging = false;
       hideTooltip();
+      Content.selectAll(".row.scene3").classed("points-active", false);
     }, { signal: sig });
   }
 }
