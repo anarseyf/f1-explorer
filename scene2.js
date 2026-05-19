@@ -303,13 +303,15 @@ function showPosition(d) {
 }
 
 function showWins(d) {
-  const data = d3.range(d.wins);
-  d3.select(this)
-    .selectAll(".race")
-    .data(data)
-    .enter()
-    .append("div")
-    .attr("class", "race small gold");
+  const el = d3.select(this);
+  if (State.isMobile) {
+    if (d.wins > 0) {
+      el.append("div").attr("class", "race small gold");
+      el.append("span").attr("class", "win-count").text(d.wins);
+    }
+    return;
+  }
+  el.selectAll(".race").data(d3.range(d.wins)).enter().append("div").attr("class", "race small gold");
 }
 
 const teamFn = (d) => {

@@ -534,6 +534,13 @@ a:hover {
   font-style: italic;
 }
 
+.win-count {
+  font-size: 0.85em;
+  color: var(--gold);
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
 .row.scene3.sprint-row {
   opacity: 0.7;
 }
