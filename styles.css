@@ -927,13 +927,11 @@ a:hover {
     display: none !important;
   }
   .scene3-sticky-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    display: block;
     background: var(--sidebar-bg);
     border-bottom: 1px solid var(--darkline);
-    margin: -1em -0.5em 0;
-    padding: 0.45em 0.75em 0;
+    padding: 0.45em 0 0;
+    margin-bottom: 0.5em;
   }
   .scene3-year-row {
     display: flex;
