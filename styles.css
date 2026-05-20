@@ -72,7 +72,7 @@ body {
   position: fixed;
   right: 0;
   top: 0;
-  height: calc(100% - 46px);
+  height: 100%;
   width: 45%;
   background-color: var(--sidebar-bg);
   border-left: 1px solid var(--darkline);
