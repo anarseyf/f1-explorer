@@ -20,16 +20,18 @@ function observePortrait(el, driverRef) {
 }
 
 function setupMobileTabs() {
-  if (!State.isMobile) return;
   _setTab("1");
   d3.selectAll(".mobile-tab").on("click", function () {
     const sceneNum = this.dataset.scene;
     if (sceneNum === _activeTab) {
-      document.getElementById(`Scene${sceneNum}`).scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     _setTab(sceneNum, true);
-    setUrlParam("tab", _tabNames[sceneNum]);
+    window.scrollTo({ top: 0, behavior: "instant" });
+    if (State.isMobile) {
+      setUrlParam("tab", _tabNames[sceneNum]);
+    }
   });
 }
 
@@ -346,6 +348,11 @@ function addClickHandlers() {
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { resetAll(); return; }
+    if (!State.isMobile && ["1", "2", "3"].includes(e.key)) {
+      _setTab(e.key, true);
+      window.scrollTo({ top: 0, behavior: "instant" });
+      return;
+    }
     if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
     const dir = e.key === "ArrowDown" ? 1 : -1;
     if (_keyNavScene1(dir) || _keyNavScene2(dir) || _keyNavScene3(dir)) e.preventDefault();
@@ -422,7 +429,7 @@ function handleUrlParams(champions) {
   if (driverRef) {
     const champion = champions.find((c) => c.driverRef === driverRef);
     if (champion) {
-      if (State.isMobile) _setTab("1");
+      _setTab("1");
       nameClick(null, champion);
       d3.select("#Scene1 .content .row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
@@ -432,7 +439,7 @@ function handleUrlParams(champions) {
   if (timelineRef) {
     const driver = Index.DriverByRef.get(timelineRef);
     if (driver) {
-      if (State.isMobile) _setTab("2");
+      _setTab("2");
       showDriverCareer(driver);
       d3.select("#Scene2 .driver.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
@@ -442,14 +449,14 @@ function handleUrlParams(champions) {
   if (seasonStr) {
     const year = +seasonStr;
     if (Index.RacesByYear.has(year)) {
-      if (State.isMobile) _setTab("3");
+      _setTab("3");
       showYear(year);
       d3.select("#Scene3 .scene3row.selected").node()?.scrollIntoView({ behavior: "smooth" });
       return true;
     }
   }
 
-  if (tabStr && State.isMobile) {
+  if (tabStr) {
     const num = _tabNums[tabStr];
     if (num) { _setTab(num); return true; }
   }
