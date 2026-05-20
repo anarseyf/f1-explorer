@@ -337,7 +337,7 @@ function addClickHandlers() {
   if (sf) {
     const resetBtn = document.createElement("div");
     resetBtn.className = "clickable";
-    resetBtn.textContent = "reset";
+    resetBtn.textContent = "clear";
     resetBtn.addEventListener("click", resetAll);
     const hint = document.createElement("div");
     hint.className = "sidebar-footer-hint";
